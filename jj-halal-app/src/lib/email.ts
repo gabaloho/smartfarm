@@ -1,12 +1,20 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.EMAIL_FROM ?? "noreply@jjhalalfarms.com";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "JJ HALAL FARMS LTD.";
 
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("Missing RESEND_API_KEY environment variable");
+  }
+  return new Resend(apiKey);
+}
+
 export async function sendVerificationEmail(email: string, token: string, name: string) {
   const link = `${APP_URL}/auth/verify-email?token=${token}`;
+  const resend = getResendClient();
   await resend.emails.send({
     from: FROM,
     to: email,
@@ -24,6 +32,7 @@ export async function sendVerificationEmail(email: string, token: string, name: 
 
 export async function sendPasswordResetEmail(email: string, token: string, name: string) {
   const link = `${APP_URL}/auth/reset-password?token=${token}`;
+  const resend = getResendClient();
   await resend.emails.send({
     from: FROM,
     to: email,
@@ -45,6 +54,7 @@ export async function sendOrderConfirmationEmail(
   orderNumber: string,
   total: number
 ) {
+  const resend = getResendClient();
   await resend.emails.send({
     from: FROM,
     to: email,
