@@ -1,0 +1,355 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum UserRole {
+  CUSTOMER
+  VENDOR
+  ADMIN
+}
+
+enum AccountType {
+  PERSONAL
+  INSTITUTIONAL
+}
+
+enum InstitutionType {
+  FARM
+  STORE
+  EATERY
+  RESTAURANT
+  OTHER
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  PAYSTACK
+  STRIPE
+  BANK_TRANSFER
+  CASH_ON_DELIVERY
+}
+
+enum VerificationPurpose {
+  EMAIL_VERIFICATION
+  PHONE_VERIFICATION
+  PASSWORD_RESET
+  TWO_FACTOR
+}
+
+// ─── User & Auth ──────────────────────────────────────────────────────────────
+
+model User {
+  id            String      @id @default(cuid())
+  email         String?     @unique
+  phone         String?     @unique
+  name          String
+  passwordHash  String?
+  role          UserRole    @default(CUSTOMER)
+  accountType   AccountType @default(PERSONAL)
+  emailVerified DateTime?
+  phoneVerified DateTime?
+  twoFactorEnabled Boolean  @default(false)
+  twoFactorSecret  String?
+  image         String?
+  isActive      Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relations
+  institution   Institution?
+  addresses     Address[]
+  orders        Order[]
+  cart          CartItem[]
+  reviews       Review[]
+  sessions      Session[]
+  verifications VerificationToken[]
+  vendor        Vendor?
+
+  @@map("users")
+}
+
+model Institution {
+  id              String          @id @default(cuid())
+  name            String
+  type            InstitutionType
+  registrationNo  String?
+  address         String?
+  website         String?
+  verified        Boolean         @default(false)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  userId          String          @unique
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("institutions")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  id        String              @id @default(cuid())
+  token     String              @unique
+  userId    String
+  purpose   VerificationPurpose
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime            @default(now())
+
+  user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("verification_tokens")
+}
+
+// ─── Address ──────────────────────────────────────────────────────────────────
+
+model Address {
+  id         String   @id @default(cuid())
+  label      String   @default("Home")
+  street     String
+  city       String
+  state      String
+  country    String   @default("Nigeria")
+  postalCode String?
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  orders     Order[]
+
+  @@map("addresses")
+}
+
+// ─── Vendor ───────────────────────────────────────────────────────────────────
+
+model Vendor {
+  id          String   @id @default(cuid())
+  shopName    String
+  slug        String   @unique
+  description String?
+  logo        String?
+  banner      String?
+  isVerified  Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  commission  Float    @default(10) // percentage
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products    Product[]
+  orders      OrderItem[]
+
+  @@map("vendors")
+}
+
+// ─── Catalog ──────────────────────────────────────────────────────────────────
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String?
+  image       String?
+  icon        String?
+  parentId    String?
+  isActive    Boolean    @default(true)
+  sortOrder   Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  parent      Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryTree")
+  products    ProductCategory[]
+
+  @@map("categories")
+}
+
+model Product {
+  id            String    @id @default(cuid())
+  name          String
+  slug          String    @unique
+  description   String?
+  unit          String    @default("kg")   // kg, piece, litre, etc.
+  price         Float
+  salePrice     Float?
+  sku           String?   @unique
+  stock         Int       @default(0)
+  minOrder      Int       @default(1)
+  maxOrder      Int?
+  images        String[]  // array of image URLs
+  thumbnail     String?
+  isFeatured    Boolean   @default(false)
+  isActive      Boolean   @default(true)
+  isHalal       Boolean   @default(true)
+  tags          String[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  vendorId      String
+  vendor        Vendor    @relation(fields: [vendorId], references: [id])
+
+  categories    ProductCategory[]
+  cartItems     CartItem[]
+  orderItems    OrderItem[]
+  reviews       Review[]
+
+  @@map("products")
+}
+
+model ProductCategory {
+  productId  String
+  categoryId String
+
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([productId, categoryId])
+  @@map("product_categories")
+}
+
+// ─── Cart ─────────────────────────────────────────────────────────────────────
+
+model CartItem {
+  id        String   @id @default(cuid())
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    String
+  productId String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("cart_items")
+}
+
+// ─── Orders ───────────────────────────────────────────────────────────────────
+
+model Order {
+  id              String        @id @default(cuid())
+  orderNumber     String        @unique @default(cuid())
+  status          OrderStatus   @default(PENDING)
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentMethod   PaymentMethod?
+  paymentRef      String?
+  subtotal        Float
+  deliveryFee     Float         @default(0)
+  discount        Float         @default(0)
+  total           Float
+  notes           String?
+  deliveredAt     DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  userId          String
+  addressId       String?
+  user            User          @relation(fields: [userId], references: [id])
+  address         Address?      @relation(fields: [addressId], references: [id])
+  items           OrderItem[]
+  coupon          CouponUsage?
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id         String  @id @default(cuid())
+  quantity   Int
+  price      Float   // price at time of order
+  total      Float
+
+  orderId    String
+  productId  String
+  vendorId   String
+  order      Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product    Product @relation(fields: [productId], references: [id])
+  vendor     Vendor  @relation(fields: [vendorId], references: [id])
+
+  @@map("order_items")
+}
+
+// ─── Reviews ──────────────────────────────────────────────────────────────────
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int      // 1-5
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    String
+  productId String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("reviews")
+}
+
+// ─── Coupons ──────────────────────────────────────────────────────────────────
+
+model Coupon {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  description   String?
+  discountType  String    @default("PERCENTAGE") // PERCENTAGE | FIXED
+  discountValue Float
+  minOrderValue Float     @default(0)
+  maxUses       Int?
+  usedCount     Int       @default(0)
+  isActive      Boolean   @default(true)
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+
+  usages        CouponUsage[]
+
+  @@map("coupons")
+}
+
+model CouponUsage {
+  id       String @id @default(cuid())
+  orderId  String @unique
+  couponId String
+
+  order    Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  coupon   Coupon @relation(fields: [couponId], references: [id])
+
+  @@map("coupon_usages")
+}

@@ -1,0 +1,101 @@
+import { z } from "zod";
+import { AccountType, InstitutionType } from "@prisma/client";
+
+export const loginSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(1, "Password is required"),
+  totp: z.string().optional(),
+});
+
+export const registerSchema = z
+  .object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Invalid email address"),
+    phone: z
+      .string()
+      .regex(/^\+?[0-9]{10,15}$/, "Invalid phone number")
+      .optional()
+      .or(z.literal("")),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Must contain at least one uppercase letter")
+      .regex(/[0-9]/, "Must contain at least one number")
+      .regex(/[^A-Za-z0-9]/, "Must contain at least one special character"),
+    confirmPassword: z.string(),
+    accountType: z.nativeEnum(AccountType),
+    institutionName: z.string().optional(),
+    institutionType: z.nativeEnum(InstitutionType).optional(),
+  })
+  .refine((d) => d.password === d.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  })
+  .refine(
+    (d) =>
+      d.accountType !== AccountType.INSTITUTIONAL ||
+      (d.institutionName && d.institutionName.length > 2),
+    {
+      message: "Institution name is required for institutional accounts",
+      path: ["institutionName"],
+    }
+  );
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().email("Invalid email address"),
+});
+
+export const resetPasswordSchema = z
+  .object({
+    token: z.string().min(1),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Must contain at least one uppercase letter")
+      .regex(/[0-9]/, "Must contain at least one number"),
+    confirmPassword: z.string(),
+  })
+  .refine((d) => d.password === d.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export const addressSchema = z.object({
+  label: z.string().min(1, "Label is required"),
+  street: z.string().min(5, "Street address is required"),
+  city: z.string().min(2, "City is required"),
+  state: z.string().min(2, "State is required"),
+  country: z.string().default("Nigeria"),
+  postalCode: z.string().optional(),
+  isDefault: z.boolean().default(false),
+});
+
+export const checkoutSchema = z.object({
+  addressId: z.string().optional(),
+  newAddress: addressSchema.optional(),
+  paymentMethod: z.enum(["PAYSTACK", "STRIPE", "BANK_TRANSFER", "CASH_ON_DELIVERY"]),
+  couponCode: z.string().optional(),
+  notes: z.string().optional(),
+});
+
+export const productSchema = z.object({
+  name: z.string().min(2, "Name is required"),
+  description: z.string().optional(),
+  unit: z.string().default("kg"),
+  price: z.number().positive("Price must be positive"),
+  salePrice: z.number().optional().nullable(),
+  stock: z.number().int().min(0),
+  minOrder: z.number().int().min(1).default(1),
+  categoryIds: z.array(z.string()).min(1, "At least one category is required"),
+  images: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
+  isHalal: z.boolean().default(true),
+});
+
+export type LoginInput = z.infer<typeof loginSchema>;
+export type RegisterInput = z.infer<typeof registerSchema>;
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+export type AddressInput = z.infer<typeof addressSchema>;
+export type CheckoutInput = z.infer<typeof checkoutSchema>;
+export type ProductInput = z.infer<typeof productSchema>;
