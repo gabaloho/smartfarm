@@ -92,8 +92,8 @@ export default function TwoFactorPage() {
     <div className="min-h-[calc(100vh-64px)] bg-gray-50 px-4 py-10">
       <div className="mx-auto w-full max-w-2xl rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-5 rounded-xl border border-green-100 bg-green-50 p-4 flex items-center justify-between gap-3">
-          <Image src="/assets/jj-logo.png" alt="JJ HALAL FARMS LTD." width={130} height={44} className="h-10 w-auto object-contain" style={{ width: "auto" }} />
-          <Image src="/assets/banner.jpeg" alt="Brand banner" width={180} height={70} className="hidden sm:block h-14 w-28 rounded-md object-cover" />
+          <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={130} height={44} className="h-10 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
+          <Image src="/assets/JJ HALAL FARMS.jpeg" alt="Brand banner" width={180} height={70} className="hidden sm:block h-14 w-28 rounded-md object-cover" />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Two-factor authentication (2FA)</h1>
         <p className="mt-2 text-sm text-gray-600">

@@ -15,7 +15,7 @@ export default function OrderDetailsPage() {
       <div className="bg-gray-50 min-h-[calc(100vh-64px)] px-4 py-10">
         <div className="mx-auto max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
           <h1 className="text-2xl font-bold text-gray-900">Order not found</h1>
-          <p className="mt-2 text-sm text-gray-600">This order is not available in your local order history.</p>
+          <p className="mt-2 text-sm text-gray-600">We could not find this order in your account history.</p>
           <Link
             href="/orders"
             className="mt-4 inline-flex rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
@@ -31,8 +31,8 @@ export default function OrderDetailsPage() {
     <div className="bg-gray-50 min-h-[calc(100vh-64px)]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-5 rounded-2xl border border-green-100 bg-white p-4 flex items-center justify-between gap-3">
-          <Image src="/assets/jj-logo.png" alt="JJ HALAL FARMS LTD." width={122} height={40} className="h-9 w-auto object-contain" style={{ width: "auto" }} />
-          <Image src="/assets/banner.jpeg" alt="Order banner" width={180} height={70} className="hidden sm:block h-12 w-24 rounded-md object-cover" />
+          <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={122} height={40} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
+          <Image src="/assets/JJ HALAL FARMS.jpeg" alt="Order banner" width={180} height={70} className="hidden sm:block h-12 w-24 rounded-md object-cover" />
         </div>
 
         <div className="flex items-center justify-between gap-3 mb-5">

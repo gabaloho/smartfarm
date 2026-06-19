@@ -55,10 +55,7 @@ export default function RegisterPage() {
       return;
     }
 
-    const tokenHint = data.verificationToken
-      ? ` Dev token: ${data.verificationToken}`
-      : "";
-    setSuccess((data.message ?? "Registration successful.") + tokenHint);
+    setSuccess(data.message ?? "Account created successfully. Please check your email to verify your account.");
     setForm((prev) => ({
       ...prev,
       password: "",
@@ -72,12 +69,12 @@ export default function RegisterPage() {
         <div className="mb-5 rounded-xl border border-green-100 bg-green-50 p-4 flex items-center justify-between gap-3">
           <div>
             <Image
-              src="/assets/jj-logo.png"
+              src="/assets/JJ HALAL FARMS LOGO.jpeg"
               alt="JJ HALAL FARMS LTD."
               width={130}
               height={44}
               className="h-10 w-auto object-contain"
-              style={{ width: "auto" }}
+              style={{ width: "auto", height: "auto" }}
             />
             <p className="mt-2 text-xs text-gray-600">Create your account and start shopping trusted halal essentials.</p>
           </div>
@@ -237,7 +234,7 @@ export default function RegisterPage() {
           </Link>
         </p>
         <div className="mt-5 overflow-hidden rounded-xl border border-gray-200">
-          <Image src="/assets/banner.jpeg" alt="Brand banner" width={960} height={240} className="h-24 w-full object-cover" />
+          <Image src="/assets/JJ HALAL FARMS.jpeg" alt="Brand banner" width={960} height={240} className="h-24 w-full object-cover" />
         </div>
       </div>
     </div>

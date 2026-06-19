@@ -9,7 +9,7 @@ const SHOPS = [
     address: "14 Farm Road, Garki, Abuja, FCT",
     phone: "+234 801 234 5678",
     hours: "Mon – Sat: 8 am – 7 pm",
-    image: "/assets/banner.jpeg",
+    image: "/assets/JJ HALAL FARMS.jpeg",
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const SHOPS = [
     address: "22 Wuse Market Street, Wuse II, Abuja",
     phone: "+234 802 345 6789",
     hours: "Mon – Sat: 9 am – 6 pm",
-    image: "/assets/banner.jpeg",
+    image: "/assets/JJ HALAL FARMS.jpeg",
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ const SHOPS = [
     address: "5 Adetokunbo Ademola Crescent, Maitama, Abuja",
     phone: "+234 803 456 7890",
     hours: "Mon – Sun: 8 am – 8 pm",
-    image: "/assets/banner.jpeg",
+    image: "/assets/JJ HALAL FARMS.jpeg",
   },
 ];
 
@@ -42,12 +42,12 @@ export default function ShopsPage() {
         {/* Header card */}
         <div className="mb-8 rounded-2xl border border-green-100 bg-white p-5 flex items-center gap-4 shadow-sm">
           <Image
-            src="/assets/jj-logo.png"
+            src="/assets/JJ HALAL FARMS LOGO.jpeg"
             alt="JJ HALAL FARMS LTD."
             width={126}
             height={42}
             className="h-10 w-auto object-contain"
-            style={{ width: "auto" }}
+            style={{ width: "auto", height: "auto" }}
           />
           <div>
             <h1 className="text-xl font-bold text-gray-900">Our Shops</h1>

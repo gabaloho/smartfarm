@@ -9,6 +9,21 @@ type Params = {
   status?: "pending" | "paid";
 };
 
+function paymentMethodLabel(method?: string): string {
+  switch (method) {
+    case "PAYSTACK":
+      return "Paystack";
+    case "STRIPE":
+      return "Stripe";
+    case "BANK_TRANSFER":
+      return "Bank transfer";
+    case "CASH_ON_DELIVERY":
+      return "Cash on delivery";
+    default:
+      return "-";
+  }
+}
+
 function paymentHelpText(method?: string): string {
   switch (method) {
     case "PAYSTACK":
@@ -36,8 +51,8 @@ export default async function PaymentPage({
     <div className="bg-gray-50 min-h-[calc(100vh-64px)] px-4 py-10">
       <div className="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-5 rounded-xl border border-green-100 bg-green-50 p-4 flex items-center justify-between gap-3">
-          <Image src="/assets/jj-logo.png" alt="JJ HALAL FARMS LTD." width={120} height={40} className="h-9 w-auto object-contain" style={{ width: "auto" }} />
-          <Image src="/assets/banner.jpeg" alt="Payment banner" width={170} height={70} className="hidden sm:block h-12 w-24 rounded-md object-cover" />
+          <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={120} height={40} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
+          <Image src="/assets/JJ HALAL FARMS.jpeg" alt="Payment banner" width={170} height={70} className="hidden sm:block h-12 w-24 rounded-md object-cover" />
         </div>
         <p className="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
           Order Received
@@ -46,12 +61,12 @@ export default async function PaymentPage({
 
         <div className="mt-5 rounded-xl border border-gray-200 p-4 space-y-2 text-sm">
           <p><span className="text-gray-600">Order number:</span> <span className="font-semibold">{params.order ?? "-"}</span></p>
-          <p><span className="text-gray-600">Payment method:</span> <span className="font-semibold">{params.method ?? "-"}</span></p>
+          <p><span className="text-gray-600">Payment method:</span> <span className="font-semibold">{paymentMethodLabel(params.method)}</span></p>
           <p><span className="text-gray-600">Amount:</span> <span className="font-semibold">{formatNaira(Number.isFinite(amount) ? amount : 0)}</span></p>
           <p>
             <span className="text-gray-600">Status:</span>{" "}
             <span className={params.status === "paid" ? "font-semibold text-green-700" : "font-semibold text-amber-700"}>
-              {params.status ?? "pending"}
+              {params.status === "paid" ? "Paid" : "Pending"}
             </span>
           </p>
         </div>

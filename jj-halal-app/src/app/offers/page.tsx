@@ -5,57 +5,57 @@ import { Tag } from "lucide-react";
 const OFFERS = [
   {
     id: 1,
-    title: "Fresh Harvest Week",
-    subtitle: "Up to 20% off all vegetables and fruits",
+    title: "Egg Retail Launch",
+    subtitle: "Enjoy separate home and bulk prices so you can order what fits your needs.",
     badge: "Limited Time",
     badgeTone: "bg-amber-100 text-amber-800",
-    code: "HARVEST20",
-    href: "/categories/vegetables",
+    code: "EGGMODE",
+    href: "/products?category=eggs",
   },
   {
     id: 2,
-    title: "Free Delivery Friday",
-    subtitle: "No delivery fee on orders above ₦30,000 every Friday",
-    badge: "Every Friday",
+    title: "KG Chicken Pricing",
+    subtitle: "Chicken breast, wings, thighs, drumstick, and head/feet are priced per kilogram.",
+    badge: "Popular",
     badgeTone: "bg-green-100 text-green-800",
-    code: "FREEFRI",
-    href: "/products",
+    code: "CHICKENKG",
+    href: "/products?category=chicken",
   },
   {
     id: 3,
-    title: "Halal Meat Bundle",
-    subtitle: "Family-size packs with 15% off and same-day delivery",
+    title: "Cow Sharing Slots",
+    subtitle: "Book a full or half slot for festive cow sharing with your family or group.",
     badge: "Popular",
     badgeTone: "bg-blue-100 text-blue-800",
-    code: "MEATFAM15",
-    href: "/categories/meat",
+    code: "COWSHARE",
+    href: "/livestock",
   },
   {
     id: 4,
-    title: "Dairy & Eggs Deal",
-    subtitle: "Buy 2 crates of eggs, get 1 free — this week only",
-    badge: "This Week",
+    title: "Marketplace Commission",
+    subtitle: "For each successful marketplace sale, sellers receive 95% and 5% goes as service fee.",
+    badge: "Top Pick",
     badgeTone: "bg-rose-100 text-rose-800",
-    code: "EGG2GET1",
-    href: "/categories/dairy-eggs",
+    code: "5PERCENT",
+    href: "/marketplace",
   },
   {
     id: 5,
-    title: "New Customer Discount",
-    subtitle: "10% off your first order — no minimum spend",
-    badge: "New Users",
+    title: "Auction Sales",
+    subtitle: "Join timed auctions and follow the current highest bid until closing.",
+    badge: "Live",
     badgeTone: "bg-purple-100 text-purple-800",
-    code: "WELCOME10",
-    href: "/products",
+    code: "BIDLIVE",
+    href: "/auctions",
   },
   {
     id: 6,
-    title: "Bulk Rice & Pulse",
-    subtitle: "Save ₦500 on every 10 kg bag of rice or beans",
-    badge: "Bulk Deal",
+    title: "Delivery Planning",
+    subtitle: "Orders can be scheduled for delivery or pickup with clear fee calculation.",
+    badge: "Every Friday",
     badgeTone: "bg-stone-100 text-stone-700",
-    code: "BULKGRAIN",
-    href: "/categories/rice-pulse",
+    code: "DELIVER",
+    href: "/checkout",
   },
 ];
 
@@ -72,19 +72,19 @@ export default function OffersPage() {
         {/* Header card */}
         <div className="mb-8 rounded-2xl border border-green-100 bg-white p-5 flex items-center gap-4 shadow-sm">
           <Image
-            src="/assets/jj-logo.png"
+            src="/assets/JJ HALAL FARMS LOGO.jpeg"
             alt="JJ HALAL FARMS LTD."
             width={126}
             height={42}
             className="h-10 w-auto object-contain"
-            style={{ width: "auto" }}
+            style={{ width: "auto", height: "auto" }}
           />
           <div>
             <h1 className="text-xl font-bold text-gray-900">
               Offers &amp; Coupons
             </h1>
             <p className="text-sm text-gray-500">
-              Fresh savings on every halal essential.
+              Save more on eggs, chicken, livestock, marketplace listings, and delivery.
             </p>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function OffersPage() {
         </div>
 
         <p className="mt-8 text-center text-xs text-gray-400">
-          Offers are subject to availability. Codes applied at checkout.
+          Offers depend on stock and season. Use eligible codes during checkout.
         </p>
       </div>
     </div>

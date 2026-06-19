@@ -27,7 +27,7 @@ export default async function CategoryPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="relative overflow-hidden rounded-3xl border border-green-100 bg-white mb-4">
           <Image
-            src="/assets/banner.jpeg"
+            src="/assets/JJ HALAL FARMS.jpeg"
             alt="Category banner"
             width={1400}
             height={360}
@@ -35,7 +35,7 @@ export default async function CategoryPage({
           />
           <div className="absolute inset-0 bg-gradient-to-r from-gray-900/55 to-transparent" />
           <div className="absolute inset-y-0 left-0 p-5 flex items-center gap-3">
-            <Image src="/assets/jj-logo.png" alt="JJ HALAL FARMS LTD." width={90} height={32} className="h-8 w-auto object-contain" style={{ width: "auto" }} />
+            <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={90} height={32} className="h-8 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
             <span className="text-white text-sm font-semibold">{category.name} Collection</span>
           </div>
         </div>
@@ -51,7 +51,7 @@ export default async function CategoryPage({
             href={`/products?category=${category.slug}`}
             className="mt-4 inline-flex rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
           >
-            Filter in full catalog
+            View all in this category
           </Link>
         </div>
 

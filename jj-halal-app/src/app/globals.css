@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f2e7;
+  --foreground: #174428;
+  --brand-green-900: #0f5e2d;
+  --brand-green-800: #176f36;
+  --brand-green-700: #238546;
+  --brand-green-100: #e6f2e7;
+  --brand-gold-700: #c5961e;
+  --brand-gold-600: #d1a62b;
+  --brand-gold-100: #f6ecd0;
+  --brand-ink-900: #101b34;
+  --brand-surface: #fffdf7;
 }
 
 @theme inline {
@@ -14,8 +23,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #f7f6f1;
+    --foreground: #183322;
   }
 }
 
@@ -23,4 +32,96 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Brand palette mapping for commonly used utility colors */
+.bg-white {
+  background-color: var(--brand-surface) !important;
+}
+
+.bg-gray-50 {
+  background-color: #f4efdf !important;
+}
+
+.bg-green-700,
+.bg-emerald-700 {
+  background-color: var(--brand-green-700) !important;
+}
+
+.bg-green-600,
+.bg-emerald-600 {
+  background-color: var(--brand-green-800) !important;
+}
+
+.hover\:bg-green-800:hover,
+.hover\:bg-emerald-800:hover {
+  background-color: var(--brand-green-900) !important;
+}
+
+.text-green-700,
+.text-green-800,
+.text-emerald-700,
+.text-emerald-800 {
+  color: var(--brand-green-800) !important;
+}
+
+.bg-green-100,
+.bg-emerald-100 {
+  background-color: var(--brand-green-100) !important;
+}
+
+.border-green-100,
+.border-emerald-100 {
+  border-color: #dce9df !important;
+}
+
+.border-gray-200,
+.border-gray-300 {
+  border-color: #d9e3d7 !important;
+}
+
+.bg-amber-100,
+.bg-yellow-100 {
+  background-color: var(--brand-gold-100) !important;
+}
+
+.text-amber-800,
+.text-yellow-800 {
+  color: var(--brand-gold-600) !important;
+}
+
+.text-blue-700,
+.text-blue-800,
+.text-cyan-700,
+.text-cyan-800,
+.text-indigo-700,
+.text-indigo-800,
+.text-purple-700,
+.text-purple-800,
+.text-rose-700,
+.text-rose-800 {
+  color: var(--brand-green-800) !important;
+}
+
+.bg-blue-100,
+.bg-cyan-100,
+.bg-indigo-100,
+.bg-purple-100,
+.bg-rose-100,
+.bg-stone-100 {
+  background-color: var(--brand-gold-100) !important;
+}
+
+.bg-gray-900 {
+  background-color: var(--brand-ink-900) !important;
+}
+
+.text-gray-900 {
+  color: #1a2f22 !important;
+}
+
+.text-gray-700,
+.text-gray-600,
+.text-gray-500 {
+  color: #3f5a4b !important;
 }

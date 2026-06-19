@@ -14,8 +14,8 @@ export const metadata: Metadata = {
     template: "%s | JJ HALAL FARMS LTD.",
   },
   description:
-    "Fresh, certified halal groceries delivered to your door. Vegetables, meat, fish, dairy, and more from JJ HALAL FARMS LTD.",
-  keywords: ["halal", "grocery", "fresh food", "farm", "Nigeria", "Kaduna"],
+    "Farm products, livestock, cow sharing, marketplace listings, and auctions from JJ HALAL FARMS LTD.",
+  keywords: ["halal", "farm", "livestock", "auction", "marketplace", "Nigeria", "Kaduna"],
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
   openGraph: {
     type: "website",

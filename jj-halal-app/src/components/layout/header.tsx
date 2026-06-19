@@ -7,11 +7,13 @@ import { ShoppingCart, Menu, User, LogOut, ChevronDown, Search } from "lucide-re
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/store/cart";
 import { MobileDrawer } from "./mobile-drawer";
-import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/products", label: "Products" },
+  { href: "/livestock", label: "Livestock" },
+  { href: "/marketplace", label: "Marketplace" },
+  { href: "/auctions", label: "Auctions" },
   { href: "/shops", label: "Shops" },
   { href: "/offers", label: "Offers" },
   { href: "/contact", label: "Contact" },
@@ -37,13 +39,13 @@ export function Header() {
   return (
     <>
       {/* Top info bar */}
-      <div className="bg-green-700 text-white text-xs py-1.5 text-center px-4">
-        📍 Plot No 168714 ZUMO ROAD RIGASA KADUNA &nbsp;|&nbsp; 📞 08094171618
+      <div className="bg-[linear-gradient(115deg,#d4ad46_0%,#b48d2b_24%,#6f6a2f_48%,#2f6f3c_72%,#123f28_100%)] text-white text-xs py-1.5 text-center px-4">
+        📍 AT19, Jada Road, PRP, Kaduna &nbsp;|&nbsp; 📞 08094171618
       </div>
 
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Burger (mobile) */}
             <button
               className="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100"
@@ -53,15 +55,15 @@ export function Header() {
               <Menu size={22} />
             </button>
 
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+            {/* Brand */}
+            <Link href="/" className="relative flex-shrink-0 h-11 sm:h-12 w-44 sm:w-52 overflow-hidden rounded-md">
               <Image
-                src="/assets/jj-logo.png"
+                src="/assets/JJ HALAL FARMS LOGO.jpeg"
                 alt="JJ HALAL FARMS LTD."
-                width={120}
-                height={40}
-                className="h-10 w-auto object-contain"
-                style={{ width: "auto" }}
+                fill
+                sizes="(min-width: 640px) 208px, 176px"
+                className="object-cover"
+                style={{ objectPosition: "center" }}
                 priority
               />
             </Link>

@@ -40,6 +40,7 @@ export default function AdminDashboardPage() {
     const deliveredOrders = orders.filter((order) => order.status === "DELIVERED").length;
     const paidOrders = orders.filter((order) => order.paymentStatus === "paid").length;
     const grossRevenue = orders.reduce((sum, order) => sum + order.total, 0);
+    const estimatedCommission = grossRevenue * 0.05;
 
     return {
       totalOrders,
@@ -47,6 +48,7 @@ export default function AdminDashboardPage() {
       deliveredOrders,
       paidOrders,
       grossRevenue,
+      estimatedCommission,
     };
   }, [orders]);
 
@@ -77,17 +79,17 @@ export default function AdminDashboardPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-5 rounded-2xl border border-green-100 bg-white p-4 flex items-center justify-between gap-3">
           <div>
-            <Image src="/assets/jj-logo.png" alt="JJ HALAL FARMS LTD." width={126} height={42} className="h-9 w-auto object-contain" style={{ width: "auto" }} />
-            <p className="mt-2 text-xs text-gray-600">Operations control center for store performance and fulfillment.</p>
+            <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={126} height={42} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
+            <p className="mt-2 text-xs text-gray-600">Monitor sales, orders, and store activity from one page.</p>
           </div>
-          <Image src="/assets/banner.jpeg" alt="Admin banner" width={200} height={90} className="hidden sm:block h-16 w-32 rounded-lg object-cover" />
+          <Image src="/assets/JJ HALAL FARMS.jpeg" alt="Admin banner" width={200} height={90} className="hidden sm:block h-16 w-32 rounded-lg object-cover" />
         </div>
 
         <div className="flex items-center justify-between gap-3 mb-5">
           <div>
             <p className="text-xs uppercase tracking-wide font-semibold text-green-700">Admin</p>
             <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-            <p className="mt-1 text-sm text-gray-600">Overview of orders, payments, and catalog performance.</p>
+            <p className="mt-1 text-sm text-gray-600">Quick view of orders, payments, top products, and store performance.</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <Link
@@ -125,6 +127,10 @@ export default function AdminDashboardPage() {
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
             <p className="text-xs text-gray-500">Gross Revenue</p>
             <p className="mt-2 text-2xl font-bold text-gray-900">{formatNaira(metrics.grossRevenue)}</p>
+          </div>
+          <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+            <p className="text-xs text-gray-500">Estimated Commission</p>
+            <p className="mt-2 text-2xl font-bold text-emerald-700">{formatNaira(metrics.estimatedCommission)}</p>
           </div>
         </section>
 
@@ -202,6 +208,18 @@ export default function AdminDashboardPage() {
                 <div className="flex justify-between"><span className="text-gray-600">Categories</span><span className="font-semibold">{CATALOG_CATEGORIES.length}</span></div>
                 <div className="flex justify-between"><span className="text-gray-600">Products</span><span className="font-semibold">{CATALOG_PRODUCTS.length}</span></div>
                 <div className="flex justify-between"><span className="text-gray-600">Featured</span><span className="font-semibold">{CATALOG_PRODUCTS.filter((item) => item.isFeatured).length}</span></div>
+              </div>
+            </aside>
+
+            <aside className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900">Management Areas</h2>
+              <div className="mt-3 grid gap-2 text-sm text-gray-700">
+                <span className="rounded-lg bg-gray-50 px-3 py-2">Products and inventory</span>
+                <span className="rounded-lg bg-gray-50 px-3 py-2">Users and seller approvals</span>
+                <span className="rounded-lg bg-gray-50 px-3 py-2">Orders and payment records</span>
+                <span className="rounded-lg bg-gray-50 px-3 py-2">Auctions and bidding activity</span>
+                <span className="rounded-lg bg-gray-50 px-3 py-2">Commission reports</span>
+                <span className="rounded-lg bg-gray-50 px-3 py-2">Analytics and delivery status</span>
               </div>
             </aside>
 

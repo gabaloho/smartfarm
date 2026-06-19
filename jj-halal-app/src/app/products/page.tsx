@@ -53,8 +53,8 @@ export default async function ProductsPage({
         <section className="mb-6 grid lg:grid-cols-[1fr_280px] gap-4">
           <div className="relative overflow-hidden rounded-3xl border border-green-100 bg-white">
             <Image
-              src="/assets/banner.jpeg"
-              alt="JJ HALAL banner"
+              src="/assets/JJ HALAL FARMS.jpeg"
+              alt="JJ HALAL farms banner"
               width={1400}
               height={420}
               className="h-44 w-full object-cover"
@@ -62,9 +62,8 @@ export default async function ProductsPage({
             />
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/65 via-gray-900/30 to-transparent" />
             <div className="absolute inset-y-0 left-0 p-5 sm:p-6 flex flex-col justify-center">
-              <Image src="/assets/jj-logo.png" alt="JJ HALAL FARMS LTD." width={120} height={42} className="h-10 w-auto object-contain" style={{ width: "auto" }} />
               <p className="mt-3 text-sm sm:text-base text-white max-w-md">
-                Fresh halal products, trusted quality, and same-day delivery options.
+                  Shop eggs, chicken, livestock, marketplace listings, and delivery services in one place.
               </p>
             </div>
           </div>
@@ -85,7 +84,7 @@ export default async function ProductsPage({
             <p className="mt-1 text-sm text-gray-600">
               {activeCategory
                 ? `Showing ${activeCategory.name.toLowerCase()} products`
-                : "Browse all halal groceries and daily essentials"}
+                : "Browse the farm catalog, livestock sales, and marketplace-ready listings"}
             </p>
           </div>
           <Link
@@ -109,7 +108,7 @@ export default async function ProductsPage({
                   id="q"
                   name="q"
                   defaultValue={query}
-                  placeholder="Tomatoes, eggs, fish..."
+                  placeholder="Egg crates, chicken parts, cows, rams..."
                   className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600"
                 />
               </div>
@@ -223,6 +222,7 @@ export default async function ProductsPage({
                       )}
                     </div>
                     <p className="mt-1 text-xs uppercase tracking-wide text-gray-500">{product.category.replace("-", " ")}</p>
+                    <p className="mt-2 text-sm text-gray-600 line-clamp-2">{product.description}</p>
                     <p className="mt-4 text-xl font-bold text-green-700">{formatNaira(product.price)}</p>
                     <div className="mt-1 text-xs text-gray-500 flex items-center gap-2">
                       <span>per {product.unit}</span>

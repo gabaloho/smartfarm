@@ -41,7 +41,7 @@ export default function VendorPortalPage() {
   const updateStatus = useOrdersStore((state) => state.updateStatus);
 
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("Meat");
+  const [category, setCategory] = useState("Chicken");
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
   const [unit, setUnit] = useState("kg");
@@ -102,17 +102,17 @@ export default function VendorPortalPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-5 rounded-2xl border border-green-100 bg-white p-4 flex items-center justify-between gap-3">
           <div>
-            <Image src="/assets/jj-logo.png" alt="JJ HALAL FARMS LTD." width={126} height={42} className="h-9 w-auto object-contain" style={{ width: "auto" }} />
-            <p className="mt-2 text-xs text-gray-600">Vendor workspace for inventory, sales, and delivery flow.</p>
+            <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={126} height={42} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
+            <p className="mt-2 text-xs text-gray-600">Manage your products, stock, and customer orders in one place.</p>
           </div>
           <Image src="/assets/promo-popup.png" alt="Vendor promo" width={200} height={96} className="hidden sm:block h-16 w-32 rounded-lg object-cover" />
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
-            <p className="text-xs uppercase tracking-wide font-semibold text-green-700">Vendor Portal</p>
+            <p className="text-xs uppercase tracking-wide font-semibold text-green-700">Seller account</p>
             <h1 className="text-3xl font-bold text-gray-900">Welcome, {session?.user?.name ?? "Vendor"}</h1>
-            <p className="mt-1 text-sm text-gray-600">Manage your products and fulfill customer orders.</p>
+            <p className="mt-1 text-sm text-gray-600">Add items, update stock, and follow incoming orders.</p>
           </div>
           <div className="flex gap-2">
             <Link
@@ -125,7 +125,7 @@ export default function VendorPortalPage() {
               href="/admin"
               className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-black"
             >
-              Admin Dashboard
+              Admin page
             </Link>
           </div>
         </div>
@@ -151,7 +151,7 @@ export default function VendorPortalPage() {
 
         <section className="grid xl:grid-cols-[1fr_1fr] gap-5">
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900">Inventory</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Your products</h2>
 
             <form onSubmit={onAddProduct} className="mt-4 grid sm:grid-cols-2 gap-2">
               <input
@@ -181,13 +181,12 @@ export default function VendorPortalPage() {
                 className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600"
               >
                 <option>Meat</option>
-                <option>Fish</option>
-                <option>Vegetables</option>
-                <option>Fruits</option>
-                <option>Dairy & Eggs</option>
-                <option>Rice & Pulse</option>
-                <option>Snacks</option>
-                <option>Bakery</option>
+                <option>Eggs</option>
+                <option>Chicken</option>
+                <option>Livestock</option>
+                <option>Marketplace</option>
+                <option>Auctions</option>
+                <option>Delivery</option>
               </select>
               <input
                 value={unit}
@@ -246,10 +245,10 @@ export default function VendorPortalPage() {
           </div>
 
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900">Vendor Orders</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Orders for your products</h2>
             <div className="mt-4 space-y-2">
               {vendorOrders.length === 0 ? (
-                <p className="text-sm text-gray-600">No orders containing your products yet.</p>
+                <p className="text-sm text-gray-600">You have not received any orders yet.</p>
               ) : (
                 vendorOrders.map((order) => {
                   const vendorItems = order.items.filter((item) => item.vendorName === VENDOR_NAME);

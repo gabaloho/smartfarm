@@ -5,7 +5,7 @@ import { Suspense, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-function VerifyEmailContent() {
+function VerifyEmailPageContent() {
   const params = useSearchParams();
   const token = params.get("token") ?? "";
 
@@ -43,7 +43,7 @@ function VerifyEmailContent() {
     <div className="min-h-[calc(100vh-64px)] bg-gray-50 px-4 py-10">
       <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-4 rounded-xl border border-green-100 bg-green-50 p-4">
-          <Image src="/assets/jj-logo.png" alt="JJ HALAL FARMS LTD." width={120} height={40} className="h-9 w-auto object-contain" style={{ width: "auto" }} />
+          <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={120} height={40} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Verify your email</h1>
         <p className="mt-2 text-sm text-gray-600">
@@ -85,8 +85,8 @@ function VerifyEmailContent() {
 
 export default function VerifyEmailPage() {
   return (
-    <Suspense fallback={<div className="min-h-[calc(100vh-64px)] bg-gray-50" />}>
-      <VerifyEmailContent />
+    <Suspense fallback={<div className="p-8 text-sm text-gray-600">Loading...</div>}>
+      <VerifyEmailPageContent />
     </Suspense>
   );
 }

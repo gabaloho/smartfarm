@@ -4,22 +4,22 @@ import Link from "next/link";
 import Image from "next/image";
 import { X, Phone, MapPin, ChevronRight } from "lucide-react";
 import { Session } from "next-auth";
-import { signOut } from "next-auth/react";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 const CATEGORIES = [
-  { slug: "vegetables", name: "Vegetables", icon: "🥦" },
-  { slug: "snacks", name: "Snacks", icon: "🍿" },
-  { slug: "rice-pulse", name: "Rice & Pulse", icon: "🌾" },
-  { slug: "meat", name: "Meat", icon: "🥩" },
-  { slug: "fruits", name: "Fruits", icon: "🍎" },
-  { slug: "fish", name: "Fish", icon: "🐟" },
-  { slug: "dairy-eggs", name: "Dairy & Eggs", icon: "🥚" },
-  { slug: "bakery", name: "Bakery", icon: "🍞" },
+  { slug: "eggs", name: "Eggs", icon: "🥚" },
+  { slug: "chicken", name: "Chicken", icon: "🐔" },
+  { slug: "livestock", name: "Livestock", icon: "🐄" },
+  { slug: "marketplace", name: "Marketplace", icon: "🛒" },
+  { slug: "auctions", name: "Auctions", icon: "🔨" },
+  { slug: "delivery", name: "Delivery", icon: "🚚" },
 ];
 
 const EXTRA_LINKS = [
+  { href: "/livestock", label: "Livestock Sales" },
+  { href: "/marketplace", label: "Marketplace" },
+  { href: "/auctions", label: "Auctions" },
   { href: "/flash-sales", label: "Flash Sale" },
   { href: "/manufacturers", label: "Manufacturers / Publishers" },
   { href: "/authors", label: "Authors" },
@@ -63,15 +63,8 @@ export function MobileDrawer({ open, onClose, navLinks, session }: MobileDrawerP
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b bg-green-700">
-          <Link href="/" onClick={onClose}>
-            <Image
-              src="/assets/jj-logo.png"
-              alt="JJ HALAL FARMS LTD."
-              width={120}
-              height={36}
-              className="h-9 w-auto object-contain brightness-0 invert"
-              style={{ width: "auto" }}
-            />
+          <Link href="/" onClick={onClose} className="text-sm font-extrabold tracking-wide text-white">
+            JJ HALAL FARMS LTD.
           </Link>
           <button
             onClick={onClose}
@@ -166,7 +159,7 @@ export function MobileDrawer({ open, onClose, navLinks, session }: MobileDrawerP
           </div>
           <div className="flex items-start gap-2">
             <MapPin size={14} className="mt-0.5 flex-shrink-0" />
-            <span className="text-xs">Plot No 168714 ZUMO ROAD RIGASA KADUNA</span>
+            <span className="text-xs">AT19, Jada Road, PRP, Kaduna</span>
           </div>
         </div>
       </div>
