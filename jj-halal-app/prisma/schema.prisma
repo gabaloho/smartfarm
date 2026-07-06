@@ -8,6 +8,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // ─── Enums ────────────────────────────────────────────────────────────────────
@@ -161,6 +162,8 @@ model Address {
 model Vendor {
   id          String   @id @default(cuid())
   shopName    String
+  cacNumber   String?
+  contactAddress String?
   slug        String   @unique
   description String?
   logo        String?

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AccountType, InstitutionType } from "@prisma/client";
+import { AccountType, InstitutionType, UserRole } from "@prisma/client";
 
 export const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -11,6 +11,7 @@ export const registerSchema = z
   .object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     email: z.string().email("Invalid email address"),
+    role: z.enum([UserRole.CUSTOMER, UserRole.VENDOR]),
     phone: z
       .string()
       .regex(/^\+?[0-9]{10,15}$/, "Invalid phone number")
@@ -26,6 +27,10 @@ export const registerSchema = z
     accountType: z.nativeEnum(AccountType),
     institutionName: z.string().optional(),
     institutionType: z.nativeEnum(InstitutionType).optional(),
+    brandName: z.string().optional(),
+    cacNumber: z.string().max(40, "CAC number is too long").optional().or(z.literal("")),
+    sellerAddress: z.string().max(200, "Address is too long").optional().or(z.literal("")),
+    sellerBio: z.string().max(400, "Bio is too long").optional().or(z.literal("")),
   })
   .refine((d) => d.password === d.confirmPassword, {
     message: "Passwords do not match",
@@ -38,6 +43,13 @@ export const registerSchema = z
     {
       message: "Institution name is required for institutional accounts",
       path: ["institutionName"],
+    }
+  )
+  .refine(
+    (d) => d.role !== UserRole.VENDOR || (d.brandName && d.brandName.trim().length >= 2),
+    {
+      message: "Brand name is required for seller registration",
+      path: ["brandName"],
     }
   );
 

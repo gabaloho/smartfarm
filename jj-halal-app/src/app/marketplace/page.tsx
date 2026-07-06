@@ -29,7 +29,7 @@ const SAMPLE_LISTINGS = [
 ];
 
 export const metadata = {
-  title: "Marketplace | JJ HALAL FARMS LTD.",
+  title: "Marketplace | Farmer's Market",
   description:
     "Buy and sell livestock with clear pricing and trusted seller details.",
 };
@@ -49,7 +49,7 @@ export default function MarketplacePage() {
               </h1>
               <p className="mt-4 text-base text-gray-600 max-w-2xl">
                 Registered users can advertise and sell chickens, cows, rams, and other farm animals.
-                For every successful sale, the seller receives 95% and JJ HALAL FARMS keeps a 5% service fee.
+                For every successful sale, the seller receives 95% and Farmer&apos;s Market keeps a 5% service fee.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link href="/auth/register?type=vendor" className="rounded-xl bg-fuchsia-700 px-5 py-3 text-sm font-semibold text-white hover:bg-fuchsia-800">
@@ -79,7 +79,7 @@ export default function MarketplacePage() {
             <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">Service fee</p>
             <h2 className="mt-2 text-2xl font-bold text-gray-900">5% marketplace fee</h2>
             <p className="mt-3 text-sm text-gray-600">
-              When a sale is completed, the seller gets 95% of the price and 5% goes to JJ HALAL FARMS LTD.
+              When a sale is completed, the seller gets 95% of the price and 5% goes to Farmer&apos;s Market.
             </p>
             <div className="mt-5 space-y-3 text-sm">
               <div className="flex justify-between rounded-xl bg-white px-4 py-3">

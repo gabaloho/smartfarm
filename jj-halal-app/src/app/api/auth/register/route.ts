@@ -1,10 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { randomBytes } from "node:crypto";
-import { InstitutionType, VerificationPurpose } from "@prisma/client";
+import { InstitutionType, UserRole, VerificationPurpose } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { registerSchema } from "@/lib/validations";
 import { sendVerificationEmail } from "@/lib/email";
+
+function toSlug(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .slice(0, 60);
+}
+
+async function createUniqueVendorSlug(brandName: string) {
+  const base = toSlug(brandName) || `seller-${Date.now()}`;
+
+  const existing = await prisma.vendor.findMany({
+    where: {
+      OR: [{ slug: base }, { slug: { startsWith: `${base}-` } }],
+    },
+    select: { slug: true },
+  });
+
+  const existingSlugs = new Set(existing.map((entry) => entry.slug));
+  if (!existingSlugs.has(base)) return base;
+
+  let suffix = 2;
+  while (existingSlugs.has(`${base}-${suffix}`)) {
+    suffix += 1;
+  }
+
+  return `${base}-${suffix}`;
+}
 
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
@@ -20,6 +51,17 @@ export async function POST(req: NextRequest) {
   const data = parsed.data;
   const normalizedEmail = data.email.toLowerCase();
   const normalizedPhone = data.phone?.trim() ? data.phone.trim() : null;
+  const normalizedBrandName = data.brandName?.trim() ? data.brandName.trim() : null;
+  const normalizedCacNumber = data.cacNumber?.trim() ? data.cacNumber.trim() : null;
+  const normalizedSellerAddress = data.sellerAddress?.trim() ? data.sellerAddress.trim() : null;
+  const normalizedSellerBio = data.sellerBio?.trim() ? data.sellerBio.trim() : null;
+
+  let vendorSlug: string | null = null;
+  if (data.role === UserRole.VENDOR) {
+    vendorSlug = await createUniqueVendorSlug(
+      normalizedBrandName ?? `${data.name} Store`
+    );
+  }
 
   const existing = await prisma.user.findFirst({
     where: {
@@ -46,6 +88,7 @@ export async function POST(req: NextRequest) {
       email: normalizedEmail,
       phone: normalizedPhone,
       passwordHash,
+      role: data.role,
       accountType: data.accountType,
       institution:
         data.accountType === "INSTITUTIONAL"
@@ -53,6 +96,18 @@ export async function POST(req: NextRequest) {
               create: {
                 name: data.institutionName ?? "Institution",
                 type: data.institutionType ?? InstitutionType.OTHER,
+              },
+            }
+          : undefined,
+      vendor:
+        data.role === UserRole.VENDOR
+          ? {
+              create: {
+                shopName: normalizedBrandName ?? `${data.name} Store`,
+                slug: vendorSlug ?? `seller-${Date.now()}`,
+                cacNumber: normalizedCacNumber,
+                contactAddress: normalizedSellerAddress,
+                description: normalizedSellerBio,
               },
             }
           : undefined,
@@ -81,7 +136,10 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({
     ok: true,
-    message: "Account created. Check your email for verification link.",
+    message:
+      data.role === UserRole.VENDOR
+        ? "Seller account created. Check your email for verification link."
+        : "Buyer account created. Check your email for verification link.",
     verificationToken: process.env.NODE_ENV !== "production" ? token : undefined,
   });
 }

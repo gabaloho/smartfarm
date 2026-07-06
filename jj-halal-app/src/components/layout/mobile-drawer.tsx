@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { X, Phone, MapPin, ChevronRight } from "lucide-react";
 import { Session } from "next-auth";
 import { useEffect } from "react";

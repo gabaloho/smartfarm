@@ -7,24 +7,39 @@ import Image from "next/image";
 type RegisterForm = {
   name: string;
   email: string;
+  role: "CUSTOMER" | "VENDOR";
   phone: string;
   password: string;
   confirmPassword: string;
   accountType: "PERSONAL" | "INSTITUTIONAL";
   institutionName: string;
   institutionType: "FARM" | "STORE" | "EATERY" | "RESTAURANT" | "OTHER";
+  brandName: string;
+  cacNumber: string;
+  sellerAddress: string;
+  sellerBio: string;
 };
 
 export default function RegisterPage() {
+  const initialRole: RegisterForm["role"] =
+    typeof window !== "undefined" && new URLSearchParams(window.location.search).get("type") === "vendor"
+      ? "VENDOR"
+      : "CUSTOMER";
+
   const [form, setForm] = useState<RegisterForm>({
     name: "",
     email: "",
+    role: initialRole,
     phone: "",
     password: "",
     confirmPassword: "",
     accountType: "PERSONAL",
     institutionName: "",
     institutionType: "OTHER",
+    brandName: "",
+    cacNumber: "",
+    sellerAddress: "",
+    sellerBio: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -70,20 +85,52 @@ export default function RegisterPage() {
           <div>
             <Image
               src="/assets/JJ HALAL FARMS LOGO.jpeg"
-              alt="JJ HALAL FARMS LTD."
+              alt="Farmer's Market"
               width={130}
               height={44}
               className="h-10 w-auto object-contain"
               style={{ width: "auto", height: "auto" }}
             />
-            <p className="mt-2 text-xs text-gray-600">Create your account and start shopping trusted halal essentials.</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-emerald-700">Farmer&apos;s Market Platform</p>
+            <p className="mt-1 text-xs text-gray-600">Create your account to buy, sell, and join auctions.</p>
           </div>
           <Image src="/assets/daily-needs-hero.jpg" alt="Fresh produce" width={120} height={90} className="hidden sm:block h-16 w-24 rounded-lg object-cover" />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Create account</h1>
-        <p className="mt-1 text-sm text-gray-600">Join JJ HALAL FARMS to start ordering fresh halal products.</p>
+        <p className="mt-1 text-sm text-gray-600">Join Farmer&apos;s Market to register as a buyer or seller.</p>
 
         <form className="mt-6 space-y-4" onSubmit={onSubmit}>
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">Register as</label>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setForm((prev) => ({ ...prev, role: "CUSTOMER" }))}
+                className={
+                  form.role === "CUSTOMER"
+                    ? "rounded-lg border border-emerald-500 bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-800"
+                    : "rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+                }
+              >
+                Buyer account
+              </button>
+              <button
+                type="button"
+                onClick={() => setForm((prev) => ({ ...prev, role: "VENDOR" }))}
+                className={
+                  form.role === "VENDOR"
+                    ? "rounded-lg border border-emerald-500 bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-800"
+                    : "rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+                }
+              >
+                Seller account
+              </button>
+            </div>
+            <p className="mt-2 text-xs text-gray-500">
+              Sellers can still shop and buy from other sellers after sign in.
+            </p>
+          </div>
+
           <div>
             <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-gray-700">
               Full name
@@ -174,6 +221,63 @@ export default function RegisterPage() {
             </select>
           </div>
 
+          {form.role === "VENDOR" && (
+            <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3 space-y-3">
+              <h2 className="text-sm font-semibold text-emerald-900">Seller details</h2>
+              <div>
+                <label htmlFor="brandName" className="mb-1.5 block text-sm font-medium text-gray-700">
+                  Brand name
+                </label>
+                <input
+                  id="brandName"
+                  value={form.brandName}
+                  onChange={(e) => setForm((prev) => ({ ...prev, brandName: e.target.value }))}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                  placeholder="e.g. Green Valley Farms"
+                  required
+                />
+              </div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div>
+                  <label htmlFor="cacNumber" className="mb-1.5 block text-sm font-medium text-gray-700">
+                    CAC (optional)
+                  </label>
+                  <input
+                    id="cacNumber"
+                    value={form.cacNumber}
+                    onChange={(e) => setForm((prev) => ({ ...prev, cacNumber: e.target.value }))}
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                    placeholder="e.g. RC1234567"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="sellerAddress" className="mb-1.5 block text-sm font-medium text-gray-700">
+                    Business address (optional)
+                  </label>
+                  <input
+                    id="sellerAddress"
+                    value={form.sellerAddress}
+                    onChange={(e) => setForm((prev) => ({ ...prev, sellerAddress: e.target.value }))}
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                    placeholder="Area, city"
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="sellerBio" className="mb-1.5 block text-sm font-medium text-gray-700">
+                  Seller profile details (optional)
+                </label>
+                <textarea
+                  id="sellerBio"
+                  value={form.sellerBio}
+                  onChange={(e) => setForm((prev) => ({ ...prev, sellerBio: e.target.value }))}
+                  className="min-h-20 w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                  placeholder="Tell buyers what you sell and your delivery coverage"
+                />
+              </div>
+            </div>
+          )}
+
           {form.accountType === "INSTITUTIONAL" && (
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 space-y-3">
               <div>
@@ -223,7 +327,7 @@ export default function RegisterPage() {
             disabled={isLoading}
             className="w-full rounded-lg bg-green-700 py-2.5 text-sm font-semibold text-white hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isLoading ? "Creating account..." : "Create account"}
+            {isLoading ? "Creating account..." : form.role === "VENDOR" ? "Create seller account" : "Create buyer account"}
           </button>
         </form>
 

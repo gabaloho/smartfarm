@@ -68,7 +68,7 @@ export default async function SearchPage({
         <section className="mt-5">
           {query ? (
             <p className="mb-3 text-sm text-gray-600">
-              {products.length} result{products.length === 1 ? "" : "s"} for "{query}"
+              {products.length} result{products.length === 1 ? "" : "s"} for &quot;{query}&quot;
             </p>
           ) : (
             <p className="mb-3 text-sm text-gray-600">Showing popular items. Enter a keyword to narrow your results.</p>

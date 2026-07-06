@@ -1,17 +1,20 @@
 # JJ HALAL App
 
-JJ HALAL FARMS LTD. multi-vendor halal grocery app built with Next.js App Router, NextAuth, Prisma, and Zustand.
+Farmer's Market platform by JJ HALAL FARMS LTD. built with Next.js App Router, NextAuth, Prisma, and Zustand.
 
 ## Features Implemented
 
 - Branded storefront homepage (hero, categories, promotions)
 - Catalog pages with filters and category routing
 - Auth flow pages (login, register, email verify, 2FA setup)
+- Buyer and seller registration from one onboarding flow
+- Seller onboarding fields (brand name required, CAC optional, seller profile details)
 - NextAuth credential auth with role-aware middleware
 - Cart, checkout, payment instruction flow
 - Customer orders tracking pages
 - Admin dashboard (metrics + order status updates)
 - Vendor portal (inventory + vendor order workflow)
+- Auctions page open to all users
 
 ## Brand Assets
 
@@ -61,3 +64,11 @@ npx prisma db push
 
 - Current order flow is application-level and local-state driven for frontend progress.
 - Prisma schema is present and ready for deeper DB-backed integration.
+
+## Production Readiness Checklist
+
+- Set secure values in `.env.local` (`AUTH_SECRET`, payment keys, email keys, DB URL).
+- Run `npx prisma generate` after schema updates.
+- Run `npm run lint` and `npm run build` before deployment.
+- Deploy with `NODE_ENV=production` and `NEXT_PUBLIC_APP_URL` set to live HTTPS domain.
+- Ensure PostgreSQL backups and monitoring are configured in production.

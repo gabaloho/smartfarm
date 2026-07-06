@@ -10,16 +10,16 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "JJ HALAL FARMS LTD.",
-    template: "%s | JJ HALAL FARMS LTD.",
+    default: "Farmer's Market",
+    template: "%s | Farmer's Market",
   },
   description:
-    "Farm products, livestock, cow sharing, marketplace listings, and auctions from JJ HALAL FARMS LTD.",
+    "Farmer's Market by JJ HALAL FARMS LTD. for farm products, livestock, buyer-seller marketplace listings, and auctions.",
   keywords: ["halal", "farm", "livestock", "auction", "marketplace", "Nigeria", "Kaduna"],
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
   openGraph: {
     type: "website",
-    siteName: "JJ HALAL FARMS LTD.",
+    siteName: "Farmer's Market",
   },
 };
 

@@ -59,7 +59,7 @@ export function Header() {
             <Link href="/" className="relative flex-shrink-0 h-11 sm:h-12 w-44 sm:w-52 overflow-hidden rounded-md">
               <Image
                 src="/assets/JJ HALAL FARMS LOGO.jpeg"
-                alt="JJ HALAL FARMS LTD."
+                alt="Farmer's Market"
                 fill
                 sizes="(min-width: 640px) 208px, 176px"
                 className="object-cover"

@@ -49,10 +49,9 @@ function formatRemaining(milliseconds: number): string {
 
 export default function AuctionsPage() {
   const [listings, setListings] = useState(INITIAL_LISTINGS);
-  const [now, setNow] = useState<number | null>(null);
+  const [now, setNow] = useState<number | null>(() => Date.now());
 
   useEffect(() => {
-    setNow(Date.now());
     const timer = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(timer);
   }, []);

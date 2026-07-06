@@ -89,7 +89,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
               <p className="inline-flex items-center gap-2 rounded-full bg-emerald-100 text-emerald-800 px-4 py-1.5 text-xs font-semibold tracking-wide uppercase">
-                JJ HALAL FARMS LTD.
+                Farmer&apos;s Market
               </p>
               <h1 className="mt-5 text-3xl sm:text-5xl font-extrabold leading-tight text-gray-900">
                 Fresh halal food and livestock, all in one easy place.
