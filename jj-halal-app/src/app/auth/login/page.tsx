@@ -78,6 +78,11 @@ function LoginPageContent() {
               className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
               required
             />
+            <div className="mt-2 text-right">
+              <Link href="/auth/forgot-password" className="text-xs font-semibold text-green-700 hover:text-green-800">
+                Forgot password?
+              </Link>
+            </div>
           </div>
 
           <div>
