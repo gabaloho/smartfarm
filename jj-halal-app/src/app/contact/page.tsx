@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ContactForm from "./contact-form";
 
 export const metadata = {
   title: "Contact Us | JJ HALAL FARMS LTD.",
@@ -63,48 +64,7 @@ export default function ContactPage() {
             We usually respond within one business day.
           </p>
 
-          <form className="mt-5 grid sm:grid-cols-2 gap-4">
-            <label className="text-sm text-gray-700">
-              Name
-              <input
-                type="text"
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-emerald-600"
-                placeholder="Your name"
-              />
-            </label>
-            <label className="text-sm text-gray-700">
-              Email
-              <input
-                type="email"
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-emerald-600"
-                placeholder="you@example.com"
-              />
-            </label>
-            <label className="text-sm text-gray-700 sm:col-span-2">
-              Subject
-              <input
-                type="text"
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-emerald-600"
-                placeholder="How can we help?"
-              />
-            </label>
-            <label className="text-sm text-gray-700 sm:col-span-2">
-              Message
-              <textarea
-                rows={5}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-emerald-600"
-                placeholder="Write your message"
-              />
-            </label>
-            <div className="sm:col-span-2">
-              <button
-                type="button"
-                className="rounded-xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-800"
-              >
-                Submit Message
-              </button>
-            </div>
-          </form>
+          <ContactForm />
         </section>
       </div>
     </div>

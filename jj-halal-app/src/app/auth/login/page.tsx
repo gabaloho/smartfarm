@@ -33,7 +33,7 @@ function LoginPageContent() {
     setIsLoading(false);
 
     if (result?.error) {
-      setError("Invalid credentials or 2FA code.");
+      setError("Invalid credentials, unverified email, or 2FA code.");
       return;
     }
 

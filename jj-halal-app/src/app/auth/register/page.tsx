@@ -61,12 +61,16 @@ export default function RegisterPage() {
       error?: string;
       message?: string;
       verificationToken?: string;
+      details?: Record<string, string[] | undefined>;
     };
 
     setIsLoading(false);
 
     if (!response.ok) {
-      setError(data.error ?? "Registration failed.");
+      const firstFieldError = data.details
+        ? Object.values(data.details).find((messages) => Array.isArray(messages) && messages.length > 0)?.[0]
+        : null;
+      setError(firstFieldError ?? data.error ?? "Registration failed.");
       return;
     }
 
@@ -170,6 +174,9 @@ export default function RegisterPage() {
                 className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
               />
             </div>
+            <p className="mt-2 text-xs text-gray-500">
+              Personal: individual buyer/seller. Institutional: company, cooperative, restaurant, or store account.
+            </p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-3">
@@ -200,6 +207,9 @@ export default function RegisterPage() {
               />
             </div>
           </div>
+          <p className="-mt-2 text-xs text-gray-500">
+            Password must include at least 8 characters, one uppercase letter, one number, and one special character.
+          </p>
 
           <div>
             <label htmlFor="accountType" className="mb-1.5 block text-sm font-medium text-gray-700">

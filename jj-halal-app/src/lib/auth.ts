@@ -88,6 +88,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         if (!isValid) return null;
         if (!user.isActive) return null;
+        if (!user.emailVerified) return null;
         if (user.twoFactorEnabled) {
           const totp = String(credentials.totp ?? "").trim();
           if (!totp || !user.twoFactorSecret || !verifyTOTP(user.twoFactorSecret, totp)) {
