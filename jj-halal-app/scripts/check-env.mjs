@@ -41,7 +41,6 @@ const required = [
   "DIRECT_URL",
   "AUTH_SECRET",
   "AUTH_URL",
-  "RESEND_API_KEY",
   "EMAIL_FROM",
   "CONTACT_RECEIVER_EMAIL",
   "TWILIO_ACCOUNT_SID",
@@ -60,6 +59,8 @@ const required = [
   "CLOUDINARY_API_SECRET",
 ];
 
+const smtpRequired = ["SMTP_HOST", "SMTP_USER", "SMTP_PASS"];
+
 const placeholderPatterns = [/REPLACE/i, /^sk_test_REPLACE$/i, /^pk_test_REPLACE$/i, /^whsec_REPLACE$/i];
 const strict = process.env.ENV_CHECK_STRICT === "1";
 
@@ -76,6 +77,14 @@ for (const key of required) {
   if (placeholderPatterns.some((pattern) => pattern.test(value.trim()))) {
     placeholders.push(key);
   }
+}
+
+const hasResend = Boolean(process.env.RESEND_API_KEY?.trim());
+const smtpMissing = smtpRequired.filter((key) => !process.env[key]?.trim());
+const hasSmtp = smtpMissing.length === 0;
+
+if (!hasResend && !hasSmtp) {
+  missing.push("EMAIL_PROVIDER: set RESEND_API_KEY or SMTP_HOST+SMTP_USER+SMTP_PASS");
 }
 
 if (missing.length === 0 && placeholders.length === 0) {

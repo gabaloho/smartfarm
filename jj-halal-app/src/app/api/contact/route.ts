@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
 import { contactSchema } from "@/lib/validations";
 import { getRequestIp, limitRequest } from "@/lib/rate-limit";
+import { sendEmail } from "@/lib/email";
 
-const EMAIL_FROM = process.env.EMAIL_FROM ?? "noreply@jjhalalfarms.com";
 const CONTACT_TO = process.env.CONTACT_RECEIVER_EMAIL ?? "info@jjhalalfarms.com";
 
 export async function POST(req: NextRequest) {
@@ -29,20 +28,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: "Messaging service is not configured yet. Please call or email support directly." },
-      { status: 503 }
-    );
-  }
-
   const { name, email, subject, message } = parsed.data;
 
   try {
-    const resend = new Resend(apiKey);
-    await resend.emails.send({
-      from: EMAIL_FROM,
+    await sendEmail({
       to: CONTACT_TO,
       replyTo: email,
       subject: `[Contact] ${subject}`,

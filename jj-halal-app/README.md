@@ -54,6 +54,11 @@ Strict mode also fails on placeholder values:
 ENV_CHECK_STRICT=1 npm run env:check
 ```
 
+Email provider requirement:
+
+- Configure either `RESEND_API_KEY`, or
+- Configure SMTP: `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`.
+
 ## Database (Prisma)
 
 If running with PostgreSQL:
