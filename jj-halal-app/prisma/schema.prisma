@@ -162,6 +162,7 @@ model Address {
 model Vendor {
   id          String   @id @default(cuid())
   shopName    String
+  sellerCategory String?
   cacNumber   String?
   contactAddress String?
   slug        String   @unique

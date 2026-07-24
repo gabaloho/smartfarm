@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { formatNaira } from "@/lib/catalog";
-import { OrderStatus, useOrdersStore } from "@/store/orders";
+import type { ApiOrder } from "@/lib/order-response";
+
+type OrderStatus =
+  | "PENDING"
+  | "CONFIRMED"
+  | "PROCESSING"
+  | "SHIPPED"
+  | "DELIVERED"
+  | "CANCELLED"
+  | "REFUNDED";
 
 const STATUS_OPTIONS: Array<{ value: "ALL" | OrderStatus; label: string }> = [
   { value: "ALL", label: "All" },
@@ -16,9 +25,63 @@ const STATUS_OPTIONS: Array<{ value: "ALL" | OrderStatus; label: string }> = [
 ];
 
 export default function OrdersPage() {
-  const orders = useOrdersStore((state) => state.orders);
-  const cancelOrder = useOrdersStore((state) => state.cancelOrder);
+  const [orders, setOrders] = useState<ApiOrder[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<"ALL" | OrderStatus>("ALL");
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadOrders() {
+      setIsLoading(true);
+      setError(null);
+
+      const response = await fetch("/api/orders", { cache: "no-store" });
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        orders?: ApiOrder[];
+      };
+
+      if (!mounted) return;
+
+      if (!response.ok) {
+        setError(data.error ?? "Failed to load orders.");
+        setOrders([]);
+        setIsLoading(false);
+        return;
+      }
+
+      setOrders(data.orders ?? []);
+      setIsLoading(false);
+    }
+
+    loadOrders();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  async function cancelOrder(orderNumber: string) {
+    const response = await fetch(`/api/orders/${orderNumber}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "cancel" }),
+    });
+
+    const data = (await response.json().catch(() => ({}))) as { error?: string };
+    if (!response.ok) {
+      setError(data.error ?? "Failed to cancel order.");
+      return;
+    }
+
+    setOrders((current) =>
+      current.map((order) =>
+        order.orderNumber === orderNumber ? { ...order, status: "CANCELLED" } : order
+      )
+    );
+  }
 
   const filtered = useMemo(() => {
     if (activeFilter === "ALL") return orders;
@@ -65,6 +128,9 @@ export default function OrdersPage() {
             </button>
           ))}
         </div>
+
+        {isLoading && <p className="text-sm text-gray-600 mb-4">Loading orders...</p>}
+        {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
 
         {filtered.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-8 text-center">

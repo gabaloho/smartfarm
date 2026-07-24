@@ -1,11 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { contactSchema } from "@/lib/validations";
+import { getRequestIp, limitRequest } from "@/lib/rate-limit";
 
 const EMAIL_FROM = process.env.EMAIL_FROM ?? "noreply@jjhalalfarms.com";
 const CONTACT_TO = process.env.CONTACT_RECEIVER_EMAIL ?? "info@jjhalalfarms.com";
 
 export async function POST(req: NextRequest) {
+  const ip = getRequestIp(req.headers);
+  const throttle = limitRequest({ key: `contact:${ip}`, limit: 8, windowMs: 60_000 });
+  if (!throttle.ok) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again shortly." },
+      {
+        status: 429,
+        headers: throttle.retryAfterSeconds ? { "Retry-After": String(throttle.retryAfterSeconds) } : undefined,
+      }
+    );
+  }
+
   const body = await req.json().catch(() => null);
   const parsed = contactSchema.safeParse(body);
 

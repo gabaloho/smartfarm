@@ -5,6 +5,7 @@ import { InstitutionType, UserRole, VerificationPurpose } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { registerSchema } from "@/lib/validations";
 import { sendVerificationEmail } from "@/lib/email";
+import { getRequestIp, limitRequest } from "@/lib/rate-limit";
 
 function toSlug(value: string) {
   return value
@@ -38,6 +39,18 @@ async function createUniqueVendorSlug(brandName: string) {
 }
 
 export async function POST(req: NextRequest) {
+  const ip = getRequestIp(req.headers);
+  const throttle = limitRequest({ key: `register:${ip}`, limit: 10, windowMs: 60_000 });
+  if (!throttle.ok) {
+    return NextResponse.json(
+      { error: "Too many registration attempts. Please try again shortly." },
+      {
+        status: 429,
+        headers: throttle.retryAfterSeconds ? { "Retry-After": String(throttle.retryAfterSeconds) } : undefined,
+      }
+    );
+  }
+
   const body = await req.json().catch(() => null);
   const parsed = registerSchema.safeParse(body);
 
@@ -52,6 +65,7 @@ export async function POST(req: NextRequest) {
   const normalizedEmail = data.email.toLowerCase();
   const normalizedPhone = data.phone?.trim() ? data.phone.trim() : null;
   const normalizedBrandName = data.brandName?.trim() ? data.brandName.trim() : null;
+  const normalizedSellerCategory = data.sellerCategory?.trim() ? data.sellerCategory.trim() : null;
   const normalizedCacNumber = data.cacNumber?.trim() ? data.cacNumber.trim() : null;
   const normalizedSellerAddress = data.sellerAddress?.trim() ? data.sellerAddress.trim() : null;
   const normalizedSellerBio = data.sellerBio?.trim() ? data.sellerBio.trim() : null;
@@ -105,6 +119,7 @@ export async function POST(req: NextRequest) {
               create: {
                 shopName: normalizedBrandName ?? `${data.name} Store`,
                 slug: vendorSlug ?? `seller-${Date.now()}`,
+                sellerCategory: normalizedSellerCategory,
                 cacNumber: normalizedCacNumber,
                 contactAddress: normalizedSellerAddress,
                 description: normalizedSellerBio,

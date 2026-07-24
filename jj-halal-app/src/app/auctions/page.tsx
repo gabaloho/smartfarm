@@ -10,30 +10,10 @@ interface AuctionListing {
   breed: string;
   startingBid: number;
   currentBid: number;
-  highestBidder: string;
+  highestBidderName: string | null;
   endsAt: string;
+  status: "LIVE" | "CLOSED";
 }
-
-const INITIAL_LISTINGS: AuctionListing[] = [
-  {
-    id: "auction-1",
-    title: "Premium Bull Auction",
-    breed: "Bunaji",
-    startingBid: 1100000,
-    currentBid: 1320000,
-    highestBidder: "Buyer 12",
-    endsAt: "2026-06-20T18:30:00+01:00",
-  },
-  {
-    id: "auction-2",
-    title: "Ram Bidding Event",
-    breed: "Yankasa",
-    startingBid: 220000,
-    currentBid: 265000,
-    highestBidder: "Buyer 04",
-    endsAt: "2026-06-20T14:00:00+01:00",
-  },
-];
 
 function formatRemaining(milliseconds: number): string {
   if (milliseconds <= 0) return "Auction closed";
@@ -48,8 +28,35 @@ function formatRemaining(milliseconds: number): string {
 }
 
 export default function AuctionsPage() {
-  const [listings, setListings] = useState(INITIAL_LISTINGS);
+  const [listings, setListings] = useState<AuctionListing[]>([]);
   const [now, setNow] = useState<number | null>(() => Date.now());
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadAuctions() {
+      const response = await fetch("/api/auctions?status=LIVE&limit=24", { cache: "no-store" });
+      const data = (await response.json().catch(() => ({}))) as {
+        listings?: AuctionListing[];
+        error?: string;
+      };
+
+      if (!mounted) return;
+
+      if (!response.ok) {
+        setError(data.error ?? "Failed to load auctions.");
+        return;
+      }
+
+      setListings(data.listings ?? []);
+    }
+
+    loadAuctions();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(Date.now()), 1000);
@@ -70,23 +77,38 @@ export default function AuctionsPage() {
   );
 
   function placeBid(listingId: string) {
-    const targetListing = listings.find((listing) => listing.id === listingId);
-    if (!targetListing) return;
+    setError(null);
+    void (async () => {
+      const response = await fetch(`/api/auctions/${listingId}/bid`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+      });
 
-    const increment = targetListing.currentBid >= 1000000 ? 50000 : 10000;
-    const nextBid = targetListing.currentBid + increment;
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        bidAmount?: number;
+        endsAt?: string;
+      };
 
-    setListings((current) =>
-      current.map((listing) =>
-        listing.id === listingId
-          ? {
-              ...listing,
-              currentBid: nextBid,
-              highestBidder: "You",
-            }
-          : listing
-      )
-    );
+      if (!response.ok || !data.bidAmount) {
+        setError(data.error ?? "Unable to place bid right now.");
+        return;
+      }
+
+      setListings((current) =>
+        current.map((listing) =>
+          listing.id === listingId
+            ? {
+                ...listing,
+                currentBid: data.bidAmount as number,
+                highestBidderName: "You",
+                endsAt: data.endsAt ?? listing.endsAt,
+              }
+            : listing
+        )
+      );
+    })();
   }
 
   return (
@@ -116,13 +138,14 @@ export default function AuctionsPage() {
             </div>
             <div className="relative min-h-64">
               <Image src="/assets/JJ HALAL FARMS.jpeg" alt="Auction banner" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" priority />
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-900/35 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-r from-gray-900/35 to-transparent" />
             </div>
           </div>
         </div>
 
         <section className="grid xl:grid-cols-[1fr_300px] gap-5">
           <div className="space-y-4">
+            {error && <p className="text-sm text-red-600">{error}</p>}
             {derivedListings.map((listing) => (
               <article key={listing.id} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
                 <div className="flex flex-wrap items-start justify-between gap-3">
@@ -140,7 +163,7 @@ export default function AuctionsPage() {
                 <div className="mt-4 grid sm:grid-cols-3 gap-3 text-sm">
                   <div className="rounded-xl bg-gray-50 p-3">
                     <p className="text-xs uppercase tracking-wide text-gray-500">Highest bidder</p>
-                    <p className="mt-1 font-semibold text-gray-900">{listing.highestBidder}</p>
+                    <p className="mt-1 font-semibold text-gray-900">{listing.highestBidderName ?? "No bidder yet"}</p>
                   </div>
                   <div className="rounded-xl bg-gray-50 p-3">
                     <p className="text-xs uppercase tracking-wide text-gray-500">Countdown</p>
@@ -150,7 +173,7 @@ export default function AuctionsPage() {
                   </div>
                   <div className="rounded-xl bg-gray-50 p-3">
                     <p className="text-xs uppercase tracking-wide text-gray-500">Status</p>
-                    <p className="mt-1 font-semibold text-gray-900">{listing.closed ? "Closed" : "Live"}</p>
+                    <p className="mt-1 font-semibold text-gray-900">{listing.closed || listing.status === "CLOSED" ? "Closed" : "Live"}</p>
                   </div>
                 </div>
 

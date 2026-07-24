@@ -27,9 +27,9 @@ function paymentMethodLabel(method?: string): string {
 function paymentHelpText(method?: string): string {
   switch (method) {
     case "PAYSTACK":
-      return "Use your Paystack checkout link sent to your email/phone to complete payment.";
+      return "Your Paystack payment is being processed. If your status still shows pending, wait a moment and refresh this page.";
     case "STRIPE":
-      return "Use your Stripe secure payment link to complete this order.";
+      return "Your Stripe payment is being processed. If your status still shows pending, wait a moment and refresh this page.";
     case "BANK_TRANSFER":
       return "Transfer to the JJ HALAL FARMS account and include your order number as narration.";
     case "CASH_ON_DELIVERY":
@@ -74,6 +74,9 @@ export default async function PaymentPage({
         <p className="mt-4 text-sm text-gray-700">{paymentHelpText(params.method)}</p>
 
         <div className="mt-6 flex flex-wrap gap-3">
+          <Link href={`/payment?${new URLSearchParams({ order: params.order ?? "", method: params.method ?? "", amount: String(Number.isFinite(amount) ? amount : 0), status: params.status ?? "pending" }).toString()}`} className="rounded-lg border border-amber-300 px-4 py-2 text-sm font-semibold text-amber-800 hover:bg-amber-50">
+            Refresh Payment Status
+          </Link>
           <Link href="/orders" className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-black">
             Track My Orders
           </Link>

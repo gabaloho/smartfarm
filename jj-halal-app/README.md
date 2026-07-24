@@ -60,6 +60,18 @@ npx prisma db push
 - `/admin` Admin dashboard (ADMIN role)
 - `/vendor` Vendor portal (VENDOR/ADMIN role)
 
+## Operational API Endpoints
+
+- `POST /api/checkout/place-order` DB-backed order write with stock decrement and payment reference.
+- `GET /api/orders` Authenticated customer order list.
+- `GET /api/orders/:orderNumber` Authenticated customer order details.
+- `POST /api/orders/:orderNumber` Customer order actions (cancel pending order).
+- `GET /api/admin/orders` Admin order operations source.
+- `POST /api/admin/orders/:orderNumber` Admin status/payment updates.
+- `POST /api/payments/paystack/webhook` Paystack payment reconciliation webhook.
+- `POST /api/payments/stripe/webhook` Stripe payment reconciliation webhook.
+- `GET /api/health` Health endpoint for uptime monitoring.
+
 ## Notes
 
 - Current order flow is application-level and local-state driven for frontend progress.
@@ -68,7 +80,13 @@ npx prisma db push
 ## Production Readiness Checklist
 
 - Set secure values in `.env.local` (`AUTH_SECRET`, payment keys, email keys, DB URL).
+- Register payment webhooks with your live domain:
+	- Paystack webhook: `https://gonaa.ng/api/payments/paystack/webhook`
+	- Stripe webhook: `https://gonaa.ng/api/payments/stripe/webhook`
 - Run `npx prisma generate` after schema updates.
 - Run `npm run lint` and `npm run build` before deployment.
+- Run smoke checks against live hosts:
+	- Bash/CI: `SMOKE_BASE_URL=https://www.gonaa.ng SMOKE_API_BASE_URL=https://api.gonaa.ng npm run smoke:prod`
+	- PowerShell: `$env:SMOKE_BASE_URL="https://www.gonaa.ng"; $env:SMOKE_API_BASE_URL="https://api.gonaa.ng"; npm run smoke:prod`
 - Deploy with `NODE_ENV=production` and `NEXT_PUBLIC_APP_URL` set to live HTTPS domain.
 - Ensure PostgreSQL backups and monitoring are configured in production.

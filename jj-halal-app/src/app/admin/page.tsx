@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CATALOG_CATEGORIES, CATALOG_PRODUCTS, formatNaira } from "@/lib/catalog";
-import { CustomerOrder, OrderStatus, useOrdersStore } from "@/store/orders";
+import type { ApiOrder } from "@/lib/order-response";
+
+type OrderStatus =
+  | "PENDING"
+  | "CONFIRMED"
+  | "PROCESSING"
+  | "SHIPPED"
+  | "DELIVERED"
+  | "CANCELLED"
+  | "REFUNDED";
 
 function statusClasses(status: OrderStatus): string {
   switch (status) {
@@ -25,20 +34,107 @@ function statusClasses(status: OrderStatus): string {
   }
 }
 
-function sortRecentOrders(orders: CustomerOrder[]): CustomerOrder[] {
+function sortRecentOrders(orders: ApiOrder[]): ApiOrder[] {
   return [...orders].sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
 }
 
 export default function AdminDashboardPage() {
-  const orders = useOrdersStore((state) => state.orders);
-  const updateStatus = useOrdersStore((state) => state.updateStatus);
-  const markPaid = useOrdersStore((state) => state.markPaid);
+  const [orders, setOrders] = useState<ApiOrder[]>([]);
+  const [auditEvents, setAuditEvents] = useState<
+    Array<{
+      id: string;
+      eventType: string;
+      entityType: string | null;
+      entityId: string | null;
+      createdAt: string;
+    }>
+  >([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadOrders() {
+      setIsLoading(true);
+      setError(null);
+      const [ordersResponse, auditResponse] = await Promise.all([
+        fetch("/api/admin/orders", { cache: "no-store" }),
+        fetch("/api/admin/audit-events?limit=20", { cache: "no-store" }),
+      ]);
+
+      const data = (await ordersResponse.json().catch(() => ({}))) as {
+        error?: string;
+        orders?: ApiOrder[];
+      };
+      const auditData = (await auditResponse.json().catch(() => ({}))) as {
+        error?: string;
+        events?: Array<{
+          id: string;
+          eventType: string;
+          entityType: string | null;
+          entityId: string | null;
+          createdAt: string;
+        }>;
+      };
+
+      if (!mounted) return;
+
+      if (!ordersResponse.ok) {
+        setError(data.error ?? "Failed to load admin order data.");
+        setOrders([]);
+      } else {
+        setOrders(data.orders ?? []);
+      }
+
+      if (!auditResponse.ok) {
+        setError((current) => current ?? auditData.error ?? "Failed to load audit events.");
+        setAuditEvents([]);
+      } else {
+        setAuditEvents(auditData.events ?? []);
+      }
+
+      setIsLoading(false);
+    }
+
+    loadOrders();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  async function updateOrder(orderNumber: string, payload: { status?: OrderStatus; paymentStatus?: "PENDING" | "PAID" | "FAILED" | "REFUNDED" }) {
+    const response = await fetch(`/api/admin/orders/${orderNumber}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = (await response.json().catch(() => ({}))) as { error?: string };
+    if (!response.ok) {
+      setError(data.error ?? "Failed to update order.");
+      return;
+    }
+
+    setOrders((current) =>
+      current.map((order) =>
+        order.orderNumber === orderNumber
+          ? {
+              ...order,
+              ...(payload.status ? { status: payload.status } : {}),
+              ...(payload.paymentStatus ? { paymentStatus: payload.paymentStatus } : {}),
+            }
+          : order
+      )
+    );
+  }
 
   const metrics = useMemo(() => {
     const totalOrders = orders.length;
     const pendingOrders = orders.filter((order) => order.status === "PENDING").length;
     const deliveredOrders = orders.filter((order) => order.status === "DELIVERED").length;
-    const paidOrders = orders.filter((order) => order.paymentStatus === "paid").length;
+    const paidOrders = orders.filter((order) => order.paymentStatus === "PAID").length;
     const grossRevenue = orders.reduce((sum, order) => sum + order.total, 0);
     const estimatedCommission = grossRevenue * 0.05;
 
@@ -99,6 +195,12 @@ export default function AdminDashboardPage() {
               View Catalog
             </Link>
             <Link
+              href="/admin/ops"
+              className="rounded-lg border border-amber-300 px-4 py-2 text-sm font-semibold text-amber-800 hover:bg-amber-50"
+            >
+              Ops Console
+            </Link>
+            <Link
               href="/orders"
               className="rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
             >
@@ -134,6 +236,9 @@ export default function AdminDashboardPage() {
           </div>
         </section>
 
+        {isLoading && <p className="text-sm text-gray-600 mb-4">Loading admin data...</p>}
+        {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
+
         <section className="grid xl:grid-cols-[1fr_320px] gap-5">
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
             <h2 className="text-lg font-semibold text-gray-900">Recent Orders</h2>
@@ -159,36 +264,36 @@ export default function AdminDashboardPage() {
                     <div className="mt-3 flex flex-wrap gap-2">
                       <button
                         type="button"
-                        onClick={() => updateStatus(order.orderNumber, "CONFIRMED")}
+                        onClick={() => updateOrder(order.orderNumber, { status: "CONFIRMED" })}
                         className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100"
                       >
                         Confirm
                       </button>
                       <button
                         type="button"
-                        onClick={() => updateStatus(order.orderNumber, "PROCESSING")}
+                        onClick={() => updateOrder(order.orderNumber, { status: "PROCESSING" })}
                         className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100"
                       >
                         Process
                       </button>
                       <button
                         type="button"
-                        onClick={() => updateStatus(order.orderNumber, "SHIPPED")}
+                        onClick={() => updateOrder(order.orderNumber, { status: "SHIPPED" })}
                         className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100"
                       >
                         Ship
                       </button>
                       <button
                         type="button"
-                        onClick={() => updateStatus(order.orderNumber, "DELIVERED")}
+                        onClick={() => updateOrder(order.orderNumber, { status: "DELIVERED" })}
                         className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100"
                       >
                         Deliver
                       </button>
-                      {order.paymentStatus !== "paid" && (
+                      {order.paymentStatus !== "PAID" && (
                         <button
                           type="button"
-                          onClick={() => markPaid(order.orderNumber)}
+                          onClick={() => updateOrder(order.orderNumber, { paymentStatus: "PAID" })}
                           className="rounded-lg border border-green-300 px-2.5 py-1 text-xs font-semibold text-green-700 hover:bg-green-50"
                         >
                           Mark Paid
@@ -233,6 +338,25 @@ export default function AdminDashboardPage() {
                     <div key={product.name} className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2 text-sm">
                       <p className="font-semibold text-gray-900">{index + 1}. {product.name}</p>
                       <p className="text-gray-600">{product.quantity} sold</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            </aside>
+
+            <aside className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900">Recent Audit Events</h2>
+              <div className="mt-3 space-y-2">
+                {auditEvents.length === 0 ? (
+                  <p className="text-sm text-gray-600">No audit events yet.</p>
+                ) : (
+                  auditEvents.slice(0, 8).map((event) => (
+                    <div key={event.id} className="rounded-lg bg-gray-50 px-3 py-2 text-xs">
+                      <p className="font-semibold text-gray-900">{event.eventType}</p>
+                      <p className="text-gray-600 mt-0.5">
+                        {event.entityType ?? "entity"} {event.entityId ? `(${event.entityId.slice(0, 8)})` : ""}
+                      </p>
+                      <p className="text-gray-500 mt-0.5">{new Date(event.createdAt).toLocaleString()}</p>
                     </div>
                   ))
                 )}

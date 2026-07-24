@@ -6,7 +6,6 @@ import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useCartStore } from "@/store/cart";
-import { useOrdersStore } from "@/store/orders";
 import { formatNaira } from "@/lib/catalog";
 
 const DELIVERY_FEE = 1500;
@@ -20,7 +19,6 @@ export default function CheckoutPage() {
 
   const items = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
-  const addOrder = useOrdersStore((state) => state.addOrder);
 
   const [label, setLabel] = useState("Home");
   const [street, setStreet] = useState("");
@@ -134,36 +132,31 @@ export default function CheckoutPage() {
       return;
     }
 
-    addOrder({
-      orderNumber: data.orderNumber,
-      createdAt: new Date().toISOString(),
-      status: "PENDING",
-      paymentStatus: data.payment.status,
-      paymentMethod: data.payment.method,
-      subtotal: data.summary.subtotal,
-      deliveryFee: data.summary.deliveryFee,
-      discount: data.summary.discount,
-      total: data.summary.total,
-      notes: notes || undefined,
-      address: {
-        label,
-        street,
-        city,
-        state: stateName,
-        country,
-        postalCode: postalCode || undefined,
-      },
-      items: items.map((item) => ({
-        productId: item.product.id,
-        productName: item.product.name,
-        quantity: item.quantity,
-        unit: item.product.unit,
-        unitPrice: item.product.salePrice ?? item.product.price,
-        vendorName: item.product.vendorName,
-      })),
-    });
-
     clearCart();
+
+    if (data.payment.method === "PAYSTACK" || data.payment.method === "STRIPE") {
+      const initResponse = await fetch("/api/payments/initialize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderNumber: data.orderNumber }),
+      });
+
+      const initData = (await initResponse.json().catch(() => ({}))) as {
+        error?: string;
+        status?: "redirect" | "manual" | "paid";
+        authorizationUrl?: string;
+      };
+
+      if (initResponse.ok && initData.status === "redirect" && initData.authorizationUrl) {
+        window.location.href = initData.authorizationUrl;
+        return;
+      }
+
+      if (!initResponse.ok) {
+        setError(initData.error ?? "Payment initialization failed. Proceed with bank transfer instructions.");
+      }
+    }
+
     const query = new URLSearchParams({
       order: data.orderNumber,
       method: data.payment.method,

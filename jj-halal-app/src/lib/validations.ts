@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { AccountType, InstitutionType, UserRole } from "@prisma/client";
+import { SELLER_CATEGORIES } from "@/lib/seller-categories";
 
 export const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -28,6 +29,7 @@ export const registerSchema = z
     institutionName: z.string().optional(),
     institutionType: z.nativeEnum(InstitutionType).optional(),
     brandName: z.string().optional(),
+    sellerCategory: z.enum(SELLER_CATEGORIES).optional().or(z.literal("")),
     cacNumber: z.string().max(40, "CAC number is too long").optional().or(z.literal("")),
     sellerAddress: z.string().max(200, "Address is too long").optional().or(z.literal("")),
     sellerBio: z.string().max(400, "Bio is too long").optional().or(z.literal("")),
@@ -50,6 +52,13 @@ export const registerSchema = z
     {
       message: "Brand name is required for seller registration",
       path: ["brandName"],
+    }
+  )
+  .refine(
+    (d) => d.role !== UserRole.VENDOR || Boolean(d.sellerCategory),
+    {
+      message: "Seller category is required for seller registration",
+      path: ["sellerCategory"],
     }
   );
 

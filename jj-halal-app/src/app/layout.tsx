@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     "Farmer's Market by JJ HALAL FARMS LTD. for farm products, livestock, buyer-seller marketplace listings, and auctions.",
   keywords: ["halal", "farm", "livestock", "auction", "marketplace", "Nigeria", "Kaduna"],
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
+  icons: {
+    icon: "/assets/JJ HALAL FARMS LOGO.jpeg",
+    shortcut: "/assets/JJ HALAL FARMS LOGO.jpeg",
+    apple: "/assets/JJ HALAL FARMS LOGO.jpeg",
+  },
   openGraph: {
     type: "website",
     siteName: "Farmer's Market",
