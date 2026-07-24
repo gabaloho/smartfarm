@@ -90,3 +90,18 @@ npx prisma db push
 	- PowerShell: `$env:SMOKE_BASE_URL="https://www.gonaa.ng"; $env:SMOKE_API_BASE_URL="https://api.gonaa.ng"; npm run smoke:prod`
 - Deploy with `NODE_ENV=production` and `NEXT_PUBLIC_APP_URL` set to live HTTPS domain.
 - Ensure PostgreSQL backups and monitoring are configured in production.
+
+## Paystack Test Mode Setup
+
+Use the Paystack dashboard Test Mode values with this mapping:
+
+- Test Secret Key -> PAYSTACK_SECRET_KEY in .env.local
+- Test Public Key -> NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY in .env.local
+- Test Callback URL -> https://www.gonaa.ng/payment
+- Test Webhook URL -> https://www.gonaa.ng/api/payments/paystack/webhook
+
+Notes:
+
+- Callback URL in this app is also sent dynamically during transaction initialization and includes order details.
+- For Vercel deployments, avoid enabling strict Paystack API IP whitelist unless you have static outbound egress IPs.
+- If you are using a static egress gateway, add only those fixed egress IPs to Paystack IP whitelist.
