@@ -124,7 +124,7 @@ export function Footer() {
             <div className="mt-6">
               <p className="text-xs text-gray-100 mb-2">Vendor?</p>
               <Link
-                href="/auth/register?type=vendor"
+                href="/auth/register/seller"
                 className="inline-block px-4 py-2 bg-green-700 text-white text-xs rounded-md hover:bg-green-600 transition-colors"
               >
                 Become a Seller

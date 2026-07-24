@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import RegisterForm from "./register-form";
 
 type RegisterPageProps = {
@@ -6,7 +7,9 @@ type RegisterPageProps = {
 
 export default async function RegisterPage({ searchParams }: RegisterPageProps) {
   const params = await searchParams;
-  const initialRole = params.type === "vendor" ? "VENDOR" : "CUSTOMER";
+  if (params.type === "vendor") {
+    redirect("/auth/register/seller");
+  }
 
-  return <RegisterForm initialRole={initialRole} />;
+  return <RegisterForm mode="buyer" />;
 }

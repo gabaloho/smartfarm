@@ -52,7 +52,7 @@ export default function MarketplacePage() {
                 For every successful sale, the seller receives 95% and Farmer&apos;s Market keeps a 5% service fee.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/auth/register?type=vendor" className="rounded-xl bg-fuchsia-700 px-5 py-3 text-sm font-semibold text-white hover:bg-fuchsia-800">
+                <Link href="/auth/register/seller" className="rounded-xl bg-fuchsia-700 px-5 py-3 text-sm font-semibold text-white hover:bg-fuchsia-800">
                   Become a seller
                 </Link>
                 <Link href="/contact" className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-100">

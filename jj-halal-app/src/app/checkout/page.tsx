@@ -49,12 +49,23 @@ export default function CheckoutPage() {
         <div className="mx-auto max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
           <h1 className="text-2xl font-bold text-gray-900">Checkout</h1>
           <p className="mt-2 text-sm text-gray-600">Please sign in to continue checkout.</p>
-          <Link
-            href="/auth/login?callbackUrl=/checkout"
-            className="mt-4 inline-flex rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
-          >
-            Sign in
-          </Link>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              href="/auth/login?callbackUrl=/checkout"
+              className="inline-flex rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
+            >
+              Sign in
+            </Link>
+            <Link
+              href="/auth/register"
+              className="inline-flex rounded-lg border border-green-700 px-4 py-2 text-sm font-semibold text-green-700 hover:bg-green-50"
+            >
+              Create buyer account
+            </Link>
+          </div>
+          <p className="mt-2 text-xs text-gray-500">
+            Seller onboarding is separate at <Link href="/auth/register/seller" className="font-semibold text-green-700 hover:text-green-800">Become a Seller</Link>.
+          </p>
         </div>
       </div>
     );

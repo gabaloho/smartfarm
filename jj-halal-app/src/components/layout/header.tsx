@@ -108,7 +108,7 @@ export function Header() {
 
               {/* Become a Seller */}
               <Link
-                href="/auth/register?type=vendor"
+                href="/auth/register/seller"
                 className="hidden sm:inline-flex items-center px-4 py-2 bg-green-700 text-white text-xs font-medium rounded-md hover:bg-green-600 transition-colors"
               >
                 Become a Seller

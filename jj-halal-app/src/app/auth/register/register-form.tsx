@@ -23,14 +23,16 @@ type RegisterForm = {
 };
 
 type RegisterFormProps = {
-  initialRole: RegisterForm["role"];
+  mode: "buyer" | "seller";
 };
 
-export default function RegisterForm({ initialRole }: RegisterFormProps) {
+export default function RegisterForm({ mode }: RegisterFormProps) {
+  const isSellerMode = mode === "seller";
+
   const [form, setForm] = useState<RegisterForm>({
     name: "",
     email: "",
-    role: initialRole,
+    role: isSellerMode ? "VENDOR" : "CUSTOMER",
     phone: "",
     password: "",
     confirmPassword: "",
@@ -47,28 +49,11 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const isSeller = form.role === "VENDOR";
-  const showBusinessUi = isSeller;
+  const showBusinessUi = isSellerMode;
   const cacRequiredForBusiness =
     showBusinessUi &&
     form.accountType === "INSTITUTIONAL" &&
     (form.businessType === "EATERY" || form.businessType === "RESTAURANT");
-
-  function switchRole(nextRole: RegisterForm["role"]) {
-    if (nextRole === "CUSTOMER") {
-      setForm((prev) => ({
-        ...prev,
-        role: "CUSTOMER",
-        accountType: "PERSONAL",
-        businessName: "",
-        businessType: "OTHER",
-        cacNumber: "",
-      }));
-      return;
-    }
-
-    setForm((prev) => ({ ...prev, role: "VENDOR" }));
-  }
 
   function normalizeCacInput(value: string, businessType: RegisterForm["businessType"]) {
     const compact = value.replace(/\s+/g, "").toUpperCase();
@@ -147,38 +132,31 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
           <Image src="/assets/daily-needs-hero.jpg" alt="Fresh produce" width={120} height={90} className="hidden sm:block h-16 w-24 rounded-lg object-cover" />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Create account</h1>
-        <p className="mt-1 text-sm text-gray-600">Join Farmer&apos;s Market to register as a buyer or seller.</p>
+        <p className="mt-1 text-sm text-gray-600">
+          {isSellerMode
+            ? "Seller signup with verification and store profile setup."
+            : "Quick buyer signup for shopping and checkout."}
+        </p>
 
         <form className="mt-6 space-y-4" onSubmit={onSubmit}>
-          <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Register as</label>
-            <div className="grid sm:grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => switchRole("CUSTOMER")}
-                className={
-                  form.role === "CUSTOMER"
-                    ? "rounded-lg border border-emerald-500 bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-800"
-                    : "rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
-                }
-              >
-                Buyer account
-              </button>
-              <button
-                type="button"
-                onClick={() => switchRole("VENDOR")}
-                className={
-                  form.role === "VENDOR"
-                    ? "rounded-lg border border-emerald-500 bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-800"
-                    : "rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
-                }
-              >
-                Seller account
-              </button>
-            </div>
-            <p className="mt-2 text-xs text-gray-500">
-              Sellers can still shop and buy from other sellers after sign in.
-            </p>
+          <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-gray-600">
+            {isSellerMode ? (
+              <>
+                Opening a store? Complete seller onboarding here. Need a normal shopping account?{" "}
+                <Link href="/auth/register" className="font-semibold text-green-700 hover:text-green-800">
+                  Create buyer account
+                </Link>
+                .
+              </>
+            ) : (
+              <>
+                Buying only? This page is for customer accounts. Want to sell on the platform?{" "}
+                <Link href="/auth/register/seller" className="font-semibold text-green-700 hover:text-green-800">
+                  Become a seller
+                </Link>
+                .
+              </>
+            )}
           </div>
 
           <div>
@@ -221,7 +199,9 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
               />
             </div>
             <p className="mt-2 text-xs text-gray-500">
-              Buyers register with a simple personal account. Seller verification fields only appear when you choose Seller account.
+              {isSellerMode
+                ? "Use a reachable phone for order coordination and store verification."
+                : "Buyers register with a simple personal account for shopping and order tracking."}
             </p>
           </div>
 
@@ -279,7 +259,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
           </div>
           )}
 
-          {form.role === "VENDOR" && (
+          {isSellerMode && (
             <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3 space-y-3">
               <h2 className="text-sm font-semibold text-emerald-900">Seller details</h2>
               <div>
@@ -424,7 +404,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
             disabled={isLoading}
             className="w-full rounded-lg bg-green-700 py-2.5 text-sm font-semibold text-white hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isLoading ? "Creating account..." : form.role === "VENDOR" ? "Create seller account" : "Create buyer account"}
+            {isLoading ? "Creating account..." : isSellerMode ? "Create seller account" : "Create buyer account"}
           </button>
         </form>
 
