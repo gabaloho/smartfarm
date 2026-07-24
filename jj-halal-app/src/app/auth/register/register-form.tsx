@@ -13,8 +13,8 @@ type RegisterForm = {
   password: string;
   confirmPassword: string;
   accountType: "PERSONAL" | "INSTITUTIONAL";
-  institutionName: string;
-  institutionType: "FARM" | "STORE" | "EATERY" | "RESTAURANT" | "OTHER";
+  businessName: string;
+  businessType: "FARM" | "STORE" | "EATERY" | "RESTAURANT" | "OTHER";
   brandName: string;
   sellerCategory: string;
   cacNumber: string;
@@ -35,8 +35,8 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
     password: "",
     confirmPassword: "",
     accountType: "PERSONAL",
-    institutionName: "",
-    institutionType: "OTHER",
+    businessName: "",
+    businessType: "OTHER",
     brandName: "",
     sellerCategory: "",
     cacNumber: "",
@@ -54,10 +54,16 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
     setSuccess(null);
     setIsLoading(true);
 
+    const payload = {
+      ...form,
+      institutionName: form.businessName,
+      institutionType: form.businessType,
+    };
+
     const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(payload),
     });
 
     const data = (await response.json().catch(() => ({}))) as {
@@ -316,14 +322,14 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
                 Business KYC profile for Nigerian context. Choose the structure that matches your operation.
               </p>
               <div>
-                <label htmlFor="institutionName" className="mb-1.5 block text-sm font-medium text-gray-700">
+                <label htmlFor="businessName" className="mb-1.5 block text-sm font-medium text-gray-700">
                   Business name
                 </label>
                 <input
-                  id="institutionName"
-                  value={form.institutionName}
+                  id="businessName"
+                  value={form.businessName}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, institutionName: e.target.value }))
+                    setForm((prev) => ({ ...prev, businessName: e.target.value }))
                   }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                   placeholder="Registered name or trading name"
@@ -331,16 +337,16 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
                 />
               </div>
               <div>
-                <label htmlFor="institutionType" className="mb-1.5 block text-sm font-medium text-gray-700">
+                <label htmlFor="businessType" className="mb-1.5 block text-sm font-medium text-gray-700">
                   Business legal type
                 </label>
                 <select
-                  id="institutionType"
-                  value={form.institutionType}
+                  id="businessType"
+                  value={form.businessType}
                   onChange={(e) =>
                     setForm((prev) => ({
                       ...prev,
-                      institutionType: e.target.value as RegisterForm["institutionType"],
+                      businessType: e.target.value as RegisterForm["businessType"],
                     }))
                   }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"

@@ -28,6 +28,8 @@ export const registerSchema = z
     accountType: z.nativeEnum(AccountType),
     institutionName: z.string().optional(),
     institutionType: z.nativeEnum(InstitutionType).optional(),
+    businessName: z.string().optional(),
+    businessType: z.nativeEnum(InstitutionType).optional(),
     brandName: z.string().optional(),
     sellerCategory: z.enum(SELLER_CATEGORIES).optional().or(z.literal("")),
     cacNumber: z.string().max(40, "CAC number is too long").optional().or(z.literal("")),
@@ -39,12 +41,24 @@ export const registerSchema = z
     path: ["confirmPassword"],
   })
   .refine(
-    (d) =>
-      d.accountType !== AccountType.INSTITUTIONAL ||
-      (d.institutionName && d.institutionName.length > 2),
+    (d) => {
+      if (d.accountType !== AccountType.INSTITUTIONAL) return true;
+      const name = d.businessName ?? d.institutionName;
+      return Boolean(name && name.trim().length > 2);
+    },
     {
       message: "Business name is required for business accounts",
-      path: ["institutionName"],
+      path: ["businessName"],
+    }
+  )
+  .refine(
+    (d) => {
+      if (d.accountType !== AccountType.INSTITUTIONAL) return true;
+      return Boolean(d.businessType ?? d.institutionType);
+    },
+    {
+      message: "Business legal type is required for business accounts",
+      path: ["businessType"],
     }
   )
   .refine(

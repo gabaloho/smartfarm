@@ -64,6 +64,12 @@ export async function POST(req: NextRequest) {
   const data = parsed.data;
   const normalizedEmail = data.email.toLowerCase();
   const normalizedPhone = data.phone?.trim() ? data.phone.trim() : null;
+  const normalizedBusinessName = data.businessName?.trim()
+    ? data.businessName.trim()
+    : data.institutionName?.trim()
+      ? data.institutionName.trim()
+      : null;
+  const normalizedBusinessType = data.businessType ?? data.institutionType ?? InstitutionType.OTHER;
   const normalizedBrandName = data.brandName?.trim() ? data.brandName.trim() : null;
   const normalizedSellerCategory = data.sellerCategory?.trim() ? data.sellerCategory.trim() : null;
   const normalizedCacNumber = data.cacNumber?.trim() ? data.cacNumber.trim() : null;
@@ -108,8 +114,8 @@ export async function POST(req: NextRequest) {
         data.accountType === "INSTITUTIONAL"
           ? {
               create: {
-                name: data.institutionName ?? "Business",
-                type: data.institutionType ?? InstitutionType.OTHER,
+                name: normalizedBusinessName ?? "Business",
+                type: normalizedBusinessType,
               },
             }
           : undefined,
