@@ -75,8 +75,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
+        const email = String(credentials.email).trim().toLowerCase();
+        const requireEmailVerification = process.env.REQUIRE_EMAIL_VERIFICATION === "true";
+
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email as string },
+          where: { email },
         });
 
         if (!user || !user.passwordHash) return null;
@@ -88,7 +91,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         if (!isValid) return null;
         if (!user.isActive) return null;
-        if (!user.emailVerified) return null;
+        if (requireEmailVerification && !user.emailVerified) return null;
         if (user.twoFactorEnabled) {
           const totp = String(credentials.totp ?? "").trim();
           if (!totp || !user.twoFactorSecret || !verifyTOTP(user.twoFactorSecret, totp)) {
