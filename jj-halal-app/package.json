@@ -8,6 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "env:check": "node scripts/check-env.mjs",
+    "env:check:strict": "ENV_CHECK_STRICT=1 node scripts/check-env.mjs",
     "smoke:prod": "node scripts/smoke-prod.mjs",
     "postinstall": "prisma generate"
   },

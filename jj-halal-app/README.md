@@ -40,6 +40,20 @@ npm run dev
 
 Open `http://localhost:3000`.
 
+## Environment Preflight
+
+Validate required variables before deploy:
+
+```bash
+npm run env:check
+```
+
+Strict mode also fails on placeholder values:
+
+```bash
+ENV_CHECK_STRICT=1 npm run env:check
+```
+
 ## Database (Prisma)
 
 If running with PostgreSQL:

@@ -2,6 +2,7 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import Stripe from "stripe";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+const PAYSTACK_CALLBACK_URL = process.env.PAYSTACK_CALLBACK_URL;
 
 export function isPaystackSignatureValid(payload: string, signature: string | null): boolean {
   const secret = process.env.PAYSTACK_SECRET_KEY;
@@ -47,7 +48,9 @@ export async function initializePaystackTransaction(input: {
     throw new Error("Missing PAYSTACK_SECRET_KEY");
   }
 
-  const callbackUrl = `${APP_URL}/payment?order=${encodeURIComponent(input.orderNumber)}&method=PAYSTACK`;
+  const callbackRoot = PAYSTACK_CALLBACK_URL?.trim() || `${APP_URL}/payment`;
+  const separator = callbackRoot.includes("?") ? "&" : "?";
+  const callbackUrl = `${callbackRoot}${separator}order=${encodeURIComponent(input.orderNumber)}&method=PAYSTACK`;
   const amountKobo = Math.round(input.amountNaira * 100);
 
   const response = await fetch("https://api.paystack.co/transaction/initialize", {
