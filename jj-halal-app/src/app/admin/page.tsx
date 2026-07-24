@@ -195,6 +195,12 @@ export default function AdminDashboardPage() {
               View Catalog
             </Link>
             <Link
+              href="/admin/kyc"
+              className="rounded-lg border border-blue-300 px-4 py-2 text-sm font-semibold text-blue-800 hover:bg-blue-50"
+            >
+              KYC Queue
+            </Link>
+            <Link
               href="/admin/ops"
               className="rounded-lg border border-amber-300 px-4 py-2 text-sm font-semibold text-amber-800 hover:bg-amber-50"
             >

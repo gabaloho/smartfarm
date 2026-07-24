@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { registerSchema } from "@/lib/validations";
 import { sendVerificationEmail } from "@/lib/email";
 import { getRequestIp, limitRequest } from "@/lib/rate-limit";
+import { enqueueKycReview } from "@/lib/kyc-queue";
 
 function toSlug(value: string) {
   return value
@@ -153,6 +154,20 @@ export async function POST(req: NextRequest) {
       await sendVerificationEmail(user.email, token, user.name);
     } catch (error) {
       console.error("Failed to send verification email:", error);
+    }
+  }
+
+  if (data.accountType === "INSTITUTIONAL") {
+    try {
+      await enqueueKycReview({
+        userId: user.id,
+        accountType: data.accountType,
+        businessName: normalizedBusinessName,
+        businessType: normalizedBusinessType,
+        cacNumber: normalizedCacNumber,
+      });
+    } catch (error) {
+      console.error("Failed to enqueue KYC review:", error);
     }
   }
 

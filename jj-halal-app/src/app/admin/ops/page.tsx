@@ -123,6 +123,9 @@ export default function AdminOpsPage() {
             <Link href="/admin" className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100">
               Back to Admin
             </Link>
+            <Link href="/admin/kyc" className="rounded-lg border border-blue-300 px-4 py-2 text-sm font-semibold text-blue-800 hover:bg-blue-50">
+              KYC Queue
+            </Link>
             <Link href="/api/health" className="rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800">
               Health Endpoint
             </Link>

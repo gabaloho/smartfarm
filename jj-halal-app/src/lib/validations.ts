@@ -2,6 +2,18 @@ import { z } from "zod";
 import { AccountType, InstitutionType, UserRole } from "@prisma/client";
 import { SELLER_CATEGORIES } from "@/lib/seller-categories";
 
+function normalizeCac(value: string): string {
+  return value.replace(/\s+/g, "").toUpperCase();
+}
+
+function isBnFormat(value: string): boolean {
+  return /^BN\d{3,}$/.test(normalizeCac(value));
+}
+
+function isRcFormat(value: string): boolean {
+  return /^RC\d{3,}$/.test(normalizeCac(value));
+}
+
 export const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(1, "Password is required"),
@@ -72,6 +84,28 @@ export const registerSchema = z
     },
     {
       message: "CAC number is required for registered business name (CAC BN) and limited liability company (CAC RC)",
+      path: ["cacNumber"],
+    }
+  )
+  .refine(
+    (d) => {
+      if (d.accountType !== AccountType.INSTITUTIONAL) return true;
+      const type = d.businessType ?? d.institutionType;
+      const cac = d.cacNumber?.trim() ?? "";
+      if (!cac) return true;
+
+      if (type === InstitutionType.EATERY) {
+        return isBnFormat(cac);
+      }
+
+      if (type === InstitutionType.RESTAURANT) {
+        return isRcFormat(cac);
+      }
+
+      return /^((BN|RC)\d{3,})$/i.test(normalizeCac(cac));
+    },
+    {
+      message: "Invalid CAC format. Use BN1234567 for business name or RC1234567 for limited company.",
       path: ["cacNumber"],
     }
   )
