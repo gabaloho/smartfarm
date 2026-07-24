@@ -47,9 +47,28 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const isSeller = form.role === "VENDOR";
+  const showBusinessUi = isSeller;
   const cacRequiredForBusiness =
+    showBusinessUi &&
     form.accountType === "INSTITUTIONAL" &&
     (form.businessType === "EATERY" || form.businessType === "RESTAURANT");
+
+  function switchRole(nextRole: RegisterForm["role"]) {
+    if (nextRole === "CUSTOMER") {
+      setForm((prev) => ({
+        ...prev,
+        role: "CUSTOMER",
+        accountType: "PERSONAL",
+        businessName: "",
+        businessType: "OTHER",
+        cacNumber: "",
+      }));
+      return;
+    }
+
+    setForm((prev) => ({ ...prev, role: "VENDOR" }));
+  }
 
   function normalizeCacInput(value: string, businessType: RegisterForm["businessType"]) {
     const compact = value.replace(/\s+/g, "").toUpperCase();
@@ -136,7 +155,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
             <div className="grid sm:grid-cols-2 gap-3">
               <button
                 type="button"
-                onClick={() => setForm((prev) => ({ ...prev, role: "CUSTOMER" }))}
+                onClick={() => switchRole("CUSTOMER")}
                 className={
                   form.role === "CUSTOMER"
                     ? "rounded-lg border border-emerald-500 bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-800"
@@ -147,7 +166,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
               </button>
               <button
                 type="button"
-                onClick={() => setForm((prev) => ({ ...prev, role: "VENDOR" }))}
+                onClick={() => switchRole("VENDOR")}
                 className={
                   form.role === "VENDOR"
                     ? "rounded-lg border border-emerald-500 bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-800"
@@ -202,7 +221,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
               />
             </div>
             <p className="mt-2 text-xs text-gray-500">
-              Individual: personal buyer/seller account. Business: for self-employed, unregistered business, or CAC-registered company.
+              Buyers register with a simple personal account. Seller verification fields only appear when you choose Seller account.
             </p>
           </div>
 
@@ -238,6 +257,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
             Password must include at least 8 characters, one uppercase letter, one number, and one special character.
           </p>
 
+          {showBusinessUi && (
           <div>
             <label htmlFor="accountType" className="mb-1.5 block text-sm font-medium text-gray-700">
               Account type
@@ -257,6 +277,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
               <option value="INSTITUTIONAL">Business</option>
             </select>
           </div>
+          )}
 
           {form.role === "VENDOR" && (
             <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3 space-y-3">
@@ -322,7 +343,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
             </div>
           )}
 
-          {form.accountType === "INSTITUTIONAL" && (
+          {showBusinessUi && form.accountType === "INSTITUTIONAL" && (
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 space-y-3">
               <p className="text-xs text-gray-600">
                 Help us verify your business account by selecting the legal structure that matches your operation.
