@@ -47,6 +47,9 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const cacRequiredForBusiness =
+    form.accountType === "INSTITUTIONAL" &&
+    (form.businessType === "EATERY" || form.businessType === "RESTAURANT");
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -277,18 +280,6 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="cacNumber" className="mb-1.5 block text-sm font-medium text-gray-700">
-                    CAC (optional)
-                  </label>
-                  <input
-                    id="cacNumber"
-                    value={form.cacNumber}
-                    onChange={(e) => setForm((prev) => ({ ...prev, cacNumber: e.target.value }))}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
-                    placeholder="e.g. RC1234567"
-                  />
-                </div>
-                <div>
                   <label htmlFor="sellerAddress" className="mb-1.5 block text-sm font-medium text-gray-700">
                     Business address (optional)
                   </label>
@@ -335,6 +326,28 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
                   placeholder="Registered name or trading name"
                   required
                 />
+              </div>
+              <div>
+                <label htmlFor="cacNumber" className="mb-1.5 block text-sm font-medium text-gray-700">
+                  CAC number {cacRequiredForBusiness ? "(required)" : "(optional)"}
+                </label>
+                <input
+                  id="cacNumber"
+                  value={form.cacNumber}
+                  onChange={(e) => setForm((prev) => ({ ...prev, cacNumber: e.target.value }))}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                  placeholder={
+                    form.businessType === "EATERY"
+                      ? "e.g. BN1234567"
+                      : form.businessType === "RESTAURANT"
+                        ? "e.g. RC1234567"
+                        : "e.g. BN1234567 or RC1234567"
+                  }
+                  required={cacRequiredForBusiness}
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Required for Registered business name (CAC BN) and Limited liability company (CAC RC).
+                </p>
               </div>
               <div>
                 <label htmlFor="businessType" className="mb-1.5 block text-sm font-medium text-gray-700">

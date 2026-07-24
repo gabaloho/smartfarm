@@ -62,6 +62,20 @@ export const registerSchema = z
     }
   )
   .refine(
+    (d) => {
+      if (d.accountType !== AccountType.INSTITUTIONAL) return true;
+      const type = d.businessType ?? d.institutionType;
+      const requiresCac = type === InstitutionType.EATERY || type === InstitutionType.RESTAURANT;
+      if (!requiresCac) return true;
+      const cac = d.cacNumber?.trim() ?? "";
+      return cac.length >= 3;
+    },
+    {
+      message: "CAC number is required for registered business name (CAC BN) and limited liability company (CAC RC)",
+      path: ["cacNumber"],
+    }
+  )
+  .refine(
     (d) => d.role !== UserRole.VENDOR || (d.brandName && d.brandName.trim().length >= 2),
     {
       message: "Brand name is required for seller registration",

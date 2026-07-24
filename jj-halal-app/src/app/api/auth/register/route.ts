@@ -116,6 +116,7 @@ export async function POST(req: NextRequest) {
               create: {
                 name: normalizedBusinessName ?? "Business",
                 type: normalizedBusinessType,
+                registrationNo: normalizedCacNumber,
               },
             }
           : undefined,
