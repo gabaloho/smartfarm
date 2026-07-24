@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
         data.accountType === "INSTITUTIONAL"
           ? {
               create: {
-                name: data.institutionName ?? "Institution",
+                name: data.institutionName ?? "Business",
                 type: data.institutionType ?? InstitutionType.OTHER,
               },
             }

@@ -178,7 +178,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
               />
             </div>
             <p className="mt-2 text-xs text-gray-500">
-              Personal: individual buyer/seller. Institutional: company, cooperative, restaurant, or store account.
+              Individual: personal buyer/seller account. Business: for self-employed, unregistered business, or CAC-registered company.
             </p>
           </div>
 
@@ -229,8 +229,8 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
               }
               className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
             >
-              <option value="PERSONAL">Personal</option>
-              <option value="INSTITUTIONAL">Institutional</option>
+              <option value="PERSONAL">Individual</option>
+              <option value="INSTITUTIONAL">Business</option>
             </select>
           </div>
 
@@ -312,9 +312,12 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
 
           {form.accountType === "INSTITUTIONAL" && (
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 space-y-3">
+              <p className="text-xs text-gray-600">
+                Business KYC profile for Nigerian context. Choose the structure that matches your operation.
+              </p>
               <div>
                 <label htmlFor="institutionName" className="mb-1.5 block text-sm font-medium text-gray-700">
-                  Institution name
+                  Business name
                 </label>
                 <input
                   id="institutionName"
@@ -323,12 +326,13 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
                     setForm((prev) => ({ ...prev, institutionName: e.target.value }))
                   }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                  placeholder="Registered name or trading name"
                   required
                 />
               </div>
               <div>
                 <label htmlFor="institutionType" className="mb-1.5 block text-sm font-medium text-gray-700">
-                  Institution type
+                  Business legal type
                 </label>
                 <select
                   id="institutionType"
@@ -341,11 +345,11 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
                   }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                 >
-                  <option value="FARM">Farm</option>
-                  <option value="STORE">Store</option>
-                  <option value="EATERY">Eatery</option>
-                  <option value="RESTAURANT">Restaurant</option>
-                  <option value="OTHER">Other</option>
+                  <option value="FARM">Self-employed (sole proprietor)</option>
+                  <option value="STORE">Unregistered business</option>
+                  <option value="EATERY">Registered business name (CAC BN)</option>
+                  <option value="RESTAURANT">Limited liability company (CAC RC)</option>
+                  <option value="OTHER">Other business type</option>
                 </select>
               </div>
             </div>

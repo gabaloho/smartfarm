@@ -43,7 +43,7 @@ export const registerSchema = z
       d.accountType !== AccountType.INSTITUTIONAL ||
       (d.institutionName && d.institutionName.length > 2),
     {
-      message: "Institution name is required for institutional accounts",
+      message: "Business name is required for business accounts",
       path: ["institutionName"],
     }
   )
