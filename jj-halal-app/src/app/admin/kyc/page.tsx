@@ -25,6 +25,7 @@ type KycItem = {
 export default function AdminKycQueuePage() {
   const [items, setItems] = useState<KycItem[]>([]);
   const [statusFilter, setStatusFilter] = useState<string>("");
+  const [reviewNotesByUser, setReviewNotesByUser] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -65,10 +66,11 @@ export default function AdminKycQueuePage() {
   }, [statusFilter]);
 
   async function updateStatus(userId: string, status: KycItem["status"]) {
+    const reviewNotes = reviewNotesByUser[userId]?.trim() ?? "";
     const response = await fetch(`/api/admin/kyc-queue/${userId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
+      body: JSON.stringify({ status, reviewNotes }),
     });
 
     const data = (await response.json().catch(() => ({}))) as { error?: string };
@@ -83,6 +85,7 @@ export default function AdminKycQueuePage() {
           ? {
               ...entry,
               status,
+              reviewNotes: reviewNotes || null,
               reviewedAt: new Date().toISOString(),
             }
           : entry
@@ -146,6 +149,18 @@ export default function AdminKycQueuePage() {
               </div>
 
               <div className="mt-3 flex flex-wrap gap-2">
+                <input
+                  type="text"
+                  value={reviewNotesByUser[item.userId] ?? item.reviewNotes ?? ""}
+                  onChange={(event) =>
+                    setReviewNotesByUser((current) => ({
+                      ...current,
+                      [item.userId]: event.target.value,
+                    }))
+                  }
+                  placeholder="Reviewer notes (required for reject)"
+                  className="min-w-[260px] flex-1 rounded-lg border border-gray-300 px-2.5 py-1 text-xs"
+                />
                 <button onClick={() => updateStatus(item.userId, "IN_REVIEW")} className="rounded-lg border border-blue-300 px-2.5 py-1 text-xs font-semibold text-blue-700 hover:bg-blue-50" type="button">
                   Mark In Review
                 </button>

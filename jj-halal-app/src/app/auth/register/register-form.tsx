@@ -51,6 +51,21 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
     form.accountType === "INSTITUTIONAL" &&
     (form.businessType === "EATERY" || form.businessType === "RESTAURANT");
 
+  function normalizeCacInput(value: string, businessType: RegisterForm["businessType"]) {
+    const compact = value.replace(/\s+/g, "").toUpperCase();
+    if (!compact) return "";
+
+    if (businessType === "EATERY" && !compact.startsWith("BN")) {
+      return `BN${compact.replace(/^(BN|RC)/, "")}`;
+    }
+
+    if (businessType === "RESTAURANT" && !compact.startsWith("RC")) {
+      return `RC${compact.replace(/^(BN|RC)/, "")}`;
+    }
+
+    return compact;
+  }
+
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
@@ -310,7 +325,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
           {form.accountType === "INSTITUTIONAL" && (
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 space-y-3">
               <p className="text-xs text-gray-600">
-                Business KYC profile for Nigerian context. Choose the structure that matches your operation.
+                Help us verify your business account by selecting the legal structure that matches your operation.
               </p>
               <div>
                 <label htmlFor="businessName" className="mb-1.5 block text-sm font-medium text-gray-700">
@@ -334,7 +349,12 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
                 <input
                   id="cacNumber"
                   value={form.cacNumber}
-                  onChange={(e) => setForm((prev) => ({ ...prev, cacNumber: e.target.value }))}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      cacNumber: normalizeCacInput(e.target.value, prev.businessType),
+                    }))
+                  }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                   placeholder={
                     form.businessType === "EATERY"
@@ -360,6 +380,7 @@ export default function RegisterForm({ initialRole }: RegisterFormProps) {
                     setForm((prev) => ({
                       ...prev,
                       businessType: e.target.value as RegisterForm["businessType"],
+                      cacNumber: normalizeCacInput(prev.cacNumber, e.target.value as RegisterForm["businessType"]),
                     }))
                   }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"

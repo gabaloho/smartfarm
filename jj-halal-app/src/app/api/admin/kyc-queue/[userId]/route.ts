@@ -30,6 +30,10 @@ export async function POST(
 
   const reviewNotes = body?.reviewNotes?.trim() || null;
 
+  if (normalizedStatus === "REJECTED" && !reviewNotes) {
+    return NextResponse.json({ error: "Review notes are required when rejecting KYC." }, { status: 400 });
+  }
+
   await updateKycStatus({
     userId,
     status: normalizedStatus,
