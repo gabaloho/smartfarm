@@ -17,7 +17,10 @@ export interface VendorProduct {
 interface VendorState {
   products: VendorProduct[];
   addProduct: (product: Omit<VendorProduct, "id" | "createdAt">) => void;
-  updateProduct: (id: string, product: Partial<Omit<VendorProduct, "id" | "createdAt">>) => void;
+  updateProduct: (
+    id: string,
+    product: Partial<Omit<VendorProduct, "id" | "createdAt">>,
+  ) => void;
   removeProduct: (id: string) => void;
   toggleActive: (id: string) => void;
 }
@@ -72,7 +75,9 @@ export const useVendorStore = create<VendorState>()(
         })),
       updateProduct: (id, product) =>
         set((state) => ({
-          products: state.products.map((item) => (item.id === id ? { ...item, ...product } : item)),
+          products: state.products.map((item) =>
+            item.id === id ? { ...item, ...product } : item,
+          ),
         })),
       removeProduct: (id) =>
         set((state) => ({
@@ -81,10 +86,10 @@ export const useVendorStore = create<VendorState>()(
       toggleActive: (id) =>
         set((state) => ({
           products: state.products.map((item) =>
-            item.id === id ? { ...item, isActive: !item.isActive } : item
+            item.id === id ? { ...item, isActive: !item.isActive } : item,
           ),
         })),
     }),
-    { name: "jj-halal-vendor-products" }
-  )
+    { name: "gonaa-vendor-products" },
+  ),
 );

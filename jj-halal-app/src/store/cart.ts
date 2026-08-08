@@ -44,11 +44,11 @@ export const useCartStore = create<CartState>()(
           if (existing) {
             const newQty = Math.min(
               existing.quantity + quantity,
-              product.maxOrder ?? product.stock
+              product.maxOrder ?? product.stock,
             );
             return {
               items: state.items.map((i) =>
-                i.product.id === product.id ? { ...i, quantity: newQty } : i
+                i.product.id === product.id ? { ...i, quantity: newQty } : i,
               ),
             };
           }
@@ -69,7 +69,7 @@ export const useCartStore = create<CartState>()(
         }
         set((state) => ({
           items: state.items.map((i) =>
-            i.product.id === productId ? { ...i, quantity } : i
+            i.product.id === productId ? { ...i, quantity } : i,
           ),
         }));
       },
@@ -86,6 +86,6 @@ export const useCartStore = create<CartState>()(
 
       getTotal: () => get().getSubtotal(), // delivery fee added at checkout
     }),
-    { name: "jj-halal-cart" }
-  )
+    { name: "gonaa-cart" },
+  ),
 );

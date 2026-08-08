@@ -48,10 +48,19 @@ function ResetPasswordPageContent() {
     <div className="min-h-[calc(100vh-64px)] bg-gray-50 px-4 py-10">
       <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-4 rounded-xl border border-green-100 bg-green-50 p-4">
-          <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="Farmer's Market" width={120} height={40} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
+          <Image
+            src="/assets/GONAA FARMS LOGO.jpeg"
+            alt="Farmer's Market"
+            width={120}
+            height={40}
+            className="h-9 w-auto object-contain"
+            style={{ width: "auto", height: "auto" }}
+          />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Reset password</h1>
-        <p className="mt-2 text-sm text-gray-600">Set a new password for your account.</p>
+        <p className="mt-2 text-sm text-gray-600">
+          Set a new password for your account.
+        </p>
 
         {!token ? (
           <p className="mt-5 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">
@@ -60,7 +69,10 @@ function ResetPasswordPageContent() {
         ) : (
           <form className="mt-6 space-y-4" onSubmit={onSubmit}>
             <div>
-              <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="mb-1.5 block text-sm font-medium text-gray-700"
+              >
                 New password
               </label>
               <input
@@ -74,7 +86,10 @@ function ResetPasswordPageContent() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="confirmPassword"
+                className="mb-1.5 block text-sm font-medium text-gray-700"
+              >
                 Confirm password
               </label>
               <input
@@ -101,7 +116,10 @@ function ResetPasswordPageContent() {
         )}
 
         <div className="mt-6 flex items-center gap-3">
-          <Link href="/auth/login" className="text-sm font-semibold text-green-700 hover:text-green-800">
+          <Link
+            href="/auth/login"
+            className="text-sm font-semibold text-green-700 hover:text-green-800"
+          >
             Back to sign in
           </Link>
         </div>
@@ -112,7 +130,9 @@ function ResetPasswordPageContent() {
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-sm text-gray-600">Loading...</div>}>
+    <Suspense
+      fallback={<div className="p-8 text-sm text-gray-600">Loading...</div>}
+    >
       <ResetPasswordPageContent />
     </Suspense>
   );

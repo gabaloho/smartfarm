@@ -7,7 +7,7 @@ import {
 import { AddToCartButton } from "@/components/catalog/add-to-cart-button";
 
 export const metadata = {
-  title: "Search | JJ HALAL FARMS LTD.",
+  title: "Search | GONAA FARMS LTD.",
   description: "Search farm products and livestock quickly.",
 };
 
@@ -36,7 +36,11 @@ export default async function SearchPage({
             Find eggs, chicken, livestock, and marketplace items quickly.
           </p>
 
-          <form action="/search" method="get" className="mt-4 flex flex-col sm:flex-row gap-3">
+          <form
+            action="/search"
+            method="get"
+            className="mt-4 flex flex-col sm:flex-row gap-3"
+          >
             <input
               type="text"
               name="q"
@@ -68,16 +72,23 @@ export default async function SearchPage({
         <section className="mt-5">
           {query ? (
             <p className="mb-3 text-sm text-gray-600">
-              {products.length} result{products.length === 1 ? "" : "s"} for &quot;{query}&quot;
+              {products.length} result{products.length === 1 ? "" : "s"} for
+              &quot;{query}&quot;
             </p>
           ) : (
-            <p className="mb-3 text-sm text-gray-600">Showing popular items. Enter a keyword to narrow your results.</p>
+            <p className="mb-3 text-sm text-gray-600">
+              Showing popular items. Enter a keyword to narrow your results.
+            </p>
           )}
 
           {products.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-8 text-center">
-              <h2 className="text-lg font-semibold text-gray-900">No matching items found</h2>
-              <p className="mt-2 text-sm text-gray-600">Try a different keyword or browse the full products page.</p>
+              <h2 className="text-lg font-semibold text-gray-900">
+                No matching items found
+              </h2>
+              <p className="mt-2 text-sm text-gray-600">
+                Try a different keyword or browse the full products page.
+              </p>
               <Link
                 href="/products"
                 className="mt-4 inline-flex rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
@@ -88,19 +99,32 @@ export default async function SearchPage({
           ) : (
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {products.map((product) => (
-                <article key={product.id} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+                <article
+                  key={product.id}
+                  className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm"
+                >
                   <div className="flex items-start justify-between gap-3">
-                    <h2 className="font-semibold text-gray-900">{product.name}</h2>
+                    <h2 className="font-semibold text-gray-900">
+                      {product.name}
+                    </h2>
                     {product.isFeatured && (
                       <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-semibold text-amber-800">
                         Featured
                       </span>
                     )}
                   </div>
-                  <p className="mt-1 text-xs uppercase tracking-wide text-gray-500">{product.category.replace("-", " ")}</p>
-                  <p className="mt-2 text-sm text-gray-600 line-clamp-2">{product.description}</p>
-                  <p className="mt-4 text-xl font-bold text-green-700">{formatNaira(product.price)}</p>
-                  <p className="mt-1 text-xs text-gray-500">per {product.unit}</p>
+                  <p className="mt-1 text-xs uppercase tracking-wide text-gray-500">
+                    {product.category.replace("-", " ")}
+                  </p>
+                  <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+                    {product.description}
+                  </p>
+                  <p className="mt-4 text-xl font-bold text-green-700">
+                    {formatNaira(product.price)}
+                  </p>
+                  <p className="mt-1 text-xs text-gray-500">
+                    per {product.unit}
+                  </p>
                   <div className="mt-4 flex items-center justify-between">
                     <Link
                       href={`/products?q=${encodeURIComponent(product.name)}`}

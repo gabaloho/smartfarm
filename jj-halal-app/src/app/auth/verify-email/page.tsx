@@ -43,7 +43,14 @@ function VerifyEmailPageContent() {
     <div className="min-h-[calc(100vh-64px)] bg-gray-50 px-4 py-10">
       <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-4 rounded-xl border border-green-100 bg-green-50 p-4">
-          <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={120} height={40} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
+          <Image
+            src="/assets/GONAA FARMS LOGO.jpeg"
+            alt="GONAA FARMS LTD."
+            width={120}
+            height={40}
+            className="h-9 w-auto object-contain"
+            style={{ width: "auto", height: "auto" }}
+          />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Verify your email</h1>
         <p className="mt-2 text-sm text-gray-600">
@@ -68,15 +75,27 @@ function VerifyEmailPageContent() {
         {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 
         <div className="mt-6 flex items-center gap-3">
-          <Link href="/auth/login" className="text-sm font-semibold text-green-700 hover:text-green-800">
+          <Link
+            href="/auth/login"
+            className="text-sm font-semibold text-green-700 hover:text-green-800"
+          >
             Go to sign in
           </Link>
-          <Link href="/" className="text-sm font-semibold text-gray-600 hover:text-gray-900">
+          <Link
+            href="/"
+            className="text-sm font-semibold text-gray-600 hover:text-gray-900"
+          >
             Back home
           </Link>
         </div>
         <div className="mt-5 overflow-hidden rounded-xl border border-gray-200">
-          <Image src="/assets/promo-popup.png" alt="Promo" width={600} height={260} className="h-24 w-full object-cover" />
+          <Image
+            src="/assets/promo-popup.png"
+            alt="Promo"
+            width={600}
+            height={260}
+            className="h-24 w-full object-cover"
+          />
         </div>
       </div>
     </div>
@@ -85,7 +104,9 @@ function VerifyEmailPageContent() {
 
 export default function VerifyEmailPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-sm text-gray-600">Loading...</div>}>
+    <Suspense
+      fallback={<div className="p-8 text-sm text-gray-600">Loading...</div>}
+    >
       <VerifyEmailPageContent />
     </Suspense>
   );

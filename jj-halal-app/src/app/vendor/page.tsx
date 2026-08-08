@@ -20,9 +20,21 @@ type VendorProduct = {
 type VendorOrder = {
   orderNumber: string;
   createdAt: string;
-  status: "PENDING" | "CONFIRMED" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED" | "REFUNDED";
+  status:
+    | "PENDING"
+    | "CONFIRMED"
+    | "PROCESSING"
+    | "SHIPPED"
+    | "DELIVERED"
+    | "CANCELLED"
+    | "REFUNDED";
   paymentStatus: "PENDING" | "PAID" | "FAILED" | "REFUNDED";
-  paymentMethod: "PAYSTACK" | "STRIPE" | "BANK_TRANSFER" | "CASH_ON_DELIVERY" | null;
+  paymentMethod:
+    | "PAYSTACK"
+    | "STRIPE"
+    | "BANK_TRANSFER"
+    | "CASH_ON_DELIVERY"
+    | null;
   vendorTotal: number;
   itemCount: number;
 };
@@ -116,9 +128,15 @@ export default function VendorPortalPage() {
   }, []);
 
   const metrics = useMemo(() => {
-    const activeProducts = products.filter((product) => product.isActive).length;
-    const lowStockProducts = products.filter((product) => product.stock <= 10).length;
-    const pendingOrders = orders.filter((order) => order.status === "PENDING").length;
+    const activeProducts = products.filter(
+      (product) => product.isActive,
+    ).length;
+    const lowStockProducts = products.filter(
+      (product) => product.stock <= 10,
+    ).length;
+    const pendingOrders = orders.filter(
+      (order) => order.status === "PENDING",
+    ).length;
     const revenue = orders.reduce((sum, order) => sum + order.vendorTotal, 0);
 
     return {
@@ -135,7 +153,11 @@ export default function VendorPortalPage() {
 
     const parsedPrice = Number(price);
     const parsedStock = Number(stock);
-    if (!name.trim() || !Number.isFinite(parsedPrice) || !Number.isFinite(parsedStock)) {
+    if (
+      !name.trim() ||
+      !Number.isFinite(parsedPrice) ||
+      !Number.isFinite(parsedStock)
+    ) {
       setError("Enter valid product name, price, and stock.");
       return;
     }
@@ -183,20 +205,31 @@ export default function VendorPortalPage() {
       body: JSON.stringify({ action: "toggle" }),
     });
 
-    const data = (await response.json().catch(() => ({}))) as { error?: string; isActive?: boolean };
+    const data = (await response.json().catch(() => ({}))) as {
+      error?: string;
+      isActive?: boolean;
+    };
     if (!response.ok || typeof data.isActive !== "boolean") {
       setError(data.error ?? "Failed to update product.");
       return;
     }
 
     setProducts((current) =>
-      current.map((item) => (item.id === productId ? { ...item, isActive: data.isActive as boolean } : item))
+      current.map((item) =>
+        item.id === productId
+          ? { ...item, isActive: data.isActive as boolean }
+          : item,
+      ),
     );
   }
 
   async function removeProduct(productId: string) {
-    const response = await fetch(`/api/vendor/products/${productId}`, { method: "DELETE" });
-    const data = (await response.json().catch(() => ({}))) as { error?: string };
+    const response = await fetch(`/api/vendor/products/${productId}`, {
+      method: "DELETE",
+    });
+    const data = (await response.json().catch(() => ({}))) as {
+      error?: string;
+    };
     if (!response.ok) {
       setError(data.error ?? "Failed to remove product.");
       return;
@@ -205,21 +238,28 @@ export default function VendorPortalPage() {
     setProducts((current) => current.filter((item) => item.id !== productId));
   }
 
-  async function updateOrderStatus(orderNumber: string, status: "PROCESSING" | "SHIPPED" | "DELIVERED") {
+  async function updateOrderStatus(
+    orderNumber: string,
+    status: "PROCESSING" | "SHIPPED" | "DELIVERED",
+  ) {
     const response = await fetch(`/api/vendor/orders/${orderNumber}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),
     });
 
-    const data = (await response.json().catch(() => ({}))) as { error?: string };
+    const data = (await response.json().catch(() => ({}))) as {
+      error?: string;
+    };
     if (!response.ok) {
       setError(data.error ?? "Failed to update order status.");
       return;
     }
 
     setOrders((current) =>
-      current.map((order) => (order.orderNumber === orderNumber ? { ...order, status } : order))
+      current.map((order) =>
+        order.orderNumber === orderNumber ? { ...order, status } : order,
+      ),
     );
   }
 
@@ -228,59 +268,125 @@ export default function VendorPortalPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-5 rounded-2xl border border-green-100 bg-white p-4 flex items-center justify-between gap-3">
           <div>
-            <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={126} height={42} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
-            <p className="mt-2 text-xs text-gray-600">Manage your products, stock, and customer orders in one place.</p>
+            <Image
+              src="/assets/GONAA FARMS LOGO.jpeg"
+              alt="GONAA FARMS LTD."
+              width={126}
+              height={42}
+              className="h-9 w-auto object-contain"
+              style={{ width: "auto", height: "auto" }}
+            />
+            <p className="mt-2 text-xs text-gray-600">
+              Manage your products, stock, and customer orders in one place.
+            </p>
           </div>
-          <Image src="/assets/promo-popup.png" alt="Vendor promo" width={200} height={96} className="hidden sm:block h-16 w-32 rounded-lg object-cover" />
+          <Image
+            src="/assets/promo-popup.png"
+            alt="Vendor promo"
+            width={200}
+            height={96}
+            className="hidden sm:block h-16 w-32 rounded-lg object-cover"
+          />
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
-            <p className="text-xs uppercase tracking-wide font-semibold text-green-700">Seller account</p>
-            <h1 className="text-3xl font-bold text-gray-900">Welcome, {session?.user?.name ?? "Vendor"}</h1>
-            <p className="mt-1 text-sm text-gray-600">Add items, update stock, and follow incoming orders.</p>
+            <p className="text-xs uppercase tracking-wide font-semibold text-green-700">
+              Seller account
+            </p>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Welcome, {session?.user?.name ?? "Vendor"}
+            </h1>
+            <p className="mt-1 text-sm text-gray-600">
+              Add items, update stock, and follow incoming orders.
+            </p>
           </div>
           <div className="flex gap-2">
-            <Link href="/orders" className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100">
+            <Link
+              href="/orders"
+              className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+            >
               Customer View
             </Link>
-            <Link href="/admin" className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-black">
+            <Link
+              href="/admin"
+              className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-black"
+            >
               Admin page
             </Link>
           </div>
         </div>
 
-        {isLoading && <p className="text-sm text-gray-600 mb-4">Loading vendor dashboard...</p>}
+        {isLoading && (
+          <p className="text-sm text-gray-600 mb-4">
+            Loading vendor dashboard...
+          </p>
+        )}
         {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
 
         <section className="grid sm:grid-cols-2 xl:grid-cols-4 gap-3 mb-5">
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
             <p className="text-xs text-gray-500">Active Products</p>
-            <p className="mt-2 text-2xl font-bold text-gray-900">{metrics.activeProducts}</p>
+            <p className="mt-2 text-2xl font-bold text-gray-900">
+              {metrics.activeProducts}
+            </p>
           </div>
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
             <p className="text-xs text-gray-500">Low Stock Items</p>
-            <p className="mt-2 text-2xl font-bold text-amber-700">{metrics.lowStockProducts}</p>
+            <p className="mt-2 text-2xl font-bold text-amber-700">
+              {metrics.lowStockProducts}
+            </p>
           </div>
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
             <p className="text-xs text-gray-500">Pending Orders</p>
-            <p className="mt-2 text-2xl font-bold text-blue-700">{metrics.pendingOrders}</p>
+            <p className="mt-2 text-2xl font-bold text-blue-700">
+              {metrics.pendingOrders}
+            </p>
           </div>
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
             <p className="text-xs text-gray-500">Vendor Revenue</p>
-            <p className="mt-2 text-2xl font-bold text-green-700">{formatNaira(metrics.revenue)}</p>
+            <p className="mt-2 text-2xl font-bold text-green-700">
+              {formatNaira(metrics.revenue)}
+            </p>
           </div>
         </section>
 
         <section className="grid xl:grid-cols-[1fr_1fr] gap-5">
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900">Your products</h2>
+            <h2 className="text-lg font-semibold text-gray-900">
+              Your products
+            </h2>
 
-            <form onSubmit={onAddProduct} className="mt-4 grid sm:grid-cols-2 gap-2">
-              <input value={name} onChange={(event) => setName(event.target.value)} placeholder="Product name" className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600 sm:col-span-2" required />
-              <input value={price} onChange={(event) => setPrice(event.target.value)} placeholder="Price" className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600" required />
-              <input value={stock} onChange={(event) => setStock(event.target.value)} placeholder="Stock" className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600" required />
-              <select value={category} onChange={(event) => setCategory(event.target.value)} className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600">
+            <form
+              onSubmit={onAddProduct}
+              className="mt-4 grid sm:grid-cols-2 gap-2"
+            >
+              <input
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                placeholder="Product name"
+                className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600 sm:col-span-2"
+                required
+              />
+              <input
+                value={price}
+                onChange={(event) => setPrice(event.target.value)}
+                placeholder="Price"
+                className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600"
+                required
+              />
+              <input
+                value={stock}
+                onChange={(event) => setStock(event.target.value)}
+                placeholder="Stock"
+                className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600"
+                required
+              />
+              <select
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+                className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600"
+              >
                 <option>Meat</option>
                 <option>Eggs</option>
                 <option>Chicken</option>
@@ -289,31 +395,61 @@ export default function VendorPortalPage() {
                 <option>Auctions</option>
                 <option>Delivery</option>
               </select>
-              <input value={unit} onChange={(event) => setUnit(event.target.value)} placeholder="Unit (kg, piece, crate)" className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600" required />
-              <button type="submit" className="sm:col-span-2 rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800">
+              <input
+                value={unit}
+                onChange={(event) => setUnit(event.target.value)}
+                placeholder="Unit (kg, piece, crate)"
+                className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-green-600"
+                required
+              />
+              <button
+                type="submit"
+                className="sm:col-span-2 rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
+              >
                 Add Product
               </button>
             </form>
 
             <div className="mt-4 space-y-2">
               {products.map((product) => (
-                <article key={product.id} className="rounded-xl border border-gray-200 p-3">
+                <article
+                  key={product.id}
+                  className="rounded-xl border border-gray-200 p-3"
+                >
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <p className="font-semibold text-gray-900">{product.name}</p>
+                      <p className="font-semibold text-gray-900">
+                        {product.name}
+                      </p>
                       <p className="text-xs text-gray-500 mt-1">
-                        {product.categories[0] ?? "General"} • {formatNaira(product.price)} per {product.unit} • stock {product.stock}
+                        {product.categories[0] ?? "General"} •{" "}
+                        {formatNaira(product.price)} per {product.unit} • stock{" "}
+                        {product.stock}
                       </p>
                     </div>
-                    <span className={product.isActive ? "rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-semibold text-green-800" : "rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-gray-700"}>
+                    <span
+                      className={
+                        product.isActive
+                          ? "rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-semibold text-green-800"
+                          : "rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-gray-700"
+                      }
+                    >
                       {product.isActive ? "Active" : "Paused"}
                     </span>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    <button type="button" onClick={() => toggleProduct(product.id)} className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100">
+                    <button
+                      type="button"
+                      onClick={() => toggleProduct(product.id)}
+                      className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100"
+                    >
                       {product.isActive ? "Pause" : "Activate"}
                     </button>
-                    <button type="button" onClick={() => removeProduct(product.id)} className="rounded-lg border border-red-300 px-2.5 py-1 text-xs font-semibold text-red-700 hover:bg-red-50">
+                    <button
+                      type="button"
+                      onClick={() => removeProduct(product.id)}
+                      className="rounded-lg border border-red-300 px-2.5 py-1 text-xs font-semibold text-red-700 hover:bg-red-50"
+                    >
                       Remove
                     </button>
                   </div>
@@ -323,36 +459,69 @@ export default function VendorPortalPage() {
           </div>
 
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900">Orders for your products</h2>
+            <h2 className="text-lg font-semibold text-gray-900">
+              Orders for your products
+            </h2>
             <div className="mt-4 space-y-2">
               {orders.length === 0 ? (
-                <p className="text-sm text-gray-600">You have not received any orders yet.</p>
+                <p className="text-sm text-gray-600">
+                  You have not received any orders yet.
+                </p>
               ) : (
                 orders.map((order) => (
-                  <article key={order.orderNumber} className="rounded-xl border border-gray-200 p-3">
+                  <article
+                    key={order.orderNumber}
+                    className="rounded-xl border border-gray-200 p-3"
+                  >
                     <div className="flex flex-wrap items-start justify-between gap-2">
                       <div>
-                        <p className="font-semibold text-gray-900">{order.orderNumber}</p>
+                        <p className="font-semibold text-gray-900">
+                          {order.orderNumber}
+                        </p>
                         <p className="text-xs text-gray-500 mt-1">
-                          {order.itemCount} vendor items • {formatNaira(order.vendorTotal)}
+                          {order.itemCount} vendor items •{" "}
+                          {formatNaira(order.vendorTotal)}
                         </p>
                       </div>
-                      <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${orderStatusTone(order.status)}`}>
+                      <span
+                        className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${orderStatusTone(order.status)}`}
+                      >
                         {order.status}
                       </span>
                     </div>
 
                     <div className="mt-3 flex flex-wrap gap-2">
-                      <button type="button" onClick={() => updateOrderStatus(order.orderNumber, "PROCESSING")} className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          updateOrderStatus(order.orderNumber, "PROCESSING")
+                        }
+                        className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100"
+                      >
                         Processing
                       </button>
-                      <button type="button" onClick={() => updateOrderStatus(order.orderNumber, "SHIPPED")} className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          updateOrderStatus(order.orderNumber, "SHIPPED")
+                        }
+                        className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100"
+                      >
                         Shipped
                       </button>
-                      <button type="button" onClick={() => updateOrderStatus(order.orderNumber, "DELIVERED")} className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          updateOrderStatus(order.orderNumber, "DELIVERED")
+                        }
+                        className="rounded-lg border border-gray-300 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100"
+                      >
                         Delivered
                       </button>
-                      <Link href={`/orders/${order.orderNumber}`} className="rounded-lg border border-green-300 px-2.5 py-1 text-xs font-semibold text-green-700 hover:bg-green-50">
+                      <Link
+                        href={`/orders/${order.orderNumber}`}
+                        className="rounded-lg border border-green-300 px-2.5 py-1 text-xs font-semibold text-green-700 hover:bg-green-50"
+                      >
                         View
                       </Link>
                     </div>

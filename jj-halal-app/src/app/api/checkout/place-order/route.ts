@@ -20,7 +20,7 @@ const checkoutRequestSchema = checkoutSchema.extend({
         quantity: z.number().int().positive(),
         unitPrice: z.number().positive(),
         unit: z.string().min(1),
-      })
+      }),
     )
     .min(1, "Cart is empty"),
 });
@@ -30,7 +30,7 @@ const INTERNAL_VENDOR_EMAIL = "seller@jjhalalfarms.com";
 async function ensureInternalVendor() {
   const existingVendor = await prisma.vendor.findFirst({
     where: {
-      OR: [{ slug: "jj-halal-farms" }, { user: { email: INTERNAL_VENDOR_EMAIL } }],
+      OR: [{ slug: "gonaa-farms" }, { user: { email: INTERNAL_VENDOR_EMAIL } }],
     },
     select: { id: true },
   });
@@ -43,7 +43,7 @@ async function ensureInternalVendor() {
     where: { email: INTERNAL_VENDOR_EMAIL },
     create: {
       email: INTERNAL_VENDOR_EMAIL,
-      name: "JJ HALAL FARMS LTD.",
+      name: "GONAA FARMS LTD.",
       role: "VENDOR",
       emailVerified: new Date(),
       isActive: true,
@@ -59,8 +59,8 @@ async function ensureInternalVendor() {
   const createdVendor = await prisma.vendor.create({
     data: {
       userId: systemUser.id,
-      shopName: "JJ HALAL FARMS LTD.",
-      slug: "jj-halal-farms",
+      shopName: "GONAA FARMS LTD.",
+      slug: "gonaa-farms",
       sellerCategory: "Farm",
       commission: 5,
       isVerified: true,
@@ -72,8 +72,14 @@ async function ensureInternalVendor() {
   return createdVendor.id;
 }
 
-async function ensureProduct(productName: string, productUnit: string, price: number, vendorId: string) {
-  const slug = slugify(productName).slice(0, 70) || `product-${randomUUID().slice(0, 8)}`;
+async function ensureProduct(
+  productName: string,
+  productUnit: string,
+  price: number,
+  vendorId: string,
+) {
+  const slug =
+    slugify(productName).slice(0, 70) || `product-${randomUUID().slice(0, 8)}`;
   const existing = await prisma.product.findUnique({
     where: { slug },
     select: { id: true },
@@ -121,8 +127,10 @@ export async function POST(req: NextRequest) {
       { error: "Too many checkout attempts. Please wait and try again." },
       {
         status: 429,
-        headers: throttle.retryAfterSeconds ? { "Retry-After": String(throttle.retryAfterSeconds) } : undefined,
-      }
+        headers: throttle.retryAfterSeconds
+          ? { "Retry-After": String(throttle.retryAfterSeconds) }
+          : undefined,
+      },
     );
   }
 
@@ -131,13 +139,19 @@ export async function POST(req: NextRequest) {
 
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "Invalid checkout payload", details: parsed.error.flatten().fieldErrors },
-      { status: 400 }
+      {
+        error: "Invalid checkout payload",
+        details: parsed.error.flatten().fieldErrors,
+      },
+      { status: 400 },
     );
   }
 
   const data = parsed.data;
-  const subtotal = data.items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
+  const subtotal = data.items.reduce(
+    (sum, item) => sum + item.unitPrice * item.quantity,
+    0,
+  );
   const deliveryFee = subtotal >= 30000 ? 0 : 1500;
   const discount = 0;
   const total = subtotal + deliveryFee - discount;
@@ -178,7 +192,9 @@ export async function POST(req: NextRequest) {
   const vendorId = await ensureInternalVendor();
 
   const productIds = await Promise.all(
-    data.items.map((item) => ensureProduct(item.productName, item.unit, item.unitPrice, vendorId))
+    data.items.map((item) =>
+      ensureProduct(item.productName, item.unit, item.unitPrice, vendorId),
+    ),
   );
 
   const paymentMethod = data.paymentMethod as PaymentMethod;
@@ -235,21 +251,33 @@ export async function POST(req: NextRequest) {
       });
     });
   } catch (error) {
-    if (error instanceof Error && error.message.startsWith("INSUFFICIENT_STOCK:")) {
+    if (
+      error instanceof Error &&
+      error.message.startsWith("INSUFFICIENT_STOCK:")
+    ) {
       const productName = error.message.replace("INSUFFICIENT_STOCK:", "");
-      return NextResponse.json({ error: `${productName} is out of stock or has limited quantity.` }, { status: 409 });
+      return NextResponse.json(
+        { error: `${productName} is out of stock or has limited quantity.` },
+        { status: 409 },
+      );
     }
 
     console.error("Failed to place order:", error);
-    return NextResponse.json({ error: "Unable to place order right now. Please try again." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Unable to place order right now. Please try again." },
+      { status: 500 },
+    );
   }
 
   if (session.user.email && session.user.name) {
-    sendOrderConfirmationEmail(session.user.email, session.user.name, order.orderNumber, total).catch(
-      (error) => {
-        console.error("Failed to send order confirmation email:", error);
-      }
-    );
+    sendOrderConfirmationEmail(
+      session.user.email,
+      session.user.name,
+      order.orderNumber,
+      total,
+    ).catch((error) => {
+      console.error("Failed to send order confirmation email:", error);
+    });
   }
 
   return NextResponse.json({
@@ -271,8 +299,8 @@ export async function POST(req: NextRequest) {
         data.paymentMethod === "BANK_TRANSFER"
           ? "Complete bank transfer and include order number as narration."
           : data.paymentMethod === "CASH_ON_DELIVERY"
-          ? "Pay cash when your order arrives."
-          : "Complete payment using the secure checkout flow.",
+            ? "Pay cash when your order arrives."
+            : "Complete payment using the secure checkout flow.",
     },
   });
 }

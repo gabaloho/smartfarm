@@ -50,7 +50,7 @@ const PROFILE_FIELDS = [
 ];
 
 export const metadata = {
-  title: "Livestock Sales | JJ HALAL FARMS LTD.",
+  title: "Livestock Sales | GONAA FARMS LTD.",
   description:
     "Whole livestock sales and cow-sharing options for festive and group purchases.",
 };
@@ -69,20 +69,27 @@ export default function LivestockPage() {
                 Buy whole animals or join a shared cow purchase.
               </h1>
               <p className="mt-4 text-base text-gray-600 max-w-2xl">
-                Browse cows and rams, check key details, and reserve with confidence.
+                Browse cows and rams, check key details, and reserve with
+                confidence.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/products?category=livestock" className="rounded-xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-800">
+                <Link
+                  href="/products?category=livestock"
+                  className="rounded-xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-800"
+                >
                   Browse livestock catalog
                 </Link>
-                <Link href="/contact" className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-100">
+                <Link
+                  href="/contact"
+                  className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+                >
                   Talk to our team
                 </Link>
               </div>
             </div>
             <div className="relative min-h-64">
               <Image
-                src="/assets/JJ HALAL FARMS.jpeg"
+                src="/assets/GONAA FARMS.jpeg"
                 alt="Livestock banner"
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
@@ -97,43 +104,77 @@ export default function LivestockPage() {
         <section className="mb-8">
           <div className="flex items-end justify-between gap-3 mb-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Whole livestock sales</h2>
-              <p className="mt-1 text-sm text-gray-600">Each listing includes key animal details to help you choose confidently.</p>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Whole livestock sales
+              </h2>
+              <p className="mt-1 text-sm text-gray-600">
+                Each listing includes key animal details to help you choose
+                confidently.
+              </p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {DIRECT_SALES.map((animal) => (
-              <article key={animal.name} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <article
+                key={animal.name}
+                className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
+              >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900">{animal.name}</h3>
+                    <h3 className="text-lg font-bold text-gray-900">
+                      {animal.name}
+                    </h3>
                     <p className="mt-1 text-sm text-gray-500">{animal.breed}</p>
                   </div>
-                  <p className="text-lg font-bold text-emerald-700">{animal.price}</p>
+                  <p className="text-lg font-bold text-emerald-700">
+                    {animal.price}
+                  </p>
                 </div>
                 <div className="mt-4 grid sm:grid-cols-2 gap-3 text-sm">
                   <div className="rounded-xl bg-gray-50 p-3">
-                    <p className="text-xs uppercase tracking-wide text-gray-500">Weight</p>
-                    <p className="mt-1 font-semibold text-gray-900">{animal.weight}</p>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      Weight
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900">
+                      {animal.weight}
+                    </p>
                   </div>
                   <div className="rounded-xl bg-gray-50 p-3">
-                    <p className="text-xs uppercase tracking-wide text-gray-500">Age</p>
-                    <p className="mt-1 font-semibold text-gray-900">{animal.age}</p>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      Age
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900">
+                      {animal.age}
+                    </p>
                   </div>
                   <div className="rounded-xl bg-gray-50 p-3 sm:col-span-2">
-                    <p className="text-xs uppercase tracking-wide text-gray-500">Health condition</p>
-                    <p className="mt-1 font-semibold text-gray-900">{animal.health}</p>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      Health condition
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900">
+                      {animal.health}
+                    </p>
                   </div>
                   <div className="rounded-xl bg-gray-50 p-3 sm:col-span-2">
-                    <p className="text-xs uppercase tracking-wide text-gray-500">Media</p>
-                    <p className="mt-1 font-semibold text-gray-900">{animal.media}</p>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      Media
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900">
+                      {animal.media}
+                    </p>
                   </div>
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <Link href="/checkout" className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-800">
+                  <Link
+                    href="/checkout"
+                    className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-800"
+                  >
                     Reserve or buy
                   </Link>
-                  <Link href="/contact" className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100">
+                  <Link
+                    href="/contact"
+                    className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+                  >
                     Talk to our team
                   </Link>
                 </div>
@@ -145,34 +186,55 @@ export default function LivestockPage() {
         <section className="mb-8 rounded-3xl border border-amber-100 bg-white p-6 shadow-sm">
           <div className="flex items-end justify-between gap-3 mb-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Cow sharing plans</h2>
-              <p className="mt-1 text-sm text-gray-600">Choose the plan that fits your family or group budget.</p>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Cow sharing plans
+              </h2>
+              <p className="mt-1 text-sm text-gray-600">
+                Choose the plan that fits your family or group budget.
+              </p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {SHARING_OPTIONS.map((slot) => (
-              <article key={slot.name} className="rounded-2xl border border-amber-100 bg-amber-50/60 p-5">
+              <article
+                key={slot.name}
+                className="rounded-2xl border border-amber-100 bg-amber-50/60 p-5"
+              >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900">{slot.name}</h3>
+                    <h3 className="text-lg font-bold text-gray-900">
+                      {slot.name}
+                    </h3>
                     <p className="mt-1 text-sm text-gray-600">{slot.summary}</p>
                   </div>
-                  <p className="text-lg font-bold text-amber-800">{slot.price}</p>
+                  <p className="text-lg font-bold text-amber-800">
+                    {slot.price}
+                  </p>
                 </div>
                 <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
                   <div className="rounded-xl bg-white p-3">
-                    <p className="text-xs uppercase tracking-wide text-gray-500">Total slots</p>
-                    <p className="mt-1 font-semibold text-gray-900">{slot.slots}</p>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      Total slots
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900">
+                      {slot.slots}
+                    </p>
                   </div>
                   <div className="rounded-xl bg-white p-3">
-                    <p className="text-xs uppercase tracking-wide text-gray-500">Remaining</p>
-                    <p className="mt-1 font-semibold text-gray-900">{slot.remaining}</p>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      Remaining
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900">
+                      {slot.remaining}
+                    </p>
                   </div>
                 </div>
                 <div className="mt-4 h-2 rounded-full bg-white">
                   <div
                     className="h-2 rounded-full bg-amber-500"
-                    style={{ width: `${((slot.slots - slot.remaining) / slot.slots) * 100}%` }}
+                    style={{
+                      width: `${((slot.slots - slot.remaining) / slot.slots) * 100}%`,
+                    }}
                   />
                 </div>
               </article>
@@ -181,10 +243,15 @@ export default function LivestockPage() {
         </section>
 
         <section className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900">What you can check before buying</h2>
+          <h2 className="text-2xl font-bold text-gray-900">
+            What you can check before buying
+          </h2>
           <div className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {PROFILE_FIELDS.map((field) => (
-              <div key={field} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-semibold text-gray-800">
+              <div
+                key={field}
+                className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-semibold text-gray-800"
+              >
                 {field}
               </div>
             ))}

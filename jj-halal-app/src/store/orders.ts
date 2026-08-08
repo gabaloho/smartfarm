@@ -3,9 +3,19 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export type OrderStatus = "PENDING" | "CONFIRMED" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED";
+export type OrderStatus =
+  | "PENDING"
+  | "CONFIRMED"
+  | "PROCESSING"
+  | "SHIPPED"
+  | "DELIVERED"
+  | "CANCELLED";
 export type PaymentStatus = "pending" | "paid";
-export type PaymentMethod = "PAYSTACK" | "STRIPE" | "BANK_TRANSFER" | "CASH_ON_DELIVERY";
+export type PaymentMethod =
+  | "PAYSTACK"
+  | "STRIPE"
+  | "BANK_TRANSFER"
+  | "CASH_ON_DELIVERY";
 
 export interface CustomerOrderItem {
   productId: string;
@@ -56,7 +66,12 @@ export const useOrdersStore = create<OrdersState>()(
       orders: [],
       addOrder: (order) => {
         set((state) => ({
-          orders: [order, ...state.orders.filter((item) => item.orderNumber !== order.orderNumber)],
+          orders: [
+            order,
+            ...state.orders.filter(
+              (item) => item.orderNumber !== order.orderNumber,
+            ),
+          ],
         }));
       },
       cancelOrder: (orderNumber) => {
@@ -71,20 +86,23 @@ export const useOrdersStore = create<OrdersState>()(
       markPaid: (orderNumber) => {
         set((state) => ({
           orders: state.orders.map((order) =>
-            order.orderNumber === orderNumber ? { ...order, paymentStatus: "paid" } : order
+            order.orderNumber === orderNumber
+              ? { ...order, paymentStatus: "paid" }
+              : order,
           ),
         }));
       },
       updateStatus: (orderNumber, status) => {
         set((state) => ({
           orders: state.orders.map((order) =>
-            order.orderNumber === orderNumber ? { ...order, status } : order
+            order.orderNumber === orderNumber ? { ...order, status } : order,
           ),
         }));
       },
       clearOrders: () => set({ orders: [] }),
-      getOrderByNumber: (orderNumber) => get().orders.find((item) => item.orderNumber === orderNumber),
+      getOrderByNumber: (orderNumber) =>
+        get().orders.find((item) => item.orderNumber === orderNumber),
     }),
-    { name: "jj-halal-orders" }
-  )
+    { name: "gonaa-orders" },
+  ),
 );

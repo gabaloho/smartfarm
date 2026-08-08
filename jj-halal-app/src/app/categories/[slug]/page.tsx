@@ -27,7 +27,7 @@ export default async function CategoryPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="relative overflow-hidden rounded-3xl border border-green-100 bg-white mb-4">
           <Image
-            src="/assets/JJ HALAL FARMS.jpeg"
+            src="/assets/GONAA FARMS.jpeg"
             alt="Category banner"
             width={1400}
             height={360}
@@ -35,8 +35,17 @@ export default async function CategoryPage({
           />
           <div className="absolute inset-0 bg-gradient-to-r from-gray-900/55 to-transparent" />
           <div className="absolute inset-y-0 left-0 p-5 flex items-center gap-3">
-            <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={90} height={32} className="h-8 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
-            <span className="text-white text-sm font-semibold">{category.name} Collection</span>
+            <Image
+              src="/assets/GONAA FARMS LOGO.jpeg"
+              alt="GONAA FARMS LTD."
+              width={90}
+              height={32}
+              className="h-8 w-auto object-contain"
+              style={{ width: "auto", height: "auto" }}
+            />
+            <span className="text-white text-sm font-semibold">
+              {category.name} Collection
+            </span>
           </div>
         </div>
 
@@ -57,9 +66,14 @@ export default async function CategoryPage({
 
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {products.map((product) => (
-            <article key={product.id} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+            <article
+              key={product.id}
+              className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm"
+            >
               <h3 className="font-semibold text-gray-900">{product.name}</h3>
-              <p className="mt-3 text-lg font-bold text-green-700">{formatNaira(product.price)}</p>
+              <p className="mt-3 text-lg font-bold text-green-700">
+                {formatNaira(product.price)}
+              </p>
               <p className="text-xs text-gray-500">per {product.unit}</p>
               <div className="mt-4">
                 <AddToCartButton product={product} />

@@ -6,7 +6,8 @@ const OFFERS = [
   {
     id: 1,
     title: "Egg Retail Launch",
-    subtitle: "Enjoy separate home and bulk prices so you can order what fits your needs.",
+    subtitle:
+      "Enjoy separate home and bulk prices so you can order what fits your needs.",
     badge: "Limited Time",
     badgeTone: "bg-amber-100 text-amber-800",
     code: "EGGMODE",
@@ -15,7 +16,8 @@ const OFFERS = [
   {
     id: 2,
     title: "KG Chicken Pricing",
-    subtitle: "Chicken breast, wings, thighs, drumstick, and head/feet are priced per kilogram.",
+    subtitle:
+      "Chicken breast, wings, thighs, drumstick, and head/feet are priced per kilogram.",
     badge: "Popular",
     badgeTone: "bg-green-100 text-green-800",
     code: "CHICKENKG",
@@ -24,7 +26,8 @@ const OFFERS = [
   {
     id: 3,
     title: "Cow Sharing Slots",
-    subtitle: "Book a full or half slot for festive cow sharing with your family or group.",
+    subtitle:
+      "Book a full or half slot for festive cow sharing with your family or group.",
     badge: "Popular",
     badgeTone: "bg-blue-100 text-blue-800",
     code: "COWSHARE",
@@ -33,7 +36,8 @@ const OFFERS = [
   {
     id: 4,
     title: "Marketplace Commission",
-    subtitle: "For each successful marketplace sale, sellers receive 95% and 5% goes as service fee.",
+    subtitle:
+      "For each successful marketplace sale, sellers receive 95% and 5% goes as service fee.",
     badge: "Top Pick",
     badgeTone: "bg-rose-100 text-rose-800",
     code: "5PERCENT",
@@ -42,7 +46,8 @@ const OFFERS = [
   {
     id: 5,
     title: "Auction Sales",
-    subtitle: "Join timed auctions and follow the current highest bid until closing.",
+    subtitle:
+      "Join timed auctions and follow the current highest bid until closing.",
     badge: "Live",
     badgeTone: "bg-purple-100 text-purple-800",
     code: "BIDLIVE",
@@ -51,7 +56,8 @@ const OFFERS = [
   {
     id: 6,
     title: "Delivery Planning",
-    subtitle: "Orders can be scheduled for delivery or pickup with clear fee calculation.",
+    subtitle:
+      "Orders can be scheduled for delivery or pickup with clear fee calculation.",
     badge: "Every Friday",
     badgeTone: "bg-stone-100 text-stone-700",
     code: "DELIVER",
@@ -60,9 +66,9 @@ const OFFERS = [
 ];
 
 export const metadata = {
-  title: "Offers & Coupons | JJ HALAL FARMS LTD.",
+  title: "Offers & Coupons | GONAA FARMS LTD.",
   description:
-    "Browse the latest deals, discount codes, and seasonal promotions from JJ HALAL FARMS LTD.",
+    "Browse the latest deals, discount codes, and seasonal promotions from GONAA FARMS LTD.",
 };
 
 export default function OffersPage() {
@@ -72,8 +78,8 @@ export default function OffersPage() {
         {/* Header card */}
         <div className="mb-8 rounded-2xl border border-green-100 bg-white p-5 flex items-center gap-4 shadow-sm">
           <Image
-            src="/assets/JJ HALAL FARMS LOGO.jpeg"
-            alt="JJ HALAL FARMS LTD."
+            src="/assets/GONAA FARMS LOGO.jpeg"
+            alt="GONAA FARMS LTD."
             width={126}
             height={42}
             className="h-10 w-auto object-contain"
@@ -84,7 +90,8 @@ export default function OffersPage() {
               Offers &amp; Coupons
             </h1>
             <p className="text-sm text-gray-500">
-              Save more on eggs, chicken, livestock, marketplace listings, and delivery.
+              Save more on eggs, chicken, livestock, marketplace listings, and
+              delivery.
             </p>
           </div>
         </div>

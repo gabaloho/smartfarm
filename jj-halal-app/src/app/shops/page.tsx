@@ -5,34 +5,34 @@ import { MapPin, Phone } from "lucide-react";
 const SHOPS = [
   {
     id: 1,
-    name: "JJ HALAL FARMS LTD. — Main Store",
+    name: "GONAA FARMS LTD. — Main Store",
     address: "14 Farm Road, Garki, Abuja, FCT",
     phone: "+234 801 234 5678",
     hours: "Mon – Sat: 8 am – 7 pm",
-    image: "/assets/JJ HALAL FARMS.jpeg",
+    image: "/assets/GONAA FARMS.jpeg",
   },
   {
     id: 2,
-    name: "JJ HALAL FARMS LTD. — Wuse Branch",
+    name: "GONAA FARMS LTD. — Wuse Branch",
     address: "22 Wuse Market Street, Wuse II, Abuja",
     phone: "+234 802 345 6789",
     hours: "Mon – Sat: 9 am – 6 pm",
-    image: "/assets/JJ HALAL FARMS.jpeg",
+    image: "/assets/GONAA FARMS.jpeg",
   },
   {
     id: 3,
-    name: "JJ HALAL FARMS LTD. — Maitama Outlet",
+    name: "GONAA FARMS LTD. — Maitama Outlet",
     address: "5 Adetokunbo Ademola Crescent, Maitama, Abuja",
     phone: "+234 803 456 7890",
     hours: "Mon – Sun: 8 am – 8 pm",
-    image: "/assets/JJ HALAL FARMS.jpeg",
+    image: "/assets/GONAA FARMS.jpeg",
   },
 ];
 
 export const metadata = {
-  title: "Our Shops | JJ HALAL FARMS LTD.",
+  title: "Our Shops | GONAA FARMS LTD.",
   description:
-    "Find a JJ HALAL FARMS LTD. store near you. Fresh halal groceries available at all our locations.",
+    "Find a GONAA FARMS LTD. store near you. Fresh halal groceries available at all our locations.",
 };
 
 export default function ShopsPage() {
@@ -42,8 +42,8 @@ export default function ShopsPage() {
         {/* Header card */}
         <div className="mb-8 rounded-2xl border border-green-100 bg-white p-5 flex items-center gap-4 shadow-sm">
           <Image
-            src="/assets/JJ HALAL FARMS LOGO.jpeg"
-            alt="JJ HALAL FARMS LTD."
+            src="/assets/GONAA FARMS LOGO.jpeg"
+            alt="GONAA FARMS LTD."
             width={126}
             height={42}
             className="h-10 w-auto object-contain"
@@ -78,12 +78,18 @@ export default function ShopsPage() {
                   {shop.name}
                 </h2>
                 <div className="flex items-start gap-2 text-xs text-gray-600">
-                  <MapPin size={13} className="mt-0.5 shrink-0 text-green-600" />
+                  <MapPin
+                    size={13}
+                    className="mt-0.5 shrink-0 text-green-600"
+                  />
                   <span>{shop.address}</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-gray-600">
                   <Phone size={13} className="shrink-0 text-green-600" />
-                  <a href={`tel:${shop.phone}`} className="hover:text-green-700">
+                  <a
+                    href={`tel:${shop.phone}`}
+                    className="hover:text-green-700"
+                  >
                     {shop.phone}
                   </a>
                 </div>

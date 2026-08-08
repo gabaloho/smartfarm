@@ -4,35 +4,40 @@ import Image from "next/image";
 const SHOP_SECTIONS = [
   {
     title: "Egg Sales",
-    subtitle: "Retail crates start at 5 crates. Household buyers can order 1 to 4 crates.",
+    subtitle:
+      "Retail crates start at 5 crates. Household buyers can order 1 to 4 crates.",
     href: "/products?category=eggs",
     tone: "from-amber-50 to-yellow-100",
     badge: "Quantity based",
   },
   {
     title: "Chicken Sales",
-    subtitle: "Whole chicken and chicken parts sold per kilogram with automatic pricing.",
+    subtitle:
+      "Whole chicken and chicken parts sold per kilogram with automatic pricing.",
     href: "/products?category=chicken",
     tone: "from-rose-50 to-orange-100",
     badge: "KG pricing",
   },
   {
     title: "Cow Sharing",
-    subtitle: "Share a cow purchase with family or friends and see available spaces easily.",
+    subtitle:
+      "Share a cow purchase with family or friends and see available spaces easily.",
     href: "/livestock",
     tone: "from-emerald-50 to-green-100",
     badge: "Slot booking",
   },
   {
     title: "Whole Livestock",
-    subtitle: "Direct sale pages for cows and rams with breed, weight, age, health, and media.",
+    subtitle:
+      "Direct sale pages for cows and rams with breed, weight, age, health, and media.",
     href: "/livestock",
     tone: "from-sky-50 to-cyan-100",
     badge: "Profiles",
   },
   {
     title: "Marketplace",
-    subtitle: "Buy from trusted sellers or post your own livestock for sale in minutes.",
+    subtitle:
+      "Buy from trusted sellers or post your own livestock for sale in minutes.",
     href: "/marketplace",
     tone: "from-fuchsia-50 to-rose-100",
     badge: "5% commission",
@@ -74,8 +79,8 @@ export default function Home() {
     <div className="min-h-[calc(100vh-64px)] bg-[radial-gradient(circle_at_top,#f5f3ea_0%,#fbfaf5_45%,#ffffff_100%)]">
       <section className="w-full">
         <Image
-          src="/assets/JJ HALAL FARMS.jpeg"
-          alt="JJ Halal Farms"
+          src="/assets/GONAA FARMS.jpeg"
+          alt="GONAA Farms"
           width={1920}
           height={720}
           sizes="100vw"
@@ -95,8 +100,8 @@ export default function Home() {
                 Fresh halal food and livestock, all in one easy place.
               </h1>
               <p className="mt-4 text-base sm:text-lg text-gray-600 max-w-xl">
-                Shop eggs, chicken, cows, and rams with clear prices, simple checkout,
-                and reliable delivery support across Kaduna.
+                Shop eggs, chicken, cows, and rams with clear prices, simple
+                checkout, and reliable delivery support across Kaduna.
               </p>
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
                 <Link
@@ -113,17 +118,23 @@ export default function Home() {
                 </Link>
               </div>
               <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-gray-700">
-                <span className="rounded-full bg-amber-100 px-3 py-1">5% seller service fee</span>
-                <span className="rounded-full bg-green-100 px-3 py-1">Chicken sold by kg</span>
-                <span className="rounded-full bg-sky-100 px-3 py-1">Cow sharing options</span>
+                <span className="rounded-full bg-amber-100 px-3 py-1">
+                  5% seller service fee
+                </span>
+                <span className="rounded-full bg-green-100 px-3 py-1">
+                  Chicken sold by kg
+                </span>
+                <span className="rounded-full bg-sky-100 px-3 py-1">
+                  Cow sharing options
+                </span>
               </div>
             </div>
             <div className="relative">
               <div className="rounded-3xl bg-gradient-to-br from-emerald-700 via-green-700 to-lime-800 p-6 sm:p-8 text-white">
                 <div className="mb-4 overflow-hidden rounded-2xl border border-white/20">
                   <Image
-                    src="/assets/JJ HALAL FARMS.jpeg"
-                    alt="JJ Halal farms platform"
+                    src="/assets/GONAA FARMS.jpeg"
+                    alt="GONAA farms platform"
                     width={900}
                     height={520}
                     className="h-36 w-full object-cover"
@@ -134,19 +145,27 @@ export default function Home() {
                 <p className="text-sm opacity-90">Quick facts</p>
                 <dl className="mt-5 grid grid-cols-2 gap-4">
                   <div className="rounded-xl bg-white/15 p-4 backdrop-blur-sm">
-                    <dt className="text-xs uppercase tracking-wider opacity-80">Service location</dt>
+                    <dt className="text-xs uppercase tracking-wider opacity-80">
+                      Service location
+                    </dt>
                     <dd className="mt-1 text-2xl font-bold">Kaduna</dd>
                   </div>
                   <div className="rounded-xl bg-white/15 p-4 backdrop-blur-sm">
-                    <dt className="text-xs uppercase tracking-wider opacity-80">Marketplace fee</dt>
+                    <dt className="text-xs uppercase tracking-wider opacity-80">
+                      Marketplace fee
+                    </dt>
                     <dd className="mt-1 text-2xl font-bold">5%</dd>
                   </div>
                   <div className="rounded-xl bg-white/15 p-4 backdrop-blur-sm">
-                    <dt className="text-xs uppercase tracking-wider opacity-80">Chicken sales</dt>
+                    <dt className="text-xs uppercase tracking-wider opacity-80">
+                      Chicken sales
+                    </dt>
                     <dd className="mt-1 text-2xl font-bold">KG</dd>
                   </div>
                   <div className="rounded-xl bg-white/15 p-4 backdrop-blur-sm">
-                    <dt className="text-xs uppercase tracking-wider opacity-80">Cow sharing</dt>
+                    <dt className="text-xs uppercase tracking-wider opacity-80">
+                      Cow sharing
+                    </dt>
                     <dd className="mt-1 text-2xl font-bold">Full / Half</dd>
                   </div>
                 </dl>
@@ -160,10 +179,17 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
         <div className="flex items-end justify-between mb-5">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Shop by Category</h2>
-            <p className="text-sm text-gray-600 mt-1">Pick what you want to buy and start shopping right away.</p>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Shop by Category
+            </h2>
+            <p className="text-sm text-gray-600 mt-1">
+              Pick what you want to buy and start shopping right away.
+            </p>
           </div>
-          <Link href="/products" className="text-sm font-semibold text-green-700 hover:text-green-800">
+          <Link
+            href="/products"
+            className="text-sm font-semibold text-green-700 hover:text-green-800"
+          >
             View all
           </Link>
         </div>
@@ -174,22 +200,35 @@ export default function Home() {
               href={category.href}
               className={`group rounded-2xl border border-white bg-gradient-to-br ${category.tone} p-4 min-h-28 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5`}
             >
-              <div className="text-xs font-semibold uppercase tracking-wide text-gray-700">{category.badge}</div>
-              <p className="mt-3 text-sm font-semibold text-gray-900">{category.title}</p>
-              <p className="text-xs text-gray-600 mt-1 group-hover:text-emerald-700 line-clamp-3">{category.subtitle}</p>
+              <div className="text-xs font-semibold uppercase tracking-wide text-gray-700">
+                {category.badge}
+              </div>
+              <p className="mt-3 text-sm font-semibold text-gray-900">
+                {category.title}
+              </p>
+              <p className="text-xs text-gray-600 mt-1 group-hover:text-emerald-700 line-clamp-3">
+                {category.subtitle}
+              </p>
             </Link>
           ))}
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
-        <h2 className="text-2xl font-bold text-gray-900 mb-5">Featured Prices</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-5">
+          Featured Prices
+        </h2>
         <div className="grid md:grid-cols-4 gap-4">
           {FEATURED_PRODUCTS.map((item) => (
-            <article key={item.name} className="rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm">
+            <article
+              key={item.name}
+              className="rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm"
+            >
               <h3 className="text-lg font-bold text-gray-900">{item.name}</h3>
               <p className="mt-1 text-sm text-gray-600">{item.unit}</p>
-              <p className="mt-3 text-xl font-bold text-emerald-700">{item.price}</p>
+              <p className="mt-3 text-xl font-bold text-emerald-700">
+                {item.price}
+              </p>
             </article>
           ))}
         </div>

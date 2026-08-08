@@ -34,21 +34,36 @@ export default function ForgotPasswordPage() {
       return;
     }
 
-    setMessage(data.message ?? "If this email exists, a password reset link has been sent.");
+    setMessage(
+      data.message ??
+        "If this email exists, a password reset link has been sent.",
+    );
   }
 
   return (
     <div className="min-h-[calc(100vh-64px)] bg-gray-50 px-4 py-10">
       <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-4 rounded-xl border border-green-100 bg-green-50 p-4">
-          <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="Farmer's Market" width={120} height={40} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
+          <Image
+            src="/assets/GONAA FARMS LOGO.jpeg"
+            alt="Farmer's Market"
+            width={120}
+            height={40}
+            className="h-9 w-auto object-contain"
+            style={{ width: "auto", height: "auto" }}
+          />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Forgot password</h1>
-        <p className="mt-2 text-sm text-gray-600">Enter your account email and we will send you a reset link.</p>
+        <p className="mt-2 text-sm text-gray-600">
+          Enter your account email and we will send you a reset link.
+        </p>
 
         <form className="mt-6 space-y-4" onSubmit={onSubmit}>
           <div>
-            <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="mb-1.5 block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -74,7 +89,10 @@ export default function ForgotPasswordPage() {
         </form>
 
         <div className="mt-6 flex items-center gap-3">
-          <Link href="/auth/login" className="text-sm font-semibold text-green-700 hover:text-green-800">
+          <Link
+            href="/auth/login"
+            className="text-sm font-semibold text-green-700 hover:text-green-800"
+          >
             Back to sign in
           </Link>
         </div>

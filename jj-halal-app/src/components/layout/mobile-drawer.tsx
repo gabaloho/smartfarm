@@ -35,11 +35,18 @@ interface MobileDrawerProps {
   session: Session | null;
 }
 
-export function MobileDrawer({ open, onClose, navLinks, session }: MobileDrawerProps) {
+export function MobileDrawer({
+  open,
+  onClose,
+  navLinks,
+  session,
+}: MobileDrawerProps) {
   // Prevent body scroll when open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   return (
@@ -48,7 +55,7 @@ export function MobileDrawer({ open, onClose, navLinks, session }: MobileDrawerP
       <div
         className={cn(
           "fixed inset-0 z-50 bg-black/50 transition-opacity",
-          open ? "opacity-100" : "opacity-0 pointer-events-none"
+          open ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
         onClick={onClose}
       />
@@ -57,13 +64,17 @@ export function MobileDrawer({ open, onClose, navLinks, session }: MobileDrawerP
       <div
         className={cn(
           "fixed inset-y-0 left-0 z-50 w-[320px] max-w-full bg-white shadow-2xl flex flex-col transition-transform duration-300",
-          open ? "translate-x-0" : "-translate-x-full"
+          open ? "translate-x-0" : "-translate-x-full",
         )}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b bg-green-700">
-          <Link href="/" onClick={onClose} className="text-sm font-extrabold tracking-wide text-white">
-            JJ HALAL FARMS LTD.
+          <Link
+            href="/"
+            onClick={onClose}
+            className="text-sm font-extrabold tracking-wide text-white"
+          >
+            GONAA FARMS LTD.
           </Link>
           <button
             onClick={onClose}
@@ -79,7 +90,9 @@ export function MobileDrawer({ open, onClose, navLinks, session }: MobileDrawerP
           {/* Auth section */}
           {session ? (
             <div className="p-4 bg-green-50 border-b">
-              <p className="text-sm font-semibold text-gray-800">{session.user.name}</p>
+              <p className="text-sm font-semibold text-gray-800">
+                {session.user.name}
+              </p>
               <p className="text-xs text-gray-500">{session.user.email}</p>
             </div>
           ) : (

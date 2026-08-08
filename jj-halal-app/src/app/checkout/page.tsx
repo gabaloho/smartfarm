@@ -11,7 +11,11 @@ import { formatNaira } from "@/lib/catalog";
 const DELIVERY_FEE = 1500;
 const FREE_DELIVERY_THRESHOLD = 30000;
 
-type PaymentMethod = "PAYSTACK" | "STRIPE" | "BANK_TRANSFER" | "CASH_ON_DELIVERY";
+type PaymentMethod =
+  | "PAYSTACK"
+  | "STRIPE"
+  | "BANK_TRANSFER"
+  | "CASH_ON_DELIVERY";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -33,10 +37,16 @@ export default function CheckoutPage() {
   const [error, setError] = useState<string | null>(null);
 
   const subtotal = useMemo(
-    () => items.reduce((sum, item) => sum + (item.product.salePrice ?? item.product.price) * item.quantity, 0),
-    [items]
+    () =>
+      items.reduce(
+        (sum, item) =>
+          sum + (item.product.salePrice ?? item.product.price) * item.quantity,
+        0,
+      ),
+    [items],
   );
-  const deliveryFee = subtotal >= FREE_DELIVERY_THRESHOLD || subtotal === 0 ? 0 : DELIVERY_FEE;
+  const deliveryFee =
+    subtotal >= FREE_DELIVERY_THRESHOLD || subtotal === 0 ? 0 : DELIVERY_FEE;
   const total = subtotal + deliveryFee;
 
   if (status === "loading") {
@@ -48,7 +58,9 @@ export default function CheckoutPage() {
       <div className="bg-gray-50 min-h-[calc(100vh-64px)] px-4 py-10">
         <div className="mx-auto max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
           <h1 className="text-2xl font-bold text-gray-900">Checkout</h1>
-          <p className="mt-2 text-sm text-gray-600">Please sign in to continue checkout.</p>
+          <p className="mt-2 text-sm text-gray-600">
+            Please sign in to continue checkout.
+          </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
               href="/auth/login?callbackUrl=/checkout"
@@ -64,7 +76,14 @@ export default function CheckoutPage() {
             </Link>
           </div>
           <p className="mt-2 text-xs text-gray-500">
-            Seller onboarding is separate at <Link href="/auth/register/seller" className="font-semibold text-green-700 hover:text-green-800">Become a Seller</Link>.
+            Seller onboarding is separate at{" "}
+            <Link
+              href="/auth/register/seller"
+              className="font-semibold text-green-700 hover:text-green-800"
+            >
+              Become a Seller
+            </Link>
+            .
           </p>
         </div>
       </div>
@@ -145,7 +164,10 @@ export default function CheckoutPage() {
 
     clearCart();
 
-    if (data.payment.method === "PAYSTACK" || data.payment.method === "STRIPE") {
+    if (
+      data.payment.method === "PAYSTACK" ||
+      data.payment.method === "STRIPE"
+    ) {
       const initResponse = await fetch("/api/payments/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -158,13 +180,20 @@ export default function CheckoutPage() {
         authorizationUrl?: string;
       };
 
-      if (initResponse.ok && initData.status === "redirect" && initData.authorizationUrl) {
+      if (
+        initResponse.ok &&
+        initData.status === "redirect" &&
+        initData.authorizationUrl
+      ) {
         window.location.href = initData.authorizationUrl;
         return;
       }
 
       if (!initResponse.ok) {
-        setError(initData.error ?? "Payment initialization failed. Proceed with bank transfer instructions.");
+        setError(
+          initData.error ??
+            "Payment initialization failed. Proceed with bank transfer instructions.",
+        );
       }
     }
 
@@ -182,30 +211,87 @@ export default function CheckoutPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-5 rounded-2xl border border-green-100 bg-white p-4 flex items-center justify-between gap-3">
           <div>
-            <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={126} height={42} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
-            <p className="mt-2 text-xs text-gray-600">Secure checkout for fresh halal essentials.</p>
+            <Image
+              src="/assets/GONAA FARMS LOGO.jpeg"
+              alt="GONAA FARMS LTD."
+              width={126}
+              height={42}
+              className="h-9 w-auto object-contain"
+              style={{ width: "auto", height: "auto" }}
+            />
+            <p className="mt-2 text-xs text-gray-600">
+              Secure checkout for fresh halal essentials.
+            </p>
           </div>
-          <Image src="/assets/promo-popup.png" alt="Checkout promo" width={190} height={96} className="hidden sm:block h-16 w-32 rounded-lg object-cover" />
+          <Image
+            src="/assets/promo-popup.png"
+            alt="Checkout promo"
+            width={190}
+            height={96}
+            className="hidden sm:block h-16 w-32 rounded-lg object-cover"
+          />
         </div>
 
         <h1 className="text-3xl font-bold text-gray-900 mb-5">Checkout</h1>
 
         <div className="grid lg:grid-cols-[1fr_320px] gap-5">
-          <form onSubmit={onSubmit} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-5">
+          <form
+            onSubmit={onSubmit}
+            className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-5"
+          >
             <section>
-              <h2 className="text-lg font-semibold text-gray-900">Delivery address</h2>
+              <h2 className="text-lg font-semibold text-gray-900">
+                Delivery address
+              </h2>
               <div className="mt-3 grid sm:grid-cols-2 gap-3">
-                <input value={label} onChange={(e) => setLabel(e.target.value)} placeholder="Label" className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600" required />
-                <input value={street} onChange={(e) => setStreet(e.target.value)} placeholder="Street" className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600" required />
-                <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600" required />
-                <input value={stateName} onChange={(e) => setStateName(e.target.value)} placeholder="State" className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600" required />
-                <input value={country} onChange={(e) => setCountry(e.target.value)} placeholder="Country" className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600" required />
-                <input value={postalCode} onChange={(e) => setPostalCode(e.target.value)} placeholder="Postal code (optional)" className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600" />
+                <input
+                  value={label}
+                  onChange={(e) => setLabel(e.target.value)}
+                  placeholder="Label"
+                  className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                  required
+                />
+                <input
+                  value={street}
+                  onChange={(e) => setStreet(e.target.value)}
+                  placeholder="Street"
+                  className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                  required
+                />
+                <input
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="City"
+                  className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                  required
+                />
+                <input
+                  value={stateName}
+                  onChange={(e) => setStateName(e.target.value)}
+                  placeholder="State"
+                  className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                  required
+                />
+                <input
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  placeholder="Country"
+                  className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                  required
+                />
+                <input
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
+                  placeholder="Postal code (optional)"
+                  className="rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+                />
               </div>
             </section>
 
             <section>
-              <h2 className="text-lg font-semibold text-gray-900">Payment method</h2>
+              <h2 className="text-lg font-semibold text-gray-900">
+                Payment method
+              </h2>
               <div className="mt-3 grid sm:grid-cols-2 gap-3 text-sm">
                 {[
                   { value: "PAYSTACK", label: "Paystack" },
@@ -213,13 +299,18 @@ export default function CheckoutPage() {
                   { value: "BANK_TRANSFER", label: "Bank Transfer" },
                   { value: "CASH_ON_DELIVERY", label: "Cash on Delivery" },
                 ].map((option) => (
-                  <label key={option.value} className="flex items-center gap-2 rounded-lg border border-gray-300 p-3">
+                  <label
+                    key={option.value}
+                    className="flex items-center gap-2 rounded-lg border border-gray-300 p-3"
+                  >
                     <input
                       type="radio"
                       name="paymentMethod"
                       value={option.value}
                       checked={paymentMethod === option.value}
-                      onChange={() => setPaymentMethod(option.value as PaymentMethod)}
+                      onChange={() =>
+                        setPaymentMethod(option.value as PaymentMethod)
+                      }
                     />
                     {option.label}
                   </label>
@@ -256,10 +347,26 @@ export default function CheckoutPage() {
           <aside className="rounded-2xl border border-gray-200 bg-white p-4 h-fit lg:sticky lg:top-24">
             <h2 className="text-lg font-semibold text-gray-900">Summary</h2>
             <div className="mt-4 space-y-2 text-sm">
-              <div className="flex justify-between"><span className="text-gray-600">Items</span><span>{items.length}</span></div>
-              <div className="flex justify-between"><span className="text-gray-600">Subtotal</span><span className="font-semibold">{formatNaira(subtotal)}</span></div>
-              <div className="flex justify-between"><span className="text-gray-600">Delivery</span><span className="font-semibold">{formatNaira(deliveryFee)}</span></div>
-              <div className="border-t border-gray-200 pt-2 flex justify-between"><span className="font-semibold text-gray-900">Total</span><span className="font-bold text-green-700">{formatNaira(total)}</span></div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Items</span>
+                <span>{items.length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Subtotal</span>
+                <span className="font-semibold">{formatNaira(subtotal)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Delivery</span>
+                <span className="font-semibold">
+                  {formatNaira(deliveryFee)}
+                </span>
+              </div>
+              <div className="border-t border-gray-200 pt-2 flex justify-between">
+                <span className="font-semibold text-gray-900">Total</span>
+                <span className="font-bold text-green-700">
+                  {formatNaira(total)}
+                </span>
+              </div>
             </div>
           </aside>
         </div>

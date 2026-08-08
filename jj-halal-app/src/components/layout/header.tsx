@@ -3,7 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
-import { ShoppingCart, Menu, User, LogOut, ChevronDown, Search } from "lucide-react";
+import {
+  ShoppingCart,
+  Menu,
+  User,
+  LogOut,
+  ChevronDown,
+  Search,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/store/cart";
 import { MobileDrawer } from "./mobile-drawer";
@@ -56,9 +63,12 @@ export function Header() {
             </button>
 
             {/* Brand */}
-            <Link href="/" className="relative flex-shrink-0 h-11 sm:h-12 w-44 sm:w-52 overflow-hidden rounded-md">
+            <Link
+              href="/"
+              className="relative flex-shrink-0 h-11 sm:h-12 w-44 sm:w-52 overflow-hidden rounded-md"
+            >
               <Image
-                src="/assets/JJ HALAL FARMS LOGO.jpeg"
+                src="/assets/GONAA FARMS LOGO.jpeg"
                 alt="Farmer's Market"
                 fill
                 sizes="(min-width: 640px) 208px, 176px"

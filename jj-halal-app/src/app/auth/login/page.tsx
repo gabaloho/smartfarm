@@ -45,15 +45,29 @@ function LoginPageContent() {
     <div className="min-h-[calc(100vh-64px)] bg-gray-50 px-4 py-10">
       <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-5 rounded-xl border border-green-100 bg-green-50 p-4">
-          <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="JJ HALAL FARMS LTD." width={130} height={44} className="h-10 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
-          <p className="mt-2 text-xs text-gray-600">Certified halal groceries from trusted local farms.</p>
+          <Image
+            src="/assets/GONAA FARMS LOGO.jpeg"
+            alt="GONAA FARMS LTD."
+            width={130}
+            height={44}
+            className="h-10 w-auto object-contain"
+            style={{ width: "auto", height: "auto" }}
+          />
+          <p className="mt-2 text-xs text-gray-600">
+            Certified halal groceries from trusted local farms.
+          </p>
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Sign in</h1>
-        <p className="mt-1 text-sm text-gray-600">Use your account credentials to continue.</p>
+        <p className="mt-1 text-sm text-gray-600">
+          Use your account credentials to continue.
+        </p>
 
         <form className="mt-6 space-y-4" onSubmit={onSubmit}>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700" htmlFor="email">
+            <label
+              className="mb-1.5 block text-sm font-medium text-gray-700"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
@@ -67,7 +81,10 @@ function LoginPageContent() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700" htmlFor="password">
+            <label
+              className="mb-1.5 block text-sm font-medium text-gray-700"
+              htmlFor="password"
+            >
               Password
             </label>
             <input
@@ -79,14 +96,20 @@ function LoginPageContent() {
               required
             />
             <div className="mt-2 text-right">
-              <Link href="/auth/forgot-password" className="text-xs font-semibold text-green-700 hover:text-green-800">
+              <Link
+                href="/auth/forgot-password"
+                className="text-xs font-semibold text-green-700 hover:text-green-800"
+              >
                 Forgot password?
               </Link>
             </div>
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700" htmlFor="totp">
+            <label
+              className="mb-1.5 block text-sm font-medium text-gray-700"
+              htmlFor="totp"
+            >
               2FA code (if enabled)
             </label>
             <input
@@ -112,12 +135,21 @@ function LoginPageContent() {
 
         <p className="mt-5 text-sm text-gray-600">
           New here?{" "}
-          <Link href="/auth/register" className="font-semibold text-green-700 hover:text-green-800">
+          <Link
+            href="/auth/register"
+            className="font-semibold text-green-700 hover:text-green-800"
+          >
             Create account
           </Link>
         </p>
         <div className="mt-5 overflow-hidden rounded-xl border border-amber-100">
-          <Image src="/assets/promo-popup.png" alt="Promo" width={600} height={260} className="h-24 w-full object-cover" />
+          <Image
+            src="/assets/promo-popup.png"
+            alt="Promo"
+            width={600}
+            height={260}
+            className="h-24 w-full object-cover"
+          />
         </div>
       </div>
     </div>
@@ -126,7 +158,9 @@ function LoginPageContent() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-sm text-gray-600">Loading...</div>}>
+    <Suspense
+      fallback={<div className="p-8 text-sm text-gray-600">Loading...</div>}
+    >
       <LoginPageContent />
     </Suspense>
   );

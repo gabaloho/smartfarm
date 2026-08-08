@@ -14,13 +14,23 @@ export const metadata: Metadata = {
     template: "%s | Farmer's Market",
   },
   description:
-    "Farmer's Market by JJ HALAL FARMS LTD. for farm products, livestock, buyer-seller marketplace listings, and auctions.",
-  keywords: ["halal", "farm", "livestock", "auction", "marketplace", "Nigeria", "Kaduna"],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
+    "Farmer's Market by GONAA FARMS LTD. for farm products, livestock, buyer-seller marketplace listings, and auctions.",
+  keywords: [
+    "halal",
+    "farm",
+    "livestock",
+    "auction",
+    "marketplace",
+    "Nigeria",
+    "Kaduna",
+  ],
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
+  ),
   icons: {
-    icon: "/assets/JJ HALAL FARMS LOGO.jpeg",
-    shortcut: "/assets/JJ HALAL FARMS LOGO.jpeg",
-    apple: "/assets/JJ HALAL FARMS LOGO.jpeg",
+    icon: "/assets/GONAA FARMS LOGO.jpeg",
+    shortcut: "/assets/GONAA FARMS LOGO.jpeg",
+    apple: "/assets/GONAA FARMS LOGO.jpeg",
   },
   openGraph: {
     type: "website",
@@ -28,7 +38,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>

@@ -33,22 +33,31 @@ export function Footer() {
             <Link href="/" className="inline-flex items-center gap-3">
               <Image
                 src="/assets/logo.jpeg"
-                alt="Farmer&apos;s Market"
+                alt="Farmer's Market"
                 width={176}
                 height={56}
                 className="h-12 w-auto object-contain rounded-md"
               />
-              <span className="text-sm font-extrabold tracking-wide text-white">Farmer&apos;s Market</span>
+              <span className="text-sm font-extrabold tracking-wide text-white">
+                Farmer&apos;s Market
+              </span>
             </Link>
             <p className="text-sm text-gray-100 leading-relaxed">
-              Fresh, certified halal groceries delivered straight from our farm to your table.
+              Fresh, certified halal groceries delivered straight from our farm
+              to your table.
             </p>
             <div className="space-y-2 text-sm">
-              <a href="tel:08094171618" className="flex items-center gap-2 text-gray-100 hover:text-white">
+              <a
+                href="tel:08094171618"
+                className="flex items-center gap-2 text-gray-100 hover:text-white"
+              >
                 <Phone size={14} />
                 08094171618
               </a>
-              <a href="mailto:info@jjhalalfarms.com" className="flex items-center gap-2 text-gray-100 hover:text-white">
+              <a
+                href="mailto:info@jjhalalfarms.com"
+                className="flex items-center gap-2 text-gray-100 hover:text-white"
+              >
                 <Mail size={14} />
                 info@jjhalalfarms.com
               </a>
@@ -60,13 +69,22 @@ export function Footer() {
               </div>
             </div>
             <div className="flex gap-3 pt-1">
-              <a href="#" className="text-gray-100 hover:text-white transition-colors text-xs font-semibold">
+              <a
+                href="#"
+                className="text-gray-100 hover:text-white transition-colors text-xs font-semibold"
+              >
                 FB
               </a>
-              <a href="#" className="text-gray-100 hover:text-white transition-colors text-xs font-semibold">
+              <a
+                href="#"
+                className="text-gray-100 hover:text-white transition-colors text-xs font-semibold"
+              >
                 IG
               </a>
-              <a href="#" className="text-gray-100 hover:text-white transition-colors text-xs font-semibold">
+              <a
+                href="#"
+                className="text-gray-100 hover:text-white transition-colors text-xs font-semibold"
+              >
                 X
               </a>
             </div>
@@ -137,7 +155,10 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="relative z-10 border-t border-amber-200/30">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-300">
-          <p>© {new Date().getFullYear()} Farmer&apos;s Market by JJ HALAL FARMS LTD. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Farmer&apos;s Market by GONAA FARMS
+            LTD. All rights reserved.
+          </p>
           <p>Certified Halal Products</p>
         </div>
       </div>

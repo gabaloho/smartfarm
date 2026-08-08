@@ -1,6 +1,6 @@
-# JJ HALAL App
+# GONAA App
 
-Farmer's Market platform by JJ HALAL FARMS LTD. built with Next.js App Router, NextAuth, Prisma, and Zustand.
+Farmer's Market platform by GONAA FARMS LTD. built with Next.js App Router, NextAuth, Prisma, and Zustand.
 
 ## Features Implemented
 
@@ -100,13 +100,13 @@ npx prisma db push
 
 - Set secure values in `.env.local` (`AUTH_SECRET`, payment keys, email keys, DB URL).
 - Register payment webhooks with your live domain:
-	- Paystack webhook: `https://gonaa.ng/api/payments/paystack/webhook`
-	- Stripe webhook: `https://gonaa.ng/api/payments/stripe/webhook`
+  - Paystack webhook: `https://gonaa.ng/api/payments/paystack/webhook`
+  - Stripe webhook: `https://gonaa.ng/api/payments/stripe/webhook`
 - Run `npx prisma generate` after schema updates.
 - Run `npm run lint` and `npm run build` before deployment.
 - Run smoke checks against live hosts:
-	- Bash/CI: `SMOKE_BASE_URL=https://www.gonaa.ng SMOKE_API_BASE_URL=https://api.gonaa.ng npm run smoke:prod`
-	- PowerShell: `$env:SMOKE_BASE_URL="https://www.gonaa.ng"; $env:SMOKE_API_BASE_URL="https://api.gonaa.ng"; npm run smoke:prod`
+  - Bash/CI: `SMOKE_BASE_URL=https://www.gonaa.ng SMOKE_API_BASE_URL=https://api.gonaa.ng npm run smoke:prod`
+  - PowerShell: `$env:SMOKE_BASE_URL="https://www.gonaa.ng"; $env:SMOKE_API_BASE_URL="https://api.gonaa.ng"; npm run smoke:prod`
 - Deploy with `NODE_ENV=production` and `NEXT_PUBLIC_APP_URL` set to live HTTPS domain.
 - Ensure PostgreSQL backups and monitoring are configured in production.
 

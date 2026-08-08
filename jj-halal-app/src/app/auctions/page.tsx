@@ -36,7 +36,9 @@ export default function AuctionsPage() {
     let mounted = true;
 
     async function loadAuctions() {
-      const response = await fetch("/api/auctions?status=LIVE&limit=24", { cache: "no-store" });
+      const response = await fetch("/api/auctions?status=LIVE&limit=24", {
+        cache: "no-store",
+      });
       const data = (await response.json().catch(() => ({}))) as {
         listings?: AuctionListing[];
         error?: string;
@@ -66,14 +68,15 @@ export default function AuctionsPage() {
   const derivedListings = useMemo(
     () =>
       listings.map((listing) => {
-        const remaining = now === null ? null : new Date(listing.endsAt).getTime() - now;
+        const remaining =
+          now === null ? null : new Date(listing.endsAt).getTime() - now;
         return {
           ...listing,
           remaining,
           closed: remaining !== null && remaining <= 0,
         };
       }),
-    [listings, now]
+    [listings, now],
   );
 
   function placeBid(listingId: string) {
@@ -105,8 +108,8 @@ export default function AuctionsPage() {
                 highestBidderName: "You",
                 endsAt: data.endsAt ?? listing.endsAt,
               }
-            : listing
-        )
+            : listing,
+        ),
       );
     })();
   }
@@ -124,20 +127,33 @@ export default function AuctionsPage() {
                 Auction sales with countdown timers and clear bid visibility.
               </h1>
               <p className="mt-4 text-base text-gray-600 max-w-2xl">
-                Sellers set a starting price and closing time.
-                Buyers can place bids and follow the highest bid until the timer ends.
+                Sellers set a starting price and closing time. Buyers can place
+                bids and follow the highest bid until the timer ends.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/marketplace" className="rounded-xl bg-stone-900 px-5 py-3 text-sm font-semibold text-white hover:bg-black">
+                <Link
+                  href="/marketplace"
+                  className="rounded-xl bg-stone-900 px-5 py-3 text-sm font-semibold text-white hover:bg-black"
+                >
                   View marketplace
                 </Link>
-                <Link href="/contact" className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-100">
+                <Link
+                  href="/contact"
+                  className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+                >
                   Ask for auction help
                 </Link>
               </div>
             </div>
             <div className="relative min-h-64">
-              <Image src="/assets/JJ HALAL FARMS.jpeg" alt="Auction banner" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" priority />
+              <Image
+                src="/assets/GONAA FARMS.jpeg"
+                alt="Auction banner"
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover"
+                priority
+              />
               <div className="absolute inset-0 bg-linear-to-r from-gray-900/35 to-transparent" />
             </div>
           </div>
@@ -147,33 +163,60 @@ export default function AuctionsPage() {
           <div className="space-y-4">
             {error && <p className="text-sm text-red-600">{error}</p>}
             {derivedListings.map((listing) => (
-              <article key={listing.id} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <article
+                key={listing.id}
+                className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
+              >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="text-xs uppercase tracking-wide text-gray-500">{listing.breed}</p>
-                    <h2 className="mt-1 text-xl font-bold text-gray-900">{listing.title}</h2>
-                    <p className="mt-2 text-sm text-gray-600">Starting bid: ₦{listing.startingBid.toLocaleString()}</p>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      {listing.breed}
+                    </p>
+                    <h2 className="mt-1 text-xl font-bold text-gray-900">
+                      {listing.title}
+                    </h2>
+                    <p className="mt-2 text-sm text-gray-600">
+                      Starting bid: ₦{listing.startingBid.toLocaleString()}
+                    </p>
                   </div>
                   <div className="rounded-xl bg-emerald-50 px-4 py-3 text-right">
-                    <p className="text-xs uppercase tracking-wide text-emerald-700">Current highest bid</p>
-                    <p className="mt-1 text-xl font-bold text-emerald-800">₦{listing.currentBid.toLocaleString()}</p>
+                    <p className="text-xs uppercase tracking-wide text-emerald-700">
+                      Current highest bid
+                    </p>
+                    <p className="mt-1 text-xl font-bold text-emerald-800">
+                      ₦{listing.currentBid.toLocaleString()}
+                    </p>
                   </div>
                 </div>
 
                 <div className="mt-4 grid sm:grid-cols-3 gap-3 text-sm">
                   <div className="rounded-xl bg-gray-50 p-3">
-                    <p className="text-xs uppercase tracking-wide text-gray-500">Highest bidder</p>
-                    <p className="mt-1 font-semibold text-gray-900">{listing.highestBidderName ?? "No bidder yet"}</p>
-                  </div>
-                  <div className="rounded-xl bg-gray-50 p-3">
-                    <p className="text-xs uppercase tracking-wide text-gray-500">Countdown</p>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      Highest bidder
+                    </p>
                     <p className="mt-1 font-semibold text-gray-900">
-                      {listing.remaining === null ? "Loading..." : formatRemaining(listing.remaining)}
+                      {listing.highestBidderName ?? "No bidder yet"}
                     </p>
                   </div>
                   <div className="rounded-xl bg-gray-50 p-3">
-                    <p className="text-xs uppercase tracking-wide text-gray-500">Status</p>
-                    <p className="mt-1 font-semibold text-gray-900">{listing.closed || listing.status === "CLOSED" ? "Closed" : "Live"}</p>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      Countdown
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900">
+                      {listing.remaining === null
+                        ? "Loading..."
+                        : formatRemaining(listing.remaining)}
+                    </p>
+                  </div>
+                  <div className="rounded-xl bg-gray-50 p-3">
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      Status
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900">
+                      {listing.closed || listing.status === "CLOSED"
+                        ? "Closed"
+                        : "Live"}
+                    </p>
                   </div>
                 </div>
 
@@ -193,7 +236,9 @@ export default function AuctionsPage() {
 
           <aside>
             <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-900">How auctions work</h2>
+              <h2 className="text-lg font-semibold text-gray-900">
+                How auctions work
+              </h2>
               <ul className="mt-3 space-y-2 text-sm text-gray-600">
                 <li>Sellers can choose regular sale or timed auction.</li>
                 <li>Each auction shows the starting bid and closing time.</li>

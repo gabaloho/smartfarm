@@ -3,12 +3,13 @@ import nodemailer from "nodemailer";
 
 const FROM = process.env.EMAIL_FROM ?? "noreply@jjhalalfarms.com";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "JJ HALAL FARMS LTD.";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "GONAA FARMS LTD.";
 const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = Number(process.env.SMTP_PORT ?? "587");
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASS = process.env.SMTP_PASS;
-const SMTP_SECURE = String(process.env.SMTP_SECURE ?? "false").toLowerCase() === "true";
+const SMTP_SECURE =
+  String(process.env.SMTP_SECURE ?? "false").toLowerCase() === "true";
 
 let smtpTransporter: nodemailer.Transporter | null = null;
 
@@ -79,10 +80,16 @@ export async function sendEmail(input: SendEmailInput) {
     return;
   }
 
-  throw new Error("No email provider configured. Set RESEND_API_KEY or SMTP_* variables.");
+  throw new Error(
+    "No email provider configured. Set RESEND_API_KEY or SMTP_* variables.",
+  );
 }
 
-export async function sendVerificationEmail(email: string, token: string, name: string) {
+export async function sendVerificationEmail(
+  email: string,
+  token: string,
+  name: string,
+) {
   const link = `${APP_URL}/auth/verify-email?token=${token}`;
   await sendEmail({
     to: email,
@@ -98,7 +105,11 @@ export async function sendVerificationEmail(email: string, token: string, name: 
   });
 }
 
-export async function sendPasswordResetEmail(email: string, token: string, name: string) {
+export async function sendPasswordResetEmail(
+  email: string,
+  token: string,
+  name: string,
+) {
   const link = `${APP_URL}/auth/reset-password?token=${token}`;
   await sendEmail({
     to: email,
@@ -118,7 +129,7 @@ export async function sendOrderConfirmationEmail(
   email: string,
   name: string,
   orderNumber: string,
-  total: number
+  total: number,
 ) {
   await sendEmail({
     to: email,

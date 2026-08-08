@@ -48,21 +48,28 @@ export default function MarketplacePage() {
                 Buy and sell livestock with confidence.
               </h1>
               <p className="mt-4 text-base text-gray-600 max-w-2xl">
-                Registered users can advertise and sell chickens, cows, rams, and other farm animals.
-                For every successful sale, the seller receives 95% and Farmer&apos;s Market keeps a 5% service fee.
+                Registered users can advertise and sell chickens, cows, rams,
+                and other farm animals. For every successful sale, the seller
+                receives 95% and Farmer&apos;s Market keeps a 5% service fee.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/auth/register/seller" className="rounded-xl bg-fuchsia-700 px-5 py-3 text-sm font-semibold text-white hover:bg-fuchsia-800">
+                <Link
+                  href="/auth/register/seller"
+                  className="rounded-xl bg-fuchsia-700 px-5 py-3 text-sm font-semibold text-white hover:bg-fuchsia-800"
+                >
                   Become a seller
                 </Link>
-                <Link href="/contact" className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-100">
+                <Link
+                  href="/contact"
+                  className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+                >
                   Contact support
                 </Link>
               </div>
             </div>
             <div className="relative min-h-64">
               <Image
-                src="/assets/JJ HALAL FARMS.jpeg"
+                src="/assets/GONAA FARMS.jpeg"
                 alt="Marketplace banner"
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
@@ -76,10 +83,15 @@ export default function MarketplacePage() {
 
         <section className="mb-8">
           <aside className="max-w-md rounded-3xl border border-emerald-100 bg-emerald-50/80 p-6 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">Service fee</p>
-            <h2 className="mt-2 text-2xl font-bold text-gray-900">5% marketplace fee</h2>
+            <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+              Service fee
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-gray-900">
+              5% marketplace fee
+            </h2>
             <p className="mt-3 text-sm text-gray-600">
-              When a sale is completed, the seller gets 95% of the price and 5% goes to Farmer&apos;s Market.
+              When a sale is completed, the seller gets 95% of the price and 5%
+              goes to Farmer&apos;s Market.
             </p>
             <div className="mt-5 space-y-3 text-sm">
               <div className="flex justify-between rounded-xl bg-white px-4 py-3">
@@ -97,20 +109,41 @@ export default function MarketplacePage() {
         <section>
           <div className="flex items-end justify-between gap-3 mb-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Sample marketplace listings</h2>
-              <p className="mt-1 text-sm text-gray-600">Examples of livestock listings and how payout is shared.</p>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Sample marketplace listings
+              </h2>
+              <p className="mt-1 text-sm text-gray-600">
+                Examples of livestock listings and how payout is shared.
+              </p>
             </div>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
             {SAMPLE_LISTINGS.map((item) => (
-              <article key={item.title} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <p className="text-xs uppercase tracking-wide text-gray-500">{item.location}</p>
-                <h3 className="mt-2 text-lg font-bold text-gray-900">{item.title}</h3>
-                <p className="mt-1 text-sm text-gray-600">Sold by {item.seller}</p>
-                <p className="mt-4 text-xl font-bold text-fuchsia-700">{item.price}</p>
+              <article
+                key={item.title}
+                className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
+              >
+                <p className="text-xs uppercase tracking-wide text-gray-500">
+                  {item.location}
+                </p>
+                <h3 className="mt-2 text-lg font-bold text-gray-900">
+                  {item.title}
+                </h3>
+                <p className="mt-1 text-sm text-gray-600">
+                  Sold by {item.seller}
+                </p>
+                <p className="mt-4 text-xl font-bold text-fuchsia-700">
+                  {item.price}
+                </p>
                 <div className="mt-4 space-y-2 text-sm">
-                  <div className="flex justify-between"><span className="text-gray-600">Seller receives</span><span className="font-semibold">{item.finalPrice}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-600">Commission</span><span className="font-semibold">{item.commission}</span></div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Seller receives</span>
+                    <span className="font-semibold">{item.finalPrice}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Commission</span>
+                    <span className="font-semibold">{item.commission}</span>
+                  </div>
                 </div>
               </article>
             ))}

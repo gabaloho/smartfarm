@@ -2,11 +2,11 @@ import twilio from "twilio";
 
 const client = twilio(
   process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
+  process.env.TWILIO_AUTH_TOKEN,
 );
 
 const FROM = process.env.TWILIO_PHONE_NUMBER ?? "";
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "JJ HALAL";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "GONAA";
 
 export async function sendPhoneVerificationSMS(phone: string, otp: string) {
   await client.messages.create({
@@ -16,7 +16,11 @@ export async function sendPhoneVerificationSMS(phone: string, otp: string) {
   });
 }
 
-export async function sendOrderStatusSMS(phone: string, orderNumber: string, status: string) {
+export async function sendOrderStatusSMS(
+  phone: string,
+  orderNumber: string,
+  status: string,
+) {
   await client.messages.create({
     body: `[${APP_NAME}] Order #${orderNumber} status updated to: ${status}.`,
     from: FROM,

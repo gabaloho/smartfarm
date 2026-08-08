@@ -1,4 +1,4 @@
-# JJ HALAL Operations Runbook
+# GONAA Operations Runbook
 
 ## Critical Endpoints
 
@@ -12,14 +12,14 @@
 ## Runtime Safety Guarantees
 
 - Webhook idempotency:
-   - Duplicate Stripe/Paystack deliveries are ignored safely.
-   - Events are tracked in `webhook_events` by `(event_source, event_id)` uniqueness.
+  - Duplicate Stripe/Paystack deliveries are ignored safely.
+  - Events are tracked in `webhook_events` by `(event_source, event_id)` uniqueness.
 - Inventory restoration idempotency:
-   - Stock reversal events are tracked in `order_inventory_events`.
-   - A reversal event can only be applied once per order/event type.
+  - Stock reversal events are tracked in `order_inventory_events`.
+  - A reversal event can only be applied once per order/event type.
 - Operational indexes:
-   - Read-heavy index creation is self-healed at runtime through `/api/health` and key list endpoints.
-   - No manual migration is required for these operational indexes.
+  - Read-heavy index creation is self-healed at runtime through `/api/health` and key list endpoints.
+  - No manual migration is required for these operational indexes.
 
 ## Launch Checklist
 

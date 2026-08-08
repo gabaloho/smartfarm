@@ -1,7 +1,7 @@
 import speakeasy from "speakeasy";
 import QRCode from "qrcode";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "JJ HALAL FARMS";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "GONAA FARMS";
 
 export function generateTOTPSecret(userEmail: string) {
   const secret = speakeasy.generateSecret({
@@ -25,5 +25,7 @@ export function verifyTOTP(secret: string, token: string): boolean {
 }
 
 export function generateOTP(digits = 6): string {
-  return Array.from({ length: digits }, () => Math.floor(Math.random() * 10)).join("");
+  return Array.from({ length: digits }, () =>
+    Math.floor(Math.random() * 10),
+  ).join("");
 }

@@ -16,7 +16,9 @@ export default function AccountPage() {
       <div className="bg-gray-50 min-h-[calc(100vh-64px)] px-4 py-10">
         <div className="mx-auto max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
           <h1 className="text-2xl font-bold text-gray-900">My Account</h1>
-          <p className="mt-2 text-sm text-gray-600">Please sign in to view your account details.</p>
+          <p className="mt-2 text-sm text-gray-600">
+            Please sign in to view your account details.
+          </p>
           <Link
             href="/auth/login?callbackUrl=/account"
             className="mt-4 inline-flex rounded-lg bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
@@ -37,24 +39,36 @@ export default function AccountPage() {
         <div className="mb-5 rounded-2xl border border-green-100 bg-white p-4 flex items-center justify-between gap-3">
           <div>
             <Image
-              src="/assets/JJ HALAL FARMS LOGO.jpeg"
+              src="/assets/GONAA FARMS LOGO.jpeg"
               alt="Farmer's Market"
               width={126}
               height={42}
               className="h-9 w-auto object-contain"
               style={{ width: "auto", height: "auto" }}
             />
-            <p className="mt-2 text-xs text-gray-600">Manage profile, orders, and account security settings.</p>
+            <p className="mt-2 text-xs text-gray-600">
+              Manage profile, orders, and account security settings.
+            </p>
           </div>
-          <Image src="/assets/promo-popup.png" alt="Promo" width={190} height={96} className="hidden sm:block h-16 w-32 rounded-lg object-cover" />
+          <Image
+            src="/assets/promo-popup.png"
+            alt="Promo"
+            width={190}
+            height={96}
+            className="hidden sm:block h-16 w-32 rounded-lg object-cover"
+          />
         </div>
 
         <div className="grid lg:grid-cols-[1fr_320px] gap-5">
           <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">Welcome, {firstName}</h1>
-                <p className="mt-1 text-sm text-gray-600">This is your account overview.</p>
+                <h1 className="text-3xl font-bold text-gray-900">
+                  Welcome, {firstName}
+                </h1>
+                <p className="mt-1 text-sm text-gray-600">
+                  This is your account overview.
+                </p>
               </div>
               <span
                 className={
@@ -69,21 +83,37 @@ export default function AccountPage() {
 
             <div className="mt-5 grid sm:grid-cols-2 gap-3 text-sm">
               <div className="rounded-xl border border-gray-200 p-4">
-                <p className="text-xs uppercase tracking-wide text-gray-500">Full name</p>
-                <p className="mt-1 font-semibold text-gray-900">{session.user.name}</p>
-              </div>
-              <div className="rounded-xl border border-gray-200 p-4">
-                <p className="text-xs uppercase tracking-wide text-gray-500">Email</p>
-                <p className="mt-1 font-semibold text-gray-900 break-all">{session.user.email}</p>
-              </div>
-              <div className="rounded-xl border border-gray-200 p-4">
-                <p className="text-xs uppercase tracking-wide text-gray-500">Account role</p>
-                <p className="mt-1 font-semibold text-gray-900">{session.user.role}</p>
-              </div>
-              <div className="rounded-xl border border-gray-200 p-4">
-                <p className="text-xs uppercase tracking-wide text-gray-500">Security</p>
+                <p className="text-xs uppercase tracking-wide text-gray-500">
+                  Full name
+                </p>
                 <p className="mt-1 font-semibold text-gray-900">
-                  {session.user.twoFactorEnabled ? "2FA enabled" : "2FA not enabled"}
+                  {session.user.name}
+                </p>
+              </div>
+              <div className="rounded-xl border border-gray-200 p-4">
+                <p className="text-xs uppercase tracking-wide text-gray-500">
+                  Email
+                </p>
+                <p className="mt-1 font-semibold text-gray-900 break-all">
+                  {session.user.email}
+                </p>
+              </div>
+              <div className="rounded-xl border border-gray-200 p-4">
+                <p className="text-xs uppercase tracking-wide text-gray-500">
+                  Account role
+                </p>
+                <p className="mt-1 font-semibold text-gray-900">
+                  {session.user.role}
+                </p>
+              </div>
+              <div className="rounded-xl border border-gray-200 p-4">
+                <p className="text-xs uppercase tracking-wide text-gray-500">
+                  Security
+                </p>
+                <p className="mt-1 font-semibold text-gray-900">
+                  {session.user.twoFactorEnabled
+                    ? "2FA enabled"
+                    : "2FA not enabled"}
                 </p>
               </div>
             </div>
@@ -115,7 +145,9 @@ export default function AccountPage() {
           </section>
 
           <aside className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm h-fit">
-            <h2 className="text-lg font-semibold text-gray-900">Quick Actions</h2>
+            <h2 className="text-lg font-semibold text-gray-900">
+              Quick Actions
+            </h2>
             <div className="mt-4 space-y-2">
               <Link
                 href="/products"

@@ -55,7 +55,10 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
     form.accountType === "INSTITUTIONAL" &&
     (form.businessType === "EATERY" || form.businessType === "RESTAURANT");
 
-  function normalizeCacInput(value: string, businessType: RegisterForm["businessType"]) {
+  function normalizeCacInput(
+    value: string,
+    businessType: RegisterForm["businessType"],
+  ) {
     const compact = value.replace(/\s+/g, "").toUpperCase();
     if (!compact) return "";
 
@@ -99,13 +102,18 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
 
     if (!response.ok) {
       const firstFieldError = data.details
-        ? Object.values(data.details).find((messages) => Array.isArray(messages) && messages.length > 0)?.[0]
+        ? Object.values(data.details).find(
+            (messages) => Array.isArray(messages) && messages.length > 0,
+          )?.[0]
         : null;
       setError(firstFieldError ?? data.error ?? "Registration failed.");
       return;
     }
 
-    setSuccess(data.message ?? "Account created successfully. Please check your email to verify your account.");
+    setSuccess(
+      data.message ??
+        "Account created successfully. Please check your email to verify your account.",
+    );
     setForm((prev) => ({
       ...prev,
       password: "",
@@ -119,17 +127,27 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
         <div className="mb-5 rounded-xl border border-green-100 bg-green-50 p-4 flex items-center justify-between gap-3">
           <div>
             <Image
-              src="/assets/JJ HALAL FARMS LOGO.jpeg"
+              src="/assets/GONAA FARMS LOGO.jpeg"
               alt="Farmer's Market"
               width={130}
               height={44}
               className="h-10 w-auto object-contain"
               style={{ width: "auto", height: "auto" }}
             />
-            <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-emerald-700">Farmer&apos;s Market Platform</p>
-            <p className="mt-1 text-xs text-gray-600">Create your account to buy, sell, and join auctions.</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-emerald-700">
+              Farmer&apos;s Market Platform
+            </p>
+            <p className="mt-1 text-xs text-gray-600">
+              Create your account to buy, sell, and join auctions.
+            </p>
           </div>
-          <Image src="/assets/daily-needs-hero.jpg" alt="Fresh produce" width={120} height={90} className="hidden sm:block h-16 w-24 rounded-lg object-cover" />
+          <Image
+            src="/assets/daily-needs-hero.jpg"
+            alt="Fresh produce"
+            width={120}
+            height={90}
+            className="hidden sm:block h-16 w-24 rounded-lg object-cover"
+          />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Create account</h1>
         <p className="mt-1 text-sm text-gray-600">
@@ -142,16 +160,24 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
           <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-gray-600">
             {isSellerMode ? (
               <>
-                Opening a store? Complete seller onboarding here. Need a normal shopping account?{" "}
-                <Link href="/auth/register" className="font-semibold text-green-700 hover:text-green-800">
+                Opening a store? Complete seller onboarding here. Need a normal
+                shopping account?{" "}
+                <Link
+                  href="/auth/register"
+                  className="font-semibold text-green-700 hover:text-green-800"
+                >
                   Create buyer account
                 </Link>
                 .
               </>
             ) : (
               <>
-                Buying only? This page is for customer accounts. Want to sell on the platform?{" "}
-                <Link href="/auth/register/seller" className="font-semibold text-green-700 hover:text-green-800">
+                Buying only? This page is for customer accounts. Want to sell on
+                the platform?{" "}
+                <Link
+                  href="/auth/register/seller"
+                  className="font-semibold text-green-700 hover:text-green-800"
+                >
                   Become a seller
                 </Link>
                 .
@@ -160,13 +186,18 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
           </div>
 
           <div>
-            <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="name"
+              className="mb-1.5 block text-sm font-medium text-gray-700"
+            >
               Full name
             </label>
             <input
               id="name"
               value={form.name}
-              onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, name: e.target.value }))
+              }
               className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
               required
             />
@@ -174,26 +205,36 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
 
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="mb-1.5 block text-sm font-medium text-gray-700"
+              >
                 Email
               </label>
               <input
                 id="email"
                 type="email"
                 value={form.email}
-                onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, email: e.target.value }))
+                }
                 className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                 required
               />
             </div>
             <div>
-              <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="phone"
+                className="mb-1.5 block text-sm font-medium text-gray-700"
+              >
                 Phone (optional)
               </label>
               <input
                 id="phone"
                 value={form.phone}
-                onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, phone: e.target.value }))
+                }
                 placeholder="08012345678"
                 className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
               />
@@ -207,82 +248,114 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
 
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="mb-1.5 block text-sm font-medium text-gray-700"
+              >
                 Password
               </label>
               <input
                 id="password"
                 type="password"
                 value={form.password}
-                onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, password: e.target.value }))
+                }
                 className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                 required
               />
             </div>
             <div>
-              <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="confirmPassword"
+                className="mb-1.5 block text-sm font-medium text-gray-700"
+              >
                 Confirm password
               </label>
               <input
                 id="confirmPassword"
                 type="password"
                 value={form.confirmPassword}
-                onChange={(e) => setForm((prev) => ({ ...prev, confirmPassword: e.target.value }))}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    confirmPassword: e.target.value,
+                  }))
+                }
                 className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                 required
               />
             </div>
           </div>
           <p className="-mt-2 text-xs text-gray-500">
-            Password must include at least 8 characters, one uppercase letter, one number, and one special character.
+            Password must include at least 8 characters, one uppercase letter,
+            one number, and one special character.
           </p>
 
           {showBusinessUi && (
-          <div>
-            <label htmlFor="accountType" className="mb-1.5 block text-sm font-medium text-gray-700">
-              Account type
-            </label>
-            <select
-              id="accountType"
-              value={form.accountType}
-              onChange={(e) =>
-                setForm((prev) => ({
-                  ...prev,
-                  accountType: e.target.value as RegisterForm["accountType"],
-                }))
-              }
-              className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
-            >
-              <option value="PERSONAL">Individual</option>
-              <option value="INSTITUTIONAL">Business</option>
-            </select>
-          </div>
+            <div>
+              <label
+                htmlFor="accountType"
+                className="mb-1.5 block text-sm font-medium text-gray-700"
+              >
+                Account type
+              </label>
+              <select
+                id="accountType"
+                value={form.accountType}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    accountType: e.target.value as RegisterForm["accountType"],
+                  }))
+                }
+                className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
+              >
+                <option value="PERSONAL">Individual</option>
+                <option value="INSTITUTIONAL">Business</option>
+              </select>
+            </div>
           )}
 
           {isSellerMode && (
             <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3 space-y-3">
-              <h2 className="text-sm font-semibold text-emerald-900">Seller details</h2>
+              <h2 className="text-sm font-semibold text-emerald-900">
+                Seller details
+              </h2>
               <div>
-                <label htmlFor="brandName" className="mb-1.5 block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="brandName"
+                  className="mb-1.5 block text-sm font-medium text-gray-700"
+                >
                   Brand name
                 </label>
                 <input
                   id="brandName"
                   value={form.brandName}
-                  onChange={(e) => setForm((prev) => ({ ...prev, brandName: e.target.value }))}
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, brandName: e.target.value }))
+                  }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                   placeholder="e.g. Green Valley Farms"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="sellerCategory" className="mb-1.5 block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="sellerCategory"
+                  className="mb-1.5 block text-sm font-medium text-gray-700"
+                >
                   Seller category
                 </label>
                 <select
                   id="sellerCategory"
                   value={form.sellerCategory}
-                  onChange={(e) => setForm((prev) => ({ ...prev, sellerCategory: e.target.value }))}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      sellerCategory: e.target.value,
+                    }))
+                  }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                   required
                 >
@@ -296,26 +369,39 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="sellerAddress" className="mb-1.5 block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="sellerAddress"
+                    className="mb-1.5 block text-sm font-medium text-gray-700"
+                  >
                     Business address (optional)
                   </label>
                   <input
                     id="sellerAddress"
                     value={form.sellerAddress}
-                    onChange={(e) => setForm((prev) => ({ ...prev, sellerAddress: e.target.value }))}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        sellerAddress: e.target.value,
+                      }))
+                    }
                     className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                     placeholder="Area, city"
                   />
                 </div>
               </div>
               <div>
-                <label htmlFor="sellerBio" className="mb-1.5 block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="sellerBio"
+                  className="mb-1.5 block text-sm font-medium text-gray-700"
+                >
                   Seller profile details (optional)
                 </label>
                 <textarea
                   id="sellerBio"
                   value={form.sellerBio}
-                  onChange={(e) => setForm((prev) => ({ ...prev, sellerBio: e.target.value }))}
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, sellerBio: e.target.value }))
+                  }
                   className="min-h-20 w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                   placeholder="Tell buyers what you sell and your delivery coverage"
                 />
@@ -326,17 +412,24 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
           {showBusinessUi && form.accountType === "INSTITUTIONAL" && (
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 space-y-3">
               <p className="text-xs text-gray-600">
-                Help us verify your business account by selecting the legal structure that matches your operation.
+                Help us verify your business account by selecting the legal
+                structure that matches your operation.
               </p>
               <div>
-                <label htmlFor="businessName" className="mb-1.5 block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="businessName"
+                  className="mb-1.5 block text-sm font-medium text-gray-700"
+                >
                   Business name
                 </label>
                 <input
                   id="businessName"
                   value={form.businessName}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, businessName: e.target.value }))
+                    setForm((prev) => ({
+                      ...prev,
+                      businessName: e.target.value,
+                    }))
                   }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                   placeholder="Registered name or trading name"
@@ -344,8 +437,12 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
                 />
               </div>
               <div>
-                <label htmlFor="cacNumber" className="mb-1.5 block text-sm font-medium text-gray-700">
-                  CAC number {cacRequiredForBusiness ? "(required)" : "(optional)"}
+                <label
+                  htmlFor="cacNumber"
+                  className="mb-1.5 block text-sm font-medium text-gray-700"
+                >
+                  CAC number{" "}
+                  {cacRequiredForBusiness ? "(required)" : "(optional)"}
                 </label>
                 <input
                   id="cacNumber"
@@ -353,7 +450,10 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
                   onChange={(e) =>
                     setForm((prev) => ({
                       ...prev,
-                      cacNumber: normalizeCacInput(e.target.value, prev.businessType),
+                      cacNumber: normalizeCacInput(
+                        e.target.value,
+                        prev.businessType,
+                      ),
                     }))
                   }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
@@ -367,11 +467,15 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
                   required={cacRequiredForBusiness}
                 />
                 <p className="mt-1 text-xs text-gray-500">
-                  Required for Registered business name (CAC BN) and Limited liability company (CAC RC).
+                  Required for Registered business name (CAC BN) and Limited
+                  liability company (CAC RC).
                 </p>
               </div>
               <div>
-                <label htmlFor="businessType" className="mb-1.5 block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="businessType"
+                  className="mb-1.5 block text-sm font-medium text-gray-700"
+                >
                   Business legal type
                 </label>
                 <select
@@ -380,16 +484,24 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
                   onChange={(e) =>
                     setForm((prev) => ({
                       ...prev,
-                      businessType: e.target.value as RegisterForm["businessType"],
-                      cacNumber: normalizeCacInput(prev.cacNumber, e.target.value as RegisterForm["businessType"]),
+                      businessType: e.target
+                        .value as RegisterForm["businessType"],
+                      cacNumber: normalizeCacInput(
+                        prev.cacNumber,
+                        e.target.value as RegisterForm["businessType"],
+                      ),
                     }))
                   }
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
                 >
                   <option value="FARM">Self-employed (sole proprietor)</option>
                   <option value="STORE">Unregistered business</option>
-                  <option value="EATERY">Registered business name (CAC BN)</option>
-                  <option value="RESTAURANT">Limited liability company (CAC RC)</option>
+                  <option value="EATERY">
+                    Registered business name (CAC BN)
+                  </option>
+                  <option value="RESTAURANT">
+                    Limited liability company (CAC RC)
+                  </option>
                   <option value="OTHER">Other business type</option>
                 </select>
               </div>
@@ -404,18 +516,31 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
             disabled={isLoading}
             className="w-full rounded-lg bg-green-700 py-2.5 text-sm font-semibold text-white hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isLoading ? "Creating account..." : isSellerMode ? "Create seller account" : "Create buyer account"}
+            {isLoading
+              ? "Creating account..."
+              : isSellerMode
+                ? "Create seller account"
+                : "Create buyer account"}
           </button>
         </form>
 
         <p className="mt-5 text-sm text-gray-600">
           Already have an account?{" "}
-          <Link href="/auth/login" className="font-semibold text-green-700 hover:text-green-800">
+          <Link
+            href="/auth/login"
+            className="font-semibold text-green-700 hover:text-green-800"
+          >
             Sign in
           </Link>
         </p>
         <div className="mt-5 overflow-hidden rounded-xl border border-gray-200">
-          <Image src="/assets/JJ HALAL FARMS.jpeg" alt="Brand banner" width={960} height={240} className="h-24 w-full object-cover" />
+          <Image
+            src="/assets/GONAA FARMS.jpeg"
+            alt="Brand banner"
+            width={960}
+            height={240}
+            className="h-24 w-full object-cover"
+          />
         </div>
       </div>
     </div>
