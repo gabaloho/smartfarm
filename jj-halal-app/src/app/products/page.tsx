@@ -53,8 +53,8 @@ export default async function ProductsPage({
         <section className="mb-6 grid lg:grid-cols-[1fr_280px] gap-4">
           <div className="relative overflow-hidden rounded-3xl border border-green-100 bg-white">
             <Image
-              src="/assets/JJ HALAL FARMS.jpeg"
-              alt="JJ HALAL farms banner"
+              src="/assets/gue-smart-farms-banner.svg"
+              alt="Gue Smart Farms Limited farms banner"
               width={1400}
               height={420}
               className="h-44 w-full object-cover"

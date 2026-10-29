@@ -50,7 +50,7 @@ const PROFILE_FIELDS = [
 ];
 
 export const metadata = {
-  title: "Livestock Sales | JJ HALAL FARMS LTD.",
+  title: "Livestock Sales | Gue Smart Farms Limited",
   description:
     "Whole livestock sales and cow-sharing options for festive and group purchases.",
 };
@@ -82,7 +82,7 @@ export default function LivestockPage() {
             </div>
             <div className="relative min-h-64">
               <Image
-                src="/assets/JJ HALAL FARMS.jpeg"
+                src="/assets/gue-smart-farms-banner.svg"
                 alt="Livestock banner"
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"

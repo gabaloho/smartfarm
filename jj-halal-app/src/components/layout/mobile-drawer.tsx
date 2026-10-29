@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { X, Phone, MapPin, ChevronRight } from "lucide-react";
+import { X, ChevronRight } from "lucide-react";
 import { Session } from "next-auth";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -63,7 +63,7 @@ export function MobileDrawer({ open, onClose, navLinks, session }: MobileDrawerP
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b bg-green-700">
           <Link href="/" onClick={onClose} className="text-sm font-extrabold tracking-wide text-white">
-            JJ HALAL FARMS LTD.
+            Gue Smart Farms Limited
           </Link>
           <button
             onClick={onClose}
@@ -150,17 +150,6 @@ export function MobileDrawer({ open, onClose, navLinks, session }: MobileDrawerP
           </div>
         </div>
 
-        {/* Contact footer */}
-        <div className="p-4 bg-green-700 text-white text-sm space-y-1.5">
-          <div className="flex items-center gap-2">
-            <Phone size={14} />
-            <a href="tel:08094171618">08094171618</a>
-          </div>
-          <div className="flex items-start gap-2">
-            <MapPin size={14} className="mt-0.5 flex-shrink-0" />
-            <span className="text-xs">AT19, Jada Road, PRP, Kaduna</span>
-          </div>
-        </div>
       </div>
     </>
   );

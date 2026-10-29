@@ -1,4 +1,4 @@
-# JJ HALAL Operations Runbook
+# Gue Smart Farms Limited Operations Runbook
 
 ## Critical Endpoints
 
@@ -36,8 +36,8 @@
    - Confirm webhook updates order to `PAID`.
    - Confirm Admin Ops shows webhook success event.
 4. Run automated endpoint smoke checks:
-   - PowerShell: `$env:SMOKE_BASE_URL="https://www.gonaa.ng"; $env:SMOKE_API_BASE_URL="https://api.gonaa.ng"; npm run smoke:prod`
-   - Bash/CI: `SMOKE_BASE_URL=https://www.gonaa.ng SMOKE_API_BASE_URL=https://api.gonaa.ng npm run smoke:prod`
+   - PowerShell: `$env:SMOKE_BASE_URL="https://your-domain.example"; $env:SMOKE_API_BASE_URL="https://api.your-domain.example"; npm run smoke:prod`
+   - Bash/CI: `SMOKE_BASE_URL=https://your-domain.example SMOKE_API_BASE_URL=https://api.your-domain.example npm run smoke:prod`
    - Expect all checks to pass before peak traffic windows.
    - If web pages pass but API checks return `404`, your frontend and API are not deployed on the same host/path.
 

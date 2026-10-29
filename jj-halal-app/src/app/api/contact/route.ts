@@ -3,9 +3,16 @@ import { contactSchema } from "@/lib/validations";
 import { getRequestIp, limitRequest } from "@/lib/rate-limit";
 import { sendEmail } from "@/lib/email";
 
-const CONTACT_TO = process.env.CONTACT_RECEIVER_EMAIL ?? "info@jjhalalfarms.com";
-
 export async function POST(req: NextRequest) {
+  const contactTo = process.env.CONTACT_RECEIVER_EMAIL;
+  if (!contactTo) {
+    console.error("Missing CONTACT_RECEIVER_EMAIL environment variable");
+    return NextResponse.json(
+      { error: "Contact form is temporarily unavailable." },
+      { status: 503 }
+    );
+  }
+
   const ip = getRequestIp(req.headers);
   const throttle = limitRequest({ key: `contact:${ip}`, limit: 8, windowMs: 60_000 });
   if (!throttle.ok) {
@@ -32,7 +39,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await sendEmail({
-      to: CONTACT_TO,
+      to: contactTo,
       replyTo: email,
       subject: `[Contact] ${subject}`,
       html: `

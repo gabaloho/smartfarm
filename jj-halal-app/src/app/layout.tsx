@@ -10,21 +10,21 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Farmer's Market",
-    template: "%s | Farmer's Market",
+    default: "Gue Smart Farms Limited",
+    template: "%s | Gue Smart Farms Limited",
   },
   description:
-    "Farmer's Market by JJ HALAL FARMS LTD. for farm products, livestock, buyer-seller marketplace listings, and auctions.",
+    "Farmer's Market by Gue Smart Farms Limited for farm products, livestock, buyer-seller marketplace listings, and auctions.",
   keywords: ["halal", "farm", "livestock", "auction", "marketplace", "Nigeria", "Kaduna"],
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
   icons: {
-    icon: "/assets/JJ HALAL FARMS LOGO.jpeg",
-    shortcut: "/assets/JJ HALAL FARMS LOGO.jpeg",
-    apple: "/assets/JJ HALAL FARMS LOGO.jpeg",
+    icon: "/assets/gue-smart-farms-logo.svg",
+    shortcut: "/assets/gue-smart-farms-logo.svg",
+    apple: "/assets/gue-smart-farms-logo.svg",
   },
   openGraph: {
     type: "website",
-    siteName: "Farmer's Market",
+    siteName: "Gue Smart Farms Limited",
   },
 };
 

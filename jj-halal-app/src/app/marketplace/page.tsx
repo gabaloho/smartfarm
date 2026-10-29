@@ -29,7 +29,7 @@ const SAMPLE_LISTINGS = [
 ];
 
 export const metadata = {
-  title: "Marketplace | Farmer's Market",
+  title: "Marketplace | Gue Smart Farms Limited",
   description:
     "Buy and sell livestock with clear pricing and trusted seller details.",
 };
@@ -62,7 +62,7 @@ export default function MarketplacePage() {
             </div>
             <div className="relative min-h-64">
               <Image
-                src="/assets/JJ HALAL FARMS.jpeg"
+                src="/assets/gue-smart-farms-banner.svg"
                 alt="Marketplace banner"
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"

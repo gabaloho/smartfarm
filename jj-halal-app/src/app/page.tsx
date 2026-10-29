@@ -74,8 +74,8 @@ export default function Home() {
     <div className="min-h-[calc(100vh-64px)] bg-[radial-gradient(circle_at_top,#f5f3ea_0%,#fbfaf5_45%,#ffffff_100%)]">
       <section className="w-full">
         <Image
-          src="/assets/JJ HALAL FARMS.jpeg"
-          alt="JJ Halal Farms"
+          src="/assets/gue-smart-farms-banner.svg"
+          alt="Gue Smart Farms"
           width={1920}
           height={720}
           sizes="100vw"
@@ -122,8 +122,8 @@ export default function Home() {
               <div className="rounded-3xl bg-gradient-to-br from-emerald-700 via-green-700 to-lime-800 p-6 sm:p-8 text-white">
                 <div className="mb-4 overflow-hidden rounded-2xl border border-white/20">
                   <Image
-                    src="/assets/JJ HALAL FARMS.jpeg"
-                    alt="JJ Halal farms platform"
+                    src="/assets/gue-smart-farms-banner.svg"
+                    alt="Gue Smart Farms platform"
                     width={900}
                     height={520}
                     className="h-36 w-full object-cover"

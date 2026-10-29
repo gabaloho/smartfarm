@@ -37,8 +37,8 @@ export default function AccountPage() {
         <div className="mb-5 rounded-2xl border border-green-100 bg-white p-4 flex items-center justify-between gap-3">
           <div>
             <Image
-              src="/assets/JJ HALAL FARMS LOGO.jpeg"
-              alt="Farmer's Market"
+              src="/assets/gue-smart-farms-logo.svg"
+              alt="Gue Smart Farms Limited"
               width={126}
               height={42}
               className="h-9 w-auto object-contain"

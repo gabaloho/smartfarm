@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="700" viewBox="0 0 1600 700" role="img" aria-labelledby="title desc">
+  <title id="title">Gue Smart Farms Limited</title>
+  <desc id="desc">Farm-fresh produce for your table.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f4d36a"/>
+      <stop offset="1" stop-color="#176f36"/>
+    </linearGradient>
+    <linearGradient id="field" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#185d32"/>
+      <stop offset="1" stop-color="#2e8b47"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="700" rx="36" fill="url(#background)"/>
+  <circle cx="1260" cy="175" r="95" fill="#fff4c2" opacity=".8"/>
+  <path d="M0 500Q340 355 730 510t870-30v220H0Z" fill="#356d38" opacity=".65"/>
+  <path d="M0 565Q360 440 760 590t840-25v135H0Z" fill="url(#field)"/>
+  <g fill="none" stroke="#d4ad46" stroke-linecap="round" stroke-width="12" opacity=".88">
+    <path d="M900 690Q1070 500 1240 690"/>
+    <path d="M1050 700Q1240 475 1440 700"/>
+    <path d="M1230 700Q1410 500 1590 700"/>
+  </g>
+  <g transform="translate(125 125)">
+    <circle cx="48" cy="48" r="48" fill="#176f36"/>
+    <path d="M18 72c17-5 25-19 30-42 7 18 18 29 32 35-17 16-44 18-62 7Z" fill="#d4ad46"/>
+    <path d="M48 75V39m0 20C38 49 31 47 23 48m25 5c9-11 17-15 26-15" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5"/>
+  </g>
+  <text x="250" y="177" fill="#174f2d" font-family="Arial, Helvetica, sans-serif" font-size="47" font-weight="700">GUE SMART FARMS</text>
+  <text x="252" y="220" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" letter-spacing="7">LIMITED</text>
+  <text x="125" y="360" fill="#fff" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="700">Fresh from the farm</text>
+  <text x="130" y="425" fill="#174f2d" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="600">Quality produce, thoughtfully grown.</text>
+  <g transform="translate(1050 385)">
+    <path d="M100 150c-22-66-1-121 70-160 20 80-3 136-70 160Z" fill="#4a9b50"/>
+    <path d="M110 150c-7-60 12-102 55-143" fill="none" stroke="#e9c04a" stroke-width="7" stroke-linecap="round"/>
+    <path d="M225 168c-13-61 10-109 75-143 14 74-11 123-75 143Z" fill="#2f8242"/>
+    <path d="M235 167c-1-54 18-94 55-128" fill="none" stroke="#e9c04a" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>

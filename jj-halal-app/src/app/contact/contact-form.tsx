@@ -64,7 +64,7 @@ export default function ContactForm() {
         <input
           type="email"
           className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-emerald-600"
-          placeholder="you@example.com"
+          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required

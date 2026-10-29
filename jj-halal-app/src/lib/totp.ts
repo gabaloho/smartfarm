@@ -1,7 +1,7 @@
 import speakeasy from "speakeasy";
 import QRCode from "qrcode";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "JJ HALAL FARMS";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "Gue Smart Farms";
 
 export function generateTOTPSecret(userEmail: string) {
   const secret = speakeasy.generateSecret({

@@ -1,6 +1,6 @@
-User Requirements for JJ HALAL FARMS LTD E-Commerce Platform
+User Requirements for Gue Smart Farms Limited E-Commerce Platform
 Project Overview
-The proposed system is an integrated Farm E-Commerce Platform for JJ HALAL FARMS LTD designed to facilitate the online sale and purchase of farm products, livestock, and related agricultural services. The platform should support both direct sales by the company and a marketplace feature where external users can advertise and sell their livestock and poultry products.
+The proposed system is an integrated Farm E-Commerce Platform for Gue Smart Farms Limited designed to facilitate the online sale and purchase of farm products, livestock, and related agricultural services. The platform should support both direct sales by the company and a marketplace feature where external users can advertise and sell their livestock and poultry products.
 The system should be user-friendly, mobile responsive, secure, and capable of supporting future scalability.
 1. Core Features and Functional Requirements
 A. Product Catalogue/Menu Management
@@ -114,7 +114,7 @@ Users should provide:
 •	Geo tagged Images/videos
 •	Contact details
 3. Commission System
-JJ HALAL FARMS LTD should earn commission from every successful marketplace transaction.
+Gue Smart Farms Limited should earn commission from every successful marketplace transaction.
 Commission Requirement
 •	The platform should automatically deduct 5% commission from the final selling price.
 Example:

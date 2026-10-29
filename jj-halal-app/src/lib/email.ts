@@ -1,9 +1,9 @@
 import { Resend } from "resend";
 import nodemailer from "nodemailer";
 
-const FROM = process.env.EMAIL_FROM ?? "noreply@jjhalalfarms.com";
+const FROM = process.env.EMAIL_FROM;
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "JJ HALAL FARMS LTD.";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "Gue Smart Farms Limited";
 const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = Number(process.env.SMTP_PORT ?? "587");
 const SMTP_USER = process.env.SMTP_USER;
@@ -53,6 +53,10 @@ type SendEmailInput = {
 };
 
 export async function sendEmail(input: SendEmailInput) {
+  if (!FROM) {
+    throw new Error("Missing EMAIL_FROM environment variable");
+  }
+
   const resendApiKey = process.env.RESEND_API_KEY;
 
   if (resendApiKey) {

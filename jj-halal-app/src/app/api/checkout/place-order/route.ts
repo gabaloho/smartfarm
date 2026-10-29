@@ -25,7 +25,7 @@ const checkoutRequestSchema = checkoutSchema.extend({
     .min(1, "Cart is empty"),
 });
 
-const INTERNAL_VENDOR_EMAIL = "seller@jjhalalfarms.com";
+const INTERNAL_VENDOR_EMAIL = "internal-vendor@example.invalid";
 
 async function ensureInternalVendor() {
   const existingVendor = await prisma.vendor.findFirst({
@@ -43,7 +43,7 @@ async function ensureInternalVendor() {
     where: { email: INTERNAL_VENDOR_EMAIL },
     create: {
       email: INTERNAL_VENDOR_EMAIL,
-      name: "JJ HALAL FARMS LTD.",
+      name: "Gue Smart Farms Limited",
       role: "VENDOR",
       emailVerified: new Date(),
       isActive: true,
@@ -59,7 +59,7 @@ async function ensureInternalVendor() {
   const createdVendor = await prisma.vendor.create({
     data: {
       userId: systemUser.id,
-      shopName: "JJ HALAL FARMS LTD.",
+      shopName: "Gue Smart Farms Limited",
       slug: "jj-halal-farms",
       sellerCategory: "Farm",
       commission: 5,

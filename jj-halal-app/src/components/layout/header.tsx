@@ -38,11 +38,6 @@ export function Header() {
 
   return (
     <>
-      {/* Top info bar */}
-      <div className="bg-[linear-gradient(115deg,#d4ad46_0%,#b48d2b_24%,#6f6a2f_48%,#2f6f3c_72%,#123f28_100%)] text-white text-xs py-1.5 text-center px-4">
-        📍 AT19, Jada Road, PRP, Kaduna &nbsp;|&nbsp; 📞 08094171618
-      </div>
-
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
@@ -58,8 +53,8 @@ export function Header() {
             {/* Brand */}
             <Link href="/" className="relative flex-shrink-0 h-11 sm:h-12 w-44 sm:w-52 overflow-hidden rounded-md">
               <Image
-                src="/assets/JJ HALAL FARMS LOGO.jpeg"
-                alt="Farmer's Market"
+                src="/assets/gue-smart-farms-logo.svg"
+                alt="Gue Smart Farms Limited"
                 fill
                 sizes="(min-width: 640px) 208px, 176px"
                 className="object-cover"

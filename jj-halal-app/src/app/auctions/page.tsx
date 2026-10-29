@@ -137,7 +137,7 @@ export default function AuctionsPage() {
               </div>
             </div>
             <div className="relative min-h-64">
-              <Image src="/assets/JJ HALAL FARMS.jpeg" alt="Auction banner" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" priority />
+              <Image src="/assets/gue-smart-farms-banner.svg" alt="Auction banner" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" priority />
               <div className="absolute inset-0 bg-linear-to-r from-gray-900/35 to-transparent" />
             </div>
           </div>

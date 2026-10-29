@@ -7,7 +7,7 @@ import {
 import { AddToCartButton } from "@/components/catalog/add-to-cart-button";
 
 export const metadata = {
-  title: "Search | JJ HALAL FARMS LTD.",
+  title: "Search | Gue Smart Farms Limited",
   description: "Search farm products and livestock quickly.",
 };
 

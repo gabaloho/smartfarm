@@ -119,8 +119,8 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
         <div className="mb-5 rounded-xl border border-green-100 bg-green-50 p-4 flex items-center justify-between gap-3">
           <div>
             <Image
-              src="/assets/JJ HALAL FARMS LOGO.jpeg"
-              alt="Farmer's Market"
+              src="/assets/gue-smart-farms-logo.svg"
+              alt="Gue Smart Farms Limited"
               width={130}
               height={44}
               className="h-10 w-auto object-contain"
@@ -194,7 +194,7 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
                 id="phone"
                 value={form.phone}
                 onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))}
-                placeholder="08012345678"
+                placeholder="Enter phone number"
                 className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-green-600"
               />
             </div>
@@ -415,7 +415,7 @@ export default function RegisterForm({ mode }: RegisterFormProps) {
           </Link>
         </p>
         <div className="mt-5 overflow-hidden rounded-xl border border-gray-200">
-          <Image src="/assets/JJ HALAL FARMS.jpeg" alt="Brand banner" width={960} height={240} className="h-24 w-full object-cover" />
+          <Image src="/assets/gue-smart-farms-banner.svg" alt="Brand banner" width={960} height={240} className="h-24 w-full object-cover" />
         </div>
       </div>
     </div>

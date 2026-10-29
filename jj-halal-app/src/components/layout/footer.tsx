@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, MapPin, Mail } from "lucide-react";
 
 const EXPLORE_LINKS = [
   { href: "/products", label: "All Products" },
@@ -32,7 +31,7 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center gap-3">
               <Image
-                src="/assets/logo.jpeg"
+                src="/assets/gue-smart-farms-logo.svg"
                 alt="Farmer&apos;s Market"
                 width={176}
                 height={56}
@@ -43,22 +42,6 @@ export function Footer() {
             <p className="text-sm text-gray-100 leading-relaxed">
               Fresh, certified halal groceries delivered straight from our farm to your table.
             </p>
-            <div className="space-y-2 text-sm">
-              <a href="tel:08094171618" className="flex items-center gap-2 text-gray-100 hover:text-white">
-                <Phone size={14} />
-                08094171618
-              </a>
-              <a href="mailto:info@jjhalalfarms.com" className="flex items-center gap-2 text-gray-100 hover:text-white">
-                <Mail size={14} />
-                info@jjhalalfarms.com
-              </a>
-              <div className="flex items-start gap-2">
-                <MapPin size={14} className="mt-0.5 flex-shrink-0" />
-                <span className="text-xs text-gray-100">
-                  AT19, Jada Road, PRP, Kaduna
-                </span>
-              </div>
-            </div>
             <div className="flex gap-3 pt-1">
               <a href="#" className="text-gray-100 hover:text-white transition-colors text-xs font-semibold">
                 FB
@@ -137,7 +120,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="relative z-10 border-t border-amber-200/30">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-300">
-          <p>© {new Date().getFullYear()} Farmer&apos;s Market by JJ HALAL FARMS LTD. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Farmer&apos;s Market by Gue Smart Farms Limited All rights reserved.</p>
           <p>Certified Halal Products</p>
         </div>
       </div>

@@ -41,7 +41,7 @@ export default function ForgotPasswordPage() {
     <div className="min-h-[calc(100vh-64px)] bg-gray-50 px-4 py-10">
       <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-4 rounded-xl border border-green-100 bg-green-50 p-4">
-          <Image src="/assets/JJ HALAL FARMS LOGO.jpeg" alt="Farmer's Market" width={120} height={40} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
+          <Image src="/assets/gue-smart-farms-logo.svg" alt="Gue Smart Farms Limited" width={120} height={40} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Forgot password</h1>
         <p className="mt-2 text-sm text-gray-600">Enter your account email and we will send you a reset link.</p>

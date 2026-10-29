@@ -41,7 +41,7 @@
     { id: 102, name: "Organic Banana", slug: "organic-banana", categorySlug: "fruits", image: { thumbnail: PLACEHOLDER, original: PLACEHOLDER }, min_price: 3, max_price: 4, sale_price: 3, price: 4, unit: "dozen", quantity: 15 },
     { id: 103, name: "Carrot Pack", slug: "carrot-pack", categorySlug: "vegetables", image: { thumbnail: PLACEHOLDER, original: PLACEHOLDER }, min_price: 2, max_price: 3, sale_price: 2, price: 3, unit: "kg", quantity: 30 },
     { id: 104, name: "Tomato", slug: "tomato", categorySlug: "vegetables", image: { thumbnail: PLACEHOLDER, original: PLACEHOLDER }, min_price: 2, max_price: 3, sale_price: 2, price: 3, unit: "kg", quantity: 28 },
-    { id: 105, name: "Chicken Breast", slug: "chicken-breast", categorySlug: "meat", image: { thumbnail: PLACEHOLDER, original: PLACEHOLDER }, min_price: 9, max_price: 11, sale_price: 9, price: 11, unit: "kg", quantity: 12 },
+    { id: 105, name: "", slug: "chicken-breast", categorySlug: "meat", image: { thumbnail: PLACEHOLDER, original: PLACEHOLDER }, min_price: 9, max_price: 11, sale_price: 9, price: 11, unit: "kg", quantity: 12 },
     { id: 106, name: "Beef Slices", slug: "beef-slices", categorySlug: "meat", image: { thumbnail: PLACEHOLDER, original: PLACEHOLDER }, min_price: 12, max_price: 14, sale_price: 12, price: 14, unit: "kg", quantity: 9 },
     { id: 107, name: "Milk", slug: "milk", categorySlug: "dairy-eggs", image: { thumbnail: PLACEHOLDER, original: PLACEHOLDER }, min_price: 2, max_price: 3, sale_price: 2, price: 3, unit: "ltr", quantity: 40 },
     { id: 108, name: "Eggs", slug: "eggs", categorySlug: "dairy-eggs", image: { thumbnail: PLACEHOLDER, original: PLACEHOLDER }, min_price: 3, max_price: 4, sale_price: 3, price: 4, unit: "dozen", quantity: 25 },

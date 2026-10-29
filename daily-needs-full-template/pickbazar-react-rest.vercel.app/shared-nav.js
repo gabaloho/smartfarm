@@ -1,12 +1,10 @@
 (function () {
   var NAV_CLASS = "jj-halal-shared-nav";
-  var BRAND_NAME = "JJ HALAL FARMS LTD.";
+  var BRAND_NAME = "Gue Smart Farms Limited";
   var BRAND_TITLE_PREFIX = "Pickbazar | ";
   var HEADER_BRAND_CLASS = "jj-halal-brand-name";
-  var BRAND_PHONE = "08094171618";
-  var BRAND_ADDRESS = "Plot No 168714 ZUMO ROAD RIGASA KADUNA";
   var BRAND_BANNER = "/banner.jpeg";
-  var BRAND_LOGO = "/assets/jj-logo.png";
+  var BRAND_LOGO = "/assets/gue-smart-farms-logo.svg";
   var STYLE_ID = "jj-halal-brand-style";
   var BRAND_INFO_CLASS = "jj-halal-brand-info";
   var HERO_TITLE = "You Deserve To Eat Fresh";
@@ -221,13 +219,6 @@
 
     brand.textContent = BRAND_NAME;
 
-    var contactChip = logoLink.parentElement && logoLink.parentElement.querySelector(".jj-halal-contact-chip");
-    if (!contactChip) {
-      contactChip = document.createElement("span");
-      contactChip.className = "jj-halal-contact-chip";
-      logoLink.parentElement.appendChild(contactChip);
-    }
-    contactChip.textContent = "Call: " + BRAND_PHONE;
   }
 
   function updateFooterBrand() {
@@ -236,22 +227,6 @@
         link.textContent = BRAND_NAME;
       }
 
-      if ((link.getAttribute("href") || "").indexOf("tel:") === 0) {
-        link.setAttribute("href", "tel:+" + BRAND_PHONE);
-        link.textContent = BRAND_PHONE;
-      }
-
-      if ((link.getAttribute("href") || "").indexOf("mailto:") === 0) {
-        link.setAttribute("href", "mailto:info@jjhalalfarms.com");
-        link.textContent = "info@jjhalalfarms.com";
-      }
-    });
-
-    Array.prototype.forEach.call(document.querySelectorAll("a, p, span"), function (el) {
-      var text = (el.textContent || "").trim();
-      if (text === "NY State Thruway, New York, USA") {
-        el.textContent = BRAND_ADDRESS;
-      }
     });
   }
 
@@ -259,24 +234,6 @@
     Array.prototype.forEach.call(document.querySelectorAll("img[alt='Pickbazar']"), function (img) {
       img.alt = BRAND_NAME;
     });
-  }
-
-  function injectBrandInfoBar() {
-    var p = getCurrentPath();
-    if (p === "/index.html" || p === "/daily-needs.html") return;
-
-    var header = document.getElementById("site-header") || document.querySelector("header");
-    if (!header || !header.parentElement) return;
-
-    var existing = header.parentElement.querySelector("." + BRAND_INFO_CLASS);
-    if (!existing) {
-      existing = document.createElement("div");
-      existing.className = BRAND_INFO_CLASS;
-      header.insertAdjacentElement("afterend", existing);
-    }
-
-    existing.innerHTML = "<span><strong>Address:</strong> " + BRAND_ADDRESS + "</span>"
-      + "<span><strong>Contact:</strong> " + BRAND_PHONE + "</span>";
   }
 
   function updateHeroSection() {
@@ -679,12 +636,6 @@
 
     wrap.appendChild(body);
 
-    // Contact strip
-    var contact = document.createElement("div");
-    contact.style.cssText = "padding:12px 16px;background:#0E5E11;color:#f6f7ec;font-size:12px;font-weight:700;display:flex;flex-direction:column;gap:4px;flex-shrink:0;";
-    contact.innerHTML = "<span>\uD83D\uDCDE " + BRAND_PHONE + "</span><span>\uD83D\uDCCD " + BRAND_ADDRESS + "</span>";
-    wrap.appendChild(contact);
-
     return wrap;
   }
 
@@ -784,7 +735,6 @@
     updateHeaderBrand();
     updateFooterBrand();
     updateTextNodes();
-    injectBrandInfoBar();
     updateHeroSection();
     pruneNonDailyNeedsSections();
     injectDailyNeedsCategories();

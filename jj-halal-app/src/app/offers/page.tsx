@@ -60,9 +60,9 @@ const OFFERS = [
 ];
 
 export const metadata = {
-  title: "Offers & Coupons | JJ HALAL FARMS LTD.",
+  title: "Offers & Coupons | Gue Smart Farms Limited",
   description:
-    "Browse the latest deals, discount codes, and seasonal promotions from JJ HALAL FARMS LTD.",
+    "Browse the latest deals, discount codes, and seasonal promotions from Gue Smart Farms Limited",
 };
 
 export default function OffersPage() {
@@ -72,8 +72,8 @@ export default function OffersPage() {
         {/* Header card */}
         <div className="mb-8 rounded-2xl border border-green-100 bg-white p-5 flex items-center gap-4 shadow-sm">
           <Image
-            src="/assets/JJ HALAL FARMS LOGO.jpeg"
-            alt="JJ HALAL FARMS LTD."
+            src="/assets/gue-smart-farms-logo.svg"
+            alt="Gue Smart Farms Limited"
             width={126}
             height={42}
             className="h-10 w-auto object-contain"

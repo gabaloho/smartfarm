@@ -6,7 +6,7 @@ const client = twilio(
 );
 
 const FROM = process.env.TWILIO_PHONE_NUMBER ?? "";
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "JJ HALAL";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "Gue Smart Farms Limited";
 
 export async function sendPhoneVerificationSMS(phone: string, otp: string) {
   await client.messages.create({

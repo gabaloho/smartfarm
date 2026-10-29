@@ -1,6 +1,6 @@
-# JJ HALAL App
+# Gue Smart Farms Limited App
 
-Farmer's Market platform by JJ HALAL FARMS LTD. built with Next.js App Router, NextAuth, Prisma, and Zustand.
+Farmer's Market platform by Gue Smart Farms Limited built with Next.js App Router, NextAuth, Prisma, and Zustand.
 
 ## Features Implemented
 
@@ -16,14 +16,18 @@ Farmer's Market platform by JJ HALAL FARMS LTD. built with Next.js App Router, N
 - Vendor portal (inventory + vendor order workflow)
 - Auctions page open to all users
 
+## License
+
+This project is licensed under the MIT License. See [LICENSE](./LICENSE) for details.
+
 ## Brand Assets
 
-Brand assets copied from template folder are in:
+Current brand assets:
 
-- `public/assets/jj-logo.png`
+- `public/assets/gue-smart-farms-logo.svg`
+- `public/assets/gue-smart-farms-banner.svg`
 - `public/assets/daily-needs-hero.jpg`
 - `public/assets/promo-popup.png`
-- `public/assets/banner.jpeg`
 
 ## Environment Setup
 
@@ -58,6 +62,7 @@ Email provider requirement:
 
 - Configure either `RESEND_API_KEY`, or
 - Configure SMTP: `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`.
+- Set `EMAIL_FROM` and `CONTACT_RECEIVER_EMAIL` to your configured mail addresses.
 
 ## Database (Prisma)
 
@@ -100,13 +105,13 @@ npx prisma db push
 
 - Set secure values in `.env.local` (`AUTH_SECRET`, payment keys, email keys, DB URL).
 - Register payment webhooks with your live domain:
-	- Paystack webhook: `https://gonaa.ng/api/payments/paystack/webhook`
-	- Stripe webhook: `https://gonaa.ng/api/payments/stripe/webhook`
+	- Paystack webhook: `https://your-domain.example/api/payments/paystack/webhook`
+	- Stripe webhook: `https://your-domain.example/api/payments/stripe/webhook`
 - Run `npx prisma generate` after schema updates.
 - Run `npm run lint` and `npm run build` before deployment.
 - Run smoke checks against live hosts:
-	- Bash/CI: `SMOKE_BASE_URL=https://www.gonaa.ng SMOKE_API_BASE_URL=https://api.gonaa.ng npm run smoke:prod`
-	- PowerShell: `$env:SMOKE_BASE_URL="https://www.gonaa.ng"; $env:SMOKE_API_BASE_URL="https://api.gonaa.ng"; npm run smoke:prod`
+	- Bash/CI: `SMOKE_BASE_URL=https://your-domain.example SMOKE_API_BASE_URL=https://api.your-domain.example npm run smoke:prod`
+	- PowerShell: `$env:SMOKE_BASE_URL="https://your-domain.example"; $env:SMOKE_API_BASE_URL="https://api.your-domain.example"; npm run smoke:prod`
 - Deploy with `NODE_ENV=production` and `NEXT_PUBLIC_APP_URL` set to live HTTPS domain.
 - Ensure PostgreSQL backups and monitoring are configured in production.
 
@@ -116,8 +121,8 @@ Use the Paystack dashboard Test Mode values with this mapping:
 
 - Test Secret Key -> PAYSTACK_SECRET_KEY in .env.local
 - Test Public Key -> NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY in .env.local
-- Test Callback URL -> https://www.gonaa.ng/payment
-- Test Webhook URL -> https://www.gonaa.ng/api/payments/paystack/webhook
+- Test Callback URL -> https://your-domain.example/payment
+- Test Webhook URL -> https://your-domain.example/api/payments/paystack/webhook
 
 Notes:
 

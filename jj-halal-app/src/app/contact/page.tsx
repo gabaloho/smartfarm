@@ -2,8 +2,8 @@ import Image from "next/image";
 import ContactForm from "./contact-form";
 
 export const metadata = {
-  title: "Contact Us | JJ HALAL FARMS LTD.",
-  description: "Get in touch with JJ HALAL FARMS LTD. for orders, support, and business inquiries.",
+  title: "Contact Us | Gue Smart Farms Limited",
+  description: "Get in touch with Gue Smart Farms Limited for orders, support, and business inquiries.",
 };
 
 export default function ContactPage() {
@@ -14,7 +14,7 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-0">
             <div className="p-6 sm:p-8">
               <p className="inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
-                Contact JJ HALAL FARMS LTD.
+                Contact Gue Smart Farms Limited
               </p>
               <h1 className="mt-4 text-3xl sm:text-5xl font-extrabold text-gray-900 leading-tight">
                 We are here to help with your orders and inquiries.
@@ -23,31 +23,15 @@ export default function ContactPage() {
                 Reach out for product questions, delivery support, livestock reservations,
                 and marketplace guidance.
               </p>
-
-              <div className="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
-                <a
-                  href="tel:08094171618"
-                  className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 font-semibold text-gray-800 hover:bg-white"
-                >
-                  Phone: 08094171618
-                </a>
-                <a
-                  href="mailto:info@jjhalalfarms.com"
-                  className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 font-semibold text-gray-800 hover:bg-white"
-                >
-                  Email: info@jjhalalfarms.com
-                </a>
-              </div>
-
               <p className="mt-4 text-sm text-gray-700">
-                Address: AT19, Jada Road, PRP, Kaduna
+                Use the message form below to contact our team.
               </p>
             </div>
 
             <div className="relative min-h-64">
               <Image
-                src="/assets/JJ HALAL FARMS.jpeg"
-                alt="JJ Halal Farms"
+                src="/assets/gue-smart-farms-banner.svg"
+                alt="Gue Smart Farms"
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover"
