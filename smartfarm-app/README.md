@@ -18,7 +18,7 @@ Farmer's Market platform by Gue Smart Farms Limited built with Next.js App Route
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](./LICENSE) for details.
+This project is licensed under the MIT License. See [LICENSE](../LICENSE) for details.
 
 ## Brand Assets
 

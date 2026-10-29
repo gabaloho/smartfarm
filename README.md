@@ -23,4 +23,4 @@ Before configuring a local or production environment, review [`smartfarm-app/REA
 
 ## License
 
-The application is licensed under the MIT License; see [`smartfarm-app/LICENSE`](./smartfarm-app/LICENSE).
+The repository is licensed under the MIT License; see [`LICENSE`](./LICENSE).
