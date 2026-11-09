@@ -86,6 +86,6 @@ export const useCartStore = create<CartState>()(
 
       getTotal: () => get().getSubtotal(), // delivery fee added at checkout
     }),
-    { name: "jj-halal-cart" }
+    { name: "gue-smart-farms-cart" }
   )
 );

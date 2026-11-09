@@ -183,7 +183,7 @@ export default function CheckoutPage() {
         <div className="mb-5 rounded-2xl border border-green-100 bg-white p-4 flex items-center justify-between gap-3">
           <div>
             <Image src="/assets/gue-smart-farms-logo.svg" alt="Gue Smart Farms Limited" width={126} height={42} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
-            <p className="mt-2 text-xs text-gray-600">Secure checkout for fresh halal essentials.</p>
+            <p className="mt-2 text-xs text-gray-600">Secure checkout for quality farm products.</p>
           </div>
           <Image src="/assets/promo-popup.png" alt="Checkout promo" width={190} height={96} className="hidden sm:block h-16 w-32 rounded-lg object-cover" />
         </div>

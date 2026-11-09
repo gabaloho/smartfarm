@@ -199,7 +199,6 @@ export type CatalogFilters = {
   category?: string;
   minPrice?: number;
   maxPrice?: number;
-  halalOnly?: boolean;
   sort?: "popular" | "price-asc" | "price-desc";
 };
 
@@ -210,7 +209,6 @@ export function filterCatalogProducts(filters: CatalogFilters): CatalogProduct[]
     if (filters.category && item.category !== filters.category) return false;
     if (typeof filters.minPrice === "number" && item.price < filters.minPrice) return false;
     if (typeof filters.maxPrice === "number" && item.price > filters.maxPrice) return false;
-    if (filters.halalOnly && !item.isHalal) return false;
     if (query && !item.name.toLowerCase().includes(query)) return false;
     return true;
   });

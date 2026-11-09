@@ -30,7 +30,7 @@ const INTERNAL_VENDOR_EMAIL = "internal-vendor@example.invalid";
 async function ensureInternalVendor() {
   const existingVendor = await prisma.vendor.findFirst({
     where: {
-      OR: [{ slug: "jj-halal-farms" }, { user: { email: INTERNAL_VENDOR_EMAIL } }],
+      OR: [{ slug: "gue-smart-farms-main" }, { user: { email: INTERNAL_VENDOR_EMAIL } }],
     },
     select: { id: true },
   });
@@ -60,7 +60,7 @@ async function ensureInternalVendor() {
     data: {
       userId: systemUser.id,
       shopName: "Gue Smart Farms Limited",
-      slug: "jj-halal-farms",
+      slug: "gue-smart-farms-main",
       sellerCategory: "Farm",
       commission: 5,
       isVerified: true,

@@ -92,11 +92,11 @@ export default function Home() {
                 Farmer&apos;s Market
               </p>
               <h1 className="mt-5 text-3xl sm:text-5xl font-extrabold leading-tight text-gray-900">
-                Fresh halal food and livestock, all in one easy place.
+                Quality farm products and livestock, all in one easy place.
               </h1>
               <p className="mt-4 text-base sm:text-lg text-gray-600 max-w-xl">
-                Shop eggs, chicken, cows, and rams with clear prices, simple checkout,
-                and reliable delivery support across Kaduna.
+                Shop eggs, chicken, livestock, and marketplace listings with clear prices, simple checkout,
+                and reliable delivery support worldwide.
               </p>
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
                 <Link

@@ -13,7 +13,6 @@ type SearchParams = {
   min?: string;
   max?: string;
   sort?: string;
-  halal?: string;
 };
 
 function toNumber(value?: string): number | undefined {
@@ -34,7 +33,6 @@ export default async function ProductsPage({
   const min = toNumber(params.min);
   const max = toNumber(params.max);
   const sort = params.sort === "price-asc" || params.sort === "price-desc" ? params.sort : "popular";
-  const halalOnly = params.halal === "1";
 
   const products = filterCatalogProducts({
     query,
@@ -42,7 +40,6 @@ export default async function ProductsPage({
     minPrice: min,
     maxPrice: max,
     sort,
-    halalOnly,
   });
 
   const activeCategory = CATALOG_CATEGORIES.find((item) => item.slug === category);
@@ -174,8 +171,8 @@ export default async function ProductsPage({
               </div>
 
               <label className="flex items-center gap-2 text-sm text-gray-700">
-                <input type="checkbox" name="halal" value="1" defaultChecked={halalOnly} />
-                Halal products only
+                <input type="checkbox" name="featured" value="1" />
+                Featured products only
               </label>
 
               <div className="flex gap-2 pt-1">

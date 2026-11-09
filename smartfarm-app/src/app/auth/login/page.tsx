@@ -46,7 +46,7 @@ function LoginPageContent() {
       <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-5 rounded-xl border border-green-100 bg-green-50 p-4">
           <Image src="/assets/gue-smart-farms-logo.svg" alt="Gue Smart Farms Limited" width={130} height={44} className="h-10 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
-          <p className="mt-2 text-xs text-gray-600">Certified halal groceries from trusted local farms.</p>
+          <p className="mt-2 text-xs text-gray-600">Quality farm products and marketplace connections.</p>
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Sign in</h1>
         <p className="mt-1 text-sm text-gray-600">Use your account credentials to continue.</p>

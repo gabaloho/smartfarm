@@ -85,6 +85,6 @@ export const useOrdersStore = create<OrdersState>()(
       clearOrders: () => set({ orders: [] }),
       getOrderByNumber: (orderNumber) => get().orders.find((item) => item.orderNumber === orderNumber),
     }),
-    { name: "jj-halal-orders" }
+    { name: "gue-smart-farms-orders" }
   )
 );

@@ -85,6 +85,6 @@ export const useVendorStore = create<VendorState>()(
           ),
         })),
     }),
-    { name: "jj-halal-vendor-products" }
+    { name: "gue-smart-farms-vendor-products" }
   )
 );

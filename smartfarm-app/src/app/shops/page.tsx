@@ -25,7 +25,7 @@ const SHOPS = [
 export const metadata = {
   title: "Our Shops | Gue Smart Farms Limited",
   description:
-    "Find a Gue Smart Farms Limited store near you. Fresh halal groceries available at all our locations.",
+    "Find a Gue Smart Farms Limited store near you. Quality farm products and marketplace services available at all our locations.",
 };
 
 export default function ShopsPage() {
@@ -45,7 +45,7 @@ export default function ShopsPage() {
           <div>
             <h1 className="text-xl font-bold text-gray-900">Our Shops</h1>
             <p className="text-sm text-gray-500">
-              Certified halal products at every location.
+              Quality farm products and marketplace services at every location.
             </p>
           </div>
         </div>

@@ -40,7 +40,7 @@ export function Footer() {
               <span className="text-sm font-extrabold tracking-wide text-white">Farmer&apos;s Market</span>
             </Link>
             <p className="text-sm text-gray-100 leading-relaxed">
-              Fresh, certified halal groceries delivered straight from our farm to your table.
+              Quality farm products and marketplace services connecting farmers with customers worldwide.
             </p>
             <div className="flex gap-3 pt-1">
               <a href="#" className="text-gray-100 hover:text-white transition-colors text-xs font-semibold">
@@ -121,7 +121,7 @@ export function Footer() {
       <div className="relative z-10 border-t border-amber-200/30">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-300">
           <p>© {new Date().getFullYear()} Farmer&apos;s Market by Gue Smart Farms Limited All rights reserved.</p>
-          <p>Certified Halal Products</p>
+          <p>Quality Farm Products</p>
         </div>
       </div>
     </footer>

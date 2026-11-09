@@ -20,7 +20,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
       salePrice: product.oldPrice ?? null,
       thumbnail: null,
       unit: product.unit,
-      vendorId: "jj-halal-main-vendor",
+      vendorId: "gue-smart-farms-main-vendor",
       vendorName: "Gue Smart Farms Limited",
       stock: 99,
       minOrder: 1,

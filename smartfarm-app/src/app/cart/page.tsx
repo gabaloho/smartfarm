@@ -28,7 +28,7 @@ export default function CartPage() {
         <div className="mb-5 rounded-2xl border border-green-100 bg-white p-4 flex items-center justify-between gap-3">
           <div>
             <Image src="/assets/gue-smart-farms-logo.svg" alt="Gue Smart Farms Limited" width={120} height={40} className="h-9 w-auto object-contain" style={{ width: "auto", height: "auto" }} />
-            <p className="mt-2 text-xs text-gray-600">Review your halal picks before checkout.</p>
+            <p className="mt-2 text-xs text-gray-600">Review your items before checkout.</p>
           </div>
           <Image src="/assets/gue-smart-farms-banner.svg" alt="Cart banner" width={180} height={72} className="hidden sm:block h-14 w-28 rounded-lg object-cover" />
         </div>
