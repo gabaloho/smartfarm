@@ -31,9 +31,9 @@ Current brand assets:
 
 ## Environment Setup
 
-1. Review `.env.example`.
-2. Update `.env.local` with your real values.
-3. Generate a secure `AUTH_SECRET`.
+1. Create `.env.local` with the values required for your environment.
+2. Generate a secure `AUTH_SECRET`.
+3. Run `npm run env:check` to validate the required variables.
 
 ## Run Locally
 
